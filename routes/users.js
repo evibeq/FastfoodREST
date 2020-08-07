@@ -36,6 +36,20 @@ const userRoutes = (app, fs) => {
       });
   });
 
+   // READ ID
+   app.get('/users/:id', (req, res) => {
+        fs.readFile(dataPath, 'utf8', (err, data) => {
+            if (err) {
+                throw err;
+            }
+
+            readid = data["id"];
+            console.log(readid)
+
+            res.send(JSON.parse(readid));
+        });
+    });
+
   // CREATE
   app.post('/users', (req, res) => {
 
