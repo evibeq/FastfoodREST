@@ -46,7 +46,7 @@ const userRoutes = (app, fs) => {
             readid = data["id"];
             console.log(readid)
 
-            res.send(JSON.parse(readid));
+            res.send(JSON.parse(data));
         });
     });
 
