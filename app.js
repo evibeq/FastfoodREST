@@ -9,6 +9,9 @@ const app = express();
 // (we'll be using this later to serve our JSON files
 const fs = require("fs");
 
+//Heroku Port
+var port = process.env.PORT || 3000;
+
 // configure our express instance with some body-parser settings
 // including handling JSON data
 app.use(bodyParser.json());
@@ -17,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // this is where we'll handle our various routes from
 const routes = require("./routes/routes.js")(app, fs);
 
-// finally, launch our server on port 3001.
-const server = app.listen(3001, () => {
+// finally, launch our server on port setted by heroku.
+const server = app.listen(port, () => {
   console.log("listening on port %s...", server.address().port);
 });
