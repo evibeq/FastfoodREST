@@ -50,8 +50,8 @@ const userRoutes = (app, fs) => {
             console.log(JSON.stringify(data[userId.toString()]));*/
 
             const userId = req.params["id"];
-            console.log(JSON.stringify(data));
-            console.log(JSON.stringify(data[userId]));
+            console.log(data);
+            console.log(data[userId]);
 
             res.send(JSON.parse(data));
         });
