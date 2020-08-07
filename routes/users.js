@@ -32,6 +32,7 @@ const userRoutes = (app, fs) => {
               throw err;
           }
 
+          console.log("ciao mondo")
           res.send(JSON.parse(data));
       });
   });
@@ -44,7 +45,7 @@ const userRoutes = (app, fs) => {
             }
 
             readid = data["id"];
-            console.log(readid)
+            console.log("ciao mondo")
 
             res.send(JSON.parse(data));
         });
