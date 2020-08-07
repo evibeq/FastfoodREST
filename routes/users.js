@@ -36,18 +36,6 @@ const userRoutes = (app, fs) => {
       });
   });
 
-  // READ ID
-    app.get('/users/:id', (req, res) => {
-        fs.readFile(dataPath, 'utf8', (err, data) => {
-            if (err) {
-                throw err;
-            }
-
-            res.send(JSON.parse(data["id"]));
-        });
-    });
-
-
   // CREATE
   app.post('/users', (req, res) => {
 
