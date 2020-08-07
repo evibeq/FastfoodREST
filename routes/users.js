@@ -47,7 +47,7 @@ const userRoutes = (app, fs) => {
             const userId = req.params["id"];
 
             readid = data[userId];
-            console.log(JSON.stringify(data[userId], null, 2));
+            console.log(JSON.stringify(data[userId.toString()]));
 
             res.send(JSON.parse(data));
         });
