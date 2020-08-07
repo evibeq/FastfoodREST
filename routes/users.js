@@ -44,10 +44,12 @@ const userRoutes = (app, fs) => {
                 throw err;
             }
 
-            readid = data["id"];
-            console.log("ciao mondo")
+            const userId = req.params["id"];
 
-            res.send(JSON.parse(data));
+            readid = data[userId];
+            console.log(readid);
+
+            res.send(JSON.parse(readid));
         });
     });
 
