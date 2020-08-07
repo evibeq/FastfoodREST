@@ -50,14 +50,11 @@ const userRoutes = (app, fs) => {
             console.log(JSON.stringify(data[userId.toString()]));*/
 
             const userId = req.params["id"];
-            //let ciao = JSON.parse(data);
-            console.log(data);
-            console.log(JSON.parse(data));
-            //console.log(ciao);
+            const ciao = JSON.parse(data);
+            
+            console.log(ciao);
 
-            console.log(data[userId]);
-            console.log(JSON.parse(data[userId]));
-            //console.log(ciao[userId]);
+            console.log(ciao[userId]);
 
             res.send(JSON.parse(data));
         });
