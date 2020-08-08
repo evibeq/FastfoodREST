@@ -69,7 +69,7 @@ const ristoratoriRoutes = (app, fs) => {
 
             writeFile(JSON.stringify(data, null, 2), () => {
                 if (index == -1){
-                    res.status(200).send(`Aggiunto nuovo ristoratore, ${req.body["user"]}`);
+                    res.status(200).send(`Aggiunto nuovo Ristoratore, ${req.body["user"]}`);
                 }else{
                     res.status(200).send(`Ristoratore ${req.body["user"]} già esiste`);
                 }
@@ -94,7 +94,7 @@ const ristoratoriRoutes = (app, fs) => {
             data["ristoratori"][index] = req.body;
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(200).send(`users id:${userId} updated`);
+                res.status(200).send(`Ristoratore Aggiornato`);
             });
         },
             true);
