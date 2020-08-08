@@ -63,22 +63,18 @@ const ristoratoriRoutes = (app, fs) => {
                 return item.user === req.body["user"]
             });
 
-            console.log(index);
-
-            const lastElement = data["ristoratori"].length;
-
-            // add the new user
-            data["ristoratori"][lastElement] = req.body;    
-
-            
-
-
-
-
-
+            if (index == -1){
+                const lastElement = data["ristoratori"].length;
+                // add the new user
+                data["ristoratori"][lastElement] = req.body;  
+            }
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(200).send('new user added');
+                if (index == -1){
+                    res.status(200).send('Aggiunto nuovo ristoratore');
+                }else{
+                    res.status(200).send('Ristoratore già esiste');
+                }
             });
         },
             true);
