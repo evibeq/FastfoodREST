@@ -5,7 +5,7 @@ const ristoratoriRoutes = require("./ristoratori");
 const appRouter = (app, fs) => {
   // Default route here that handles empty routes
   app.get("/", (req, res) => {
-    res.send("welcome to the development api-server");
+    res.send("Pagina Home");
   });
 
   userRoutes(app, fs);
