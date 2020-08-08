@@ -101,4 +101,4 @@ const ristoratoriRoutes = (app, fs) => {
     });
   };
   
-  module.exports = userRoutes;
+  module.exports = ristoratoriRoutes;
