@@ -57,10 +57,22 @@ const ristoratoriRoutes = (app, fs) => {
     app.post('/users', (req, res) => {
 
         readFile(data => {
-            const newUserId = Object.keys(data).length + 1;
+
+
+            console.log(typeof data);
+
+            const lastElement = data["ristoratori"].length;
+            console.log(lastElement);
 
             // add the new user
-            data[newUserId.toString()] = req.body;
+            data["ristoratori"][lastElement] = req.body;
+            console.log("aggiunto");
+            
+
+
+
+
+
 
             writeFile(JSON.stringify(data, null, 2), () => {
                 res.status(200).send('new user added');
