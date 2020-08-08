@@ -90,6 +90,9 @@ const ristoratoriRoutes = (app, fs) => {
             var index = data["ristoratori"].findIndex(function (item, i) {
                 return item.user === req.params["user"]
             });
+            if (index == -1){
+                res.status(201).send(`Ristoratore, ${req.params["user"]} Non Esiste`);
+            }
 
             data["ristoratori"][index] = req.body;
 
