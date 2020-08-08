@@ -45,14 +45,9 @@ const userRoutes = (app, fs) => {
             }
 
             const userId = req.params["id"];
-            const ciao = JSON.parse(data);
+            const obj = JSON.parse(data);
 
-            console.log(typeof data);
-            console.log(typeof ciao);
-
-            console.log(ciao[userId]);
-
-            res.send(JSON.parse(data));
+            res.send(JSON.parse(obj[userId]));
         });
     });
 
