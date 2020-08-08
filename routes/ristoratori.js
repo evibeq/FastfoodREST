@@ -65,13 +65,13 @@ const ristoratoriRoutes = (app, fs) => {
             if (index == -1){
                 const lastElement = data["ristoratori"].length;
                 data["ristoratori"][lastElement] = req.body;  
+            }else{
+                res.status(200).send(`Ristoratore ${req.body["user"]} già esiste`);
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
                 if (index == -1){
                     res.status(200).send(`Aggiunto nuovo Ristoratore, ${req.body["user"]}`);
-                }else{
-                    res.status(200).send(`Ristoratore ${req.body["user"]} già esiste`);
                 }
             });
         },
