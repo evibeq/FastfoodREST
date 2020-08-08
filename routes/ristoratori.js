@@ -43,11 +43,14 @@ const ristoratoriRoutes = (app, fs) => {
             }
 
             const userId = req.params["user"];
+            console.log(userId, typeof userId);
             const obj = JSON.parse(data);
+            console.log(obj["ristoratori"]);
 
             var index = obj["ristoratori"].findIndex(function (item, i) {
                 return item.user === val
             });
+            console.log(index);
 
             res.send(obj["ristoratori"][index]);
         });
