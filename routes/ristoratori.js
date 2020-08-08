@@ -54,7 +54,7 @@ const ristoratoriRoutes = (app, fs) => {
     });
 
     // CREATE
-    app.post('/users', (req, res) => {
+    app.post('/ristoratori', (req, res) => {
 
         readFile(data => {
 
