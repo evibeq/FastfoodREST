@@ -89,9 +89,7 @@ const ristoratoriRoutes = (app, fs) => {
 
             if (index == -1){
                 res.status(201).send(`Ristoratore ${req.params["user"]} Non Esiste`);
-            }
-
-            if(req.params["user"]!=req.body["user"]){
+            }else if(req.params["user"]!=req.body["user"]){
                 res.status(200).send(`Lo user del Ristoratore non può essere modificato`);
             }
 
