@@ -58,22 +58,20 @@ const ristoratoriRoutes = (app, fs) => {
 
         readFile(data => {
 
-
             var index = data["ristoratori"].findIndex(function (item, i) {
                 return item.user === req.body["user"]
             });
 
             if (index == -1){
                 const lastElement = data["ristoratori"].length;
-                // add the new user
                 data["ristoratori"][lastElement] = req.body;  
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
                 if (index == -1){
-                    res.status(200).send('Aggiunto nuovo ristoratore');
+                    res.status(200).send('Aggiunto nuovo ristoratore ${req.body["user"]}');
                 }else{
-                    res.status(200).send('Ristoratore già esiste');
+                    res.status(200).send('Ristoratore ${req.body["user"]} già esiste');
                 }
             });
         },
@@ -81,11 +79,10 @@ const ristoratoriRoutes = (app, fs) => {
     });
 
     // UPDATE
-    app.put('/users/:id', (req, res) => {
+    app.put('/ristoratori/:user', (req, res) => {
 
         readFile(data => {
 
-            // add the new user
             const userId = req.params["id"];
             data[userId] = req.body;
 
