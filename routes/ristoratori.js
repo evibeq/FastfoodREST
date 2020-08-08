@@ -87,16 +87,18 @@ const ristoratoriRoutes = (app, fs) => {
                 return item.user === req.params["user"]
             });
 
-            if (index == -1){
-                res.status(201).send(`Ristoratore ${req.params["user"]} Non Esiste`);
-            }else if(req.params["user"]!=req.body["user"]){
-                res.status(200).send(`Lo user del Ristoratore non può essere modificato`);
+            if(req.params["user"]==req.body["user"] && index > -1){
+                data["ristoratori"][index] = req.body;
             }
 
-            data["ristoratori"][index] = req.body;
-
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(201).send(`Ristoratore ${req.params["user"]} Aggiornato`);
+                if (index == -1){
+                    res.status(201).send(`Ristoratore ${req.params["user"]} Non Esiste`);
+                }else if(req.params["user"]!=req.body["user"]){
+                    res.status(200).send(`Lo user del Ristoratore non può essere modificato`);
+                }else{
+                    res.status(201).send(`Ristoratore ${req.params["user"]} Aggiornato`);
+                }
             });
         },
             true);
