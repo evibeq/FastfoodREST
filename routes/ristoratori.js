@@ -59,7 +59,7 @@ const ristoratoriRoutes = (app, fs) => {
         readFile(data => {
 
 
-            var index = obj["ristoratori"].findIndex(function (item, i) {
+            var index = data["ristoratori"].findIndex(function (item, i) {
                 return item.user === req.body["user"]
             });
 
