@@ -58,15 +58,13 @@ const ristoratoriRoutes = (app, fs) => {
 
         readFile(data => {
 
-
-            console.log(typeof data);
+            console.log(req.body["user"], typeof req.body["user"]);
 
             const lastElement = data["ristoratori"].length;
-            console.log(lastElement);
 
             // add the new user
-            data["ristoratori"][lastElement] = req.body;
-            console.log("aggiunto");
+            data["ristoratori"][lastElement] = req.body;    
+
             
 
 
