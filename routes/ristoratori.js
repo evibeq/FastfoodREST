@@ -83,15 +83,16 @@ const ristoratoriRoutes = (app, fs) => {
 
         readFile(data => {
 
-            if(req.params["user"]==req.body["user"]){
-                res.status(200).send(`Non è possibile modificare lo user del Ristoratore`);
-            }
-
             var index = data["ristoratori"].findIndex(function (item, i) {
                 return item.user === req.params["user"]
             });
+            
             if (index == -1){
                 res.status(201).send(`Ristoratore, ${req.params["user"]} Non Esiste`);
+            }
+
+            if(req.params["user"]!=req.body["user"]){
+                res.status(200).send(`Non è possibile modificare lo user del Ristoratore`);
             }
 
             data["ristoratori"][index] = req.body;
