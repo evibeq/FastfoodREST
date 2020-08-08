@@ -58,7 +58,12 @@ const ristoratoriRoutes = (app, fs) => {
 
         readFile(data => {
 
-            console.log(req.body["user"], typeof req.body["user"]);
+
+            var index = obj["ristoratori"].findIndex(function (item, i) {
+                return item.user === req.body["user"]
+            });
+
+            console.log(index);
 
             const lastElement = data["ristoratori"].length;
 
