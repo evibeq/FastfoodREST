@@ -48,7 +48,7 @@ const ristoratoriRoutes = (app, fs) => {
             console.log(obj["ristoratori"]);
 
             var index = obj["ristoratori"].findIndex(function (item, i) {
-                return item.user === val
+                return item.user === userId
             });
             console.log(index);
 
