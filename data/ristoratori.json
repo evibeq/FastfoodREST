@@ -1,0 +1,20 @@
+{
+    "ristoratori": [
+        {
+            "user": "ciob",
+            "password": "coglione_sinistro",
+            "nome_ristorante": "Melo Magno",
+            "numero_telefono": "3461597353",
+            "partita_iva": "7260103550",
+            "indirizzo": "via Carlo Marso"
+        },
+        {
+            "user": "evibeq",
+            "password": "coglione_destro",
+            "nome_ristorante": "Er Pagnotta",
+            "numero_telefono": "3461597353",
+            "partita_iva": "7260103550",
+            "indirizzo": "via Federico Engeli"
+        }
+    ]
+}
