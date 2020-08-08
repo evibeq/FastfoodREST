@@ -71,7 +71,7 @@ const ristoratoriRoutes = (app, fs) => {
 
             writeFile(JSON.stringify(data, null, 2), () => {
                 if (index == -1){
-                    res.status(200).send(`Aggiunto nuovo Ristoratore, ${req.body["user"]}`);
+                    res.status(201).send(`Aggiunto nuovo Ristoratore, ${req.body["user"]}`);
                 }
             });
         },
@@ -83,18 +83,18 @@ const ristoratoriRoutes = (app, fs) => {
 
         readFile(data => {
 
-            console.log(req.params["user"], typeof req.params["user"]);
-            console.log(req.body);
+            if(req.params["user"]==req.body["user"]){
+                res.status(200).send(`Non è possibile modificare lo user del Ristoratore`);
+            }
 
             var index = data["ristoratori"].findIndex(function (item, i) {
                 return item.user === req.params["user"]
             });
-            console.log(index);
 
             data["ristoratori"][index] = req.body;
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(200).send(`Ristoratore Aggiornato`);
+                res.status(201).send(`Ristoratore ${req.params["user"]} Aggiornato`);
             });
         },
             true);
