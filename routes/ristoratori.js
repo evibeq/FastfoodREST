@@ -113,10 +113,16 @@ const ristoratoriRoutes = (app, fs) => {
                 return item.user === req.params["user"]
             });
 
-            data["ristoratori"].splice(index, 1);
+            if (index > -1){
+                data["ristoratori"].splice(index, 1);
+            }
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(200).send(`Ristoratore ${req.params["user"]} Eliminato`);
+                if (index == -1){
+                    res.status(200).send(`Ristoratore ${req.params["user"]} Non Esiste`);
+                } else {
+                    res.status(200).send(`Ristoratore ${req.params["user"]} Eliminato`);
+                }
             });
         },
             true);
