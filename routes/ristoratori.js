@@ -105,16 +105,18 @@ const ristoratoriRoutes = (app, fs) => {
     });
 
     // DELETE
-    app.delete('/users/:id', (req, res) => {
+    app.delete('/ristoratori/:user', (req, res) => {
 
         readFile(data => {
 
-            // add the new user
-            const userId = req.params["id"];
-            delete data[userId];
+            var index = data["ristoratori"].findIndex(function (item, i) {
+                return item.user === req.params["user"]
+            });
+
+            data["ristoratori"].splice(index, 1);
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(200).send(`users id:${userId} removed`);
+                res.status(200).send(`Ristoratore ${req.params["user"]} Eliminato`);
             });
         },
             true);
