@@ -65,13 +65,13 @@ const ristoratoriRoutes = (app, fs) => {
             if (index == -1){
                 const lastElement = data["ristoratori"].length;
                 data["ristoratori"][lastElement] = req.body;  
-            }else{
-                res.status(200).send(`Ristoratore ${req.body["user"]} già esiste`);
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
                 if (index == -1){
                     res.status(201).send(`Aggiunto nuovo Ristoratore, ${req.body["user"]}`);
+                }else{
+                    res.status(200).send(`Ristoratore ${req.body["user"]} già esiste`);
                 }
             });
         },
@@ -93,7 +93,7 @@ const ristoratoriRoutes = (app, fs) => {
 
             writeFile(JSON.stringify(data, null, 2), () => {
                 if (index == -1){
-                    res.status(201).send(`Ristoratore ${req.params["user"]} Non Esiste`);
+                    res.status(200).send(`Ristoratore ${req.params["user"]} Non Esiste`);
                 }else if(req.params["user"]!=req.body["user"]){
                     res.status(200).send(`Lo user del Ristoratore non può essere modificato`);
                 }else{

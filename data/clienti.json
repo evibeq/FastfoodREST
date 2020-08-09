@@ -1,0 +1,13 @@
+{
+    "clienti":[
+        {
+            "user":"",
+            "password": "",
+            "nome": "",
+            "cognome": "",
+            "pagamento":"",
+            "preferenza_privacy":"",
+            "preferenza_prodotto":""
+        }
+    ]
+}
