@@ -1,0 +1,9 @@
+{
+    "ordini":[
+        {
+            "cliente": "",
+            "ristorante": "",
+            "prodotti": [""]
+        }
+    ]
+}
