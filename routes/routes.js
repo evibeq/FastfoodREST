@@ -1,6 +1,7 @@
 // load routes
 const clientiRoutes = require("./clienti");
 const ristoratoriRoutes = require("./ristoratori");
+const parametriRoutes = require("./parametri");
 
 const appRouter = (app, fs) => {
   // Default route here that handles empty routes
@@ -10,6 +11,8 @@ const appRouter = (app, fs) => {
 
   clientiRoutes(app, fs);
   ristoratoriRoutes(app, fs);
+  parametriRoutes(app, fs);
+
 };
 
 module.exports = appRouter;

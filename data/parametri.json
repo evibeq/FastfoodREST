@@ -1,4 +1,5 @@
 {
-    "ingredienti":[],
-    "tipologie_prodotti":[]
+    "ingredienti":["indrediente1", "indrediente C"],
+    "tipologie_prodotti":["tipologia1","tipologia A"],
+    "metodi_pagamento":["metodi pagamento1","metodi pagamento2"]
 }
