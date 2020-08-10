@@ -129,7 +129,7 @@ const ristoratoriRoutes = (app, fs) => {
     });
 
     // CREATE PRODOTTO PERSONALIZZATO
-    app.post('/prodottopersonalizzato/:user', (req, res) => {
+    app.post('/prodottipersonalizzati/:user', (req, res) => {
 
         readFile(data => {
 
@@ -155,7 +155,7 @@ const ristoratoriRoutes = (app, fs) => {
     });
 
     // DELETE PRODOTTO PERSONALIZZATO
-    app.delete('/prodottopersonalizzato/:user/:nome', (req, res) => {
+    app.delete('/prodottipersonalizzati/:user/:nome', (req, res) => {
 
         readFile(data => {
 
