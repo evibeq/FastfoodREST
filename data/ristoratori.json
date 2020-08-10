@@ -1,6 +1,26 @@
 {
     "ristoratori": [
         {
+            "user": "",
+            "password": "",
+            "nome_ristorante": "",
+            "numero_telefono": "",
+            "partita_iva": "",
+            "indirizzo": "",
+            "prodotti":[
+                "Hamburger"
+            ],
+            "prodotti_personalizzati":[
+                {
+                    "nome":"",
+                    "foto":"",
+                    "tipologia":"",
+                    "prezzo":"",
+                    "ingredienti":[""]
+                }
+            ]
+        },
+        {
             "user": "ciob",
             "password": "coglione_sinistro",
             "nome_ristorante": "Melo Magno",

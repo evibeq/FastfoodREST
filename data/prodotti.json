@@ -1,0 +1,12 @@
+{
+    "prodotti":[
+        {
+            "nome":"",
+            "foto":"",
+            "tipologia":"",
+            "prezzo":"",
+            "user_ristorante":"",
+            "ingredienti":[""]
+        }
+    ]
+}
