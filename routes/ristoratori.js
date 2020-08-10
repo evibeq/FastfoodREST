@@ -134,7 +134,7 @@ const ristoratoriRoutes = (app, fs) => {
             readFile(data => {
     
                 var index = data["ristoratori"].findIndex(function (item, i) {
-                    return item.user === req.body["user"]
+                    return item.user === req.params["user"]
                 });
     
                 if (index > -1){
@@ -145,9 +145,9 @@ const ristoratoriRoutes = (app, fs) => {
     
                 writeFile(JSON.stringify(data, null, 2), () => {
                     if (index == -1){
-                        res.status(201).send(`Non esiste Ristoratore ${req.body["user"]}`);
+                        res.status(201).send(`Non esiste Ristoratore ${req.params["user"]}`);
                     }else{
-                        res.status(200).send(`Prodotto Personalizzato aggiunto a ${req.body["user"]}`);
+                        res.status(200).send(`Prodotto Personalizzato aggiunto a ${req.params["user"]}`);
                     }
                 });
             },
