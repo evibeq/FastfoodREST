@@ -24,36 +24,39 @@ const parametriRoutes = (app, fs) => {
         });
     };
 
-    // READ
+    // READ INGREDIENTI
     app.get('/ingredienti', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
                 throw err;
             }
 
-            res.send(JSON.parse(data));
+            obj = JSON.parse(data)
+            res.send(obj["ingredienti"]);
         });
     });
 
-    // READ
+    // READ TIPOLOGIE PRODOTTI
     app.get('/tipologie_prodotti', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
                 throw err;
             }
 
-            res.send(JSON.parse(data));
+            obj = JSON.parse(data)
+            res.send(obj["tipologie_prodotti"]);
         });
     });
     
-    // READ
+    // READ METODI PAGAmento
     app.get('/metodi_pagamento', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
                 throw err;
             }
 
-            res.send(JSON.parse(data));
+            obj = JSON.parse(data)
+            res.send(obj["metodi_pagamento"]);
         });
     });
 
