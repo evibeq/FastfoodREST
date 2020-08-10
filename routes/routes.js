@@ -1,5 +1,5 @@
 // load routes
-const userRoutes = require("./users");
+const clientiRoutes = require("./clienti");
 const ristoratoriRoutes = require("./ristoratori");
 
 const appRouter = (app, fs) => {
@@ -8,7 +8,7 @@ const appRouter = (app, fs) => {
     res.send("Pagina Home");
   });
 
-  userRoutes(app, fs);
+  clientiRoutes(app, fs);
   ristoratoriRoutes(app, fs);
 };
 
