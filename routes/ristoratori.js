@@ -128,32 +128,64 @@ const ristoratoriRoutes = (app, fs) => {
             true);
     });
 
-        // CREATE PRODOTTO PERSONALIZZATO
-        app.post('/nuovoprodotto/:user', (req, res) => {
+    // CREATE PRODOTTO PERSONALIZZATO
+    app.post('/prodottopersonalizzato/:user', (req, res) => {
 
-            readFile(data => {
-    
-                var index = data["ristoratori"].findIndex(function (item, i) {
-                    return item.user === req.params["user"]
-                });
-    
-                if (index > -1){
-                    //const lastElement = data["ristoratori"].length;
-                    //data["ristoratori"][lastElement] = req.body;  
-                    data["ristoratori"][index]["prodotti_personalizzati"].push(req.body);
+        readFile(data => {
+
+            var index = data["ristoratori"].findIndex(function (item, i) {
+                return item.user === req.params["user"]
+            });
+
+            if (index > -1){
+                //const lastElement = data["ristoratori"].length;
+                //data["ristoratori"][lastElement] = req.body;  
+                data["ristoratori"][index]["prodotti_personalizzati"].push(req.body);
+            }
+
+            writeFile(JSON.stringify(data, null, 2), () => {
+                if (index == -1){
+                    res.status(201).send(`Non esiste Ristoratore ${req.params["user"]}`);
+                }else{
+                    res.status(200).send(`Prodotto Personalizzato aggiunto a ${req.params["user"]}`);
                 }
-    
-                writeFile(JSON.stringify(data, null, 2), () => {
-                    if (index == -1){
-                        res.status(201).send(`Non esiste Ristoratore ${req.params["user"]}`);
-                    }else{
-                        res.status(200).send(`Prodotto Personalizzato aggiunto a ${req.params["user"]}`);
-                    }
-                });
-            },
-                true);
-        });
+            });
+        },
+            true);
+    });
 
+    // DELETE PRODOTTO PERSONALIZZATO
+    app.delete('/prodottopersonalizzato/:user/:nome', (req, res) => {
+
+        readFile(data => {
+
+            var indexUser = data["ristoratori"].findIndex(function (item, i) {
+                return item.user === req.params["user"]
+            });
+
+            if (indexUser > -1){
+
+                var indexNome = data["ristoratori"][indexUser]["prodotti_personalizzati"].findIndex(function (item, i) {
+                    return item.nome === req.params["nome"]
+                });
+                
+                if (indexNome > -1){
+                    data["ristoratori"][indexUser]["prodotti_personalizzati"].splice(indexNome, 1);
+                }
+            }
+
+            writeFile(JSON.stringify(data, null, 2), () => {
+                if (indexUser == -1){
+                    res.status(200).send(`Ristoratore ${req.params["user"]} Non Esiste`);
+                } else if (indexNome == -1){
+                    res.status(200).send(`Prodotto Personalizzato ${req.params["nome"]} Non Esiste`);
+                } else {
+                    res.status(200).send(`Prodotto Personalizzato ${req.params["nome"]} Eliminato`);
+                }
+            });
+        },
+            true);
+    });
 };
 
 module.exports = ristoratoriRoutes;
