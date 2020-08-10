@@ -6,6 +6,20 @@
             "tipologia":"",
             "prezzo":"",
             "ingredienti":[]
+        },
+        {
+            "nome":"Pasta al pomodoro",
+            "foto":"",
+            "tipologia":"Pasta",
+            "prezzo":"5",
+            "ingredienti":[]
+        },
+        {
+            "nome":"Kebab",
+            "foto":"",
+            "tipologia":"Panino",
+            "prezzo":"5",
+            "ingredienti":[]
         }
     ]
 }
