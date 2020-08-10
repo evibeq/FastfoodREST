@@ -35,7 +35,7 @@ const ristoratoriRoutes = (app, fs) => {
         });
     });
 
-    // READ ID
+    // READ USER
     app.get('/ristoratori/:user', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -53,7 +53,7 @@ const ristoratoriRoutes = (app, fs) => {
         });
     });
 
-    // CREATE
+    // CREATE USER
     app.post('/ristoratori', (req, res) => {
 
         readFile(data => {
@@ -78,7 +78,7 @@ const ristoratoriRoutes = (app, fs) => {
             true);
     });
 
-    // UPDATE
+    // UPDATE USER
     app.put('/ristoratori/:user', (req, res) => {
 
         readFile(data => {
@@ -104,7 +104,7 @@ const ristoratoriRoutes = (app, fs) => {
             true);
     });
 
-    // DELETE
+    // DELETE USER
     app.delete('/ristoratori/:user', (req, res) => {
 
         readFile(data => {
@@ -127,6 +127,32 @@ const ristoratoriRoutes = (app, fs) => {
         },
             true);
     });
+
+        // CREATE PRODOTTO PERSONALIZZATO
+        app.post('/nuovoprodotto/:user', (req, res) => {
+
+            readFile(data => {
+    
+                var index = data["ristoratori"].findIndex(function (item, i) {
+                    return item.user === req.body["user"]
+                });
+    
+                if (index > -1){
+                    //const lastElement = data["ristoratori"].length;
+                    //data["ristoratori"][lastElement] = req.body;  
+                    data["ristoratori"][index]["prodotti_personalizzati"].push(req.body);
+                }
+    
+                writeFile(JSON.stringify(data, null, 2), () => {
+                    if (index == -1){
+                        res.status(201).send(`Non esiste Ristoratore ${req.body["user"]}`);
+                    }else{
+                        res.status(200).send(`Prodotto Personalizzato aggiunto a ${req.body["user"]}`);
+                    }
+                });
+            },
+                true);
+        });
 
 };
 
