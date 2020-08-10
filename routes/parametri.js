@@ -1,4 +1,4 @@
-const ristoratoriRoutes = (app, fs) => {
+const parametriRoutes = (app, fs) => {
 
     // variables
     const dataPath = './data/parametri.json';
