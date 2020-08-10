@@ -1,9 +1,19 @@
 {
+    "contatore":"",
     "ordini":[
         {
             "cliente": "",
             "ristorante": "",
-            "prodotti": [""]
+            "data_recensione":"",
+            "prezzo":"",
+            "prodotti": [
+                {
+                    "nome_prodotto":"",
+                    "quantita":""
+                }
+            ],
+            "id_ordine":""
+
         }
     ]
 }

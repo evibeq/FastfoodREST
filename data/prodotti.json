@@ -5,8 +5,7 @@
             "foto":"",
             "tipologia":"",
             "prezzo":"",
-            "user_ristorante":"",
-            "ingredienti":[""]
+            "ingredienti":[]
         }
     ]
 }
