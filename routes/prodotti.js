@@ -42,11 +42,11 @@ const prodottiRoutes = (app, fs) => {
                 throw err;
             }
 
-            const userId = req.params["nome"];
+            const prodId = req.params["nome"];
             const obj = JSON.parse(data);
 
             var index = obj["prodotti"].findIndex(function (item, i) {
-                return item.user === userId
+                return item.nome === prodId
             });
 
             res.send(obj["prodotti"][index]);
