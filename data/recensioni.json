@@ -1,9 +1,12 @@
 {
+    "contatore":"",
     "recensioni":[
         {
-            "id_ristoratore":"",
-            "id_cliente":"",
-            "recensione":""
+            "user_ristoratore":"",
+            "user_cliente":"",
+            "recensione":"",
+            "data_recensione":"",
+            "id_recensione":""
         }
     ]
 }
