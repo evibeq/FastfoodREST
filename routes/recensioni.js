@@ -127,7 +127,7 @@ const recensioniRoutes = (app, fs) => {
                 return item.id_recensione === req.params["id"]
             });
 
-            var rep = {"status": "", "id_recensione": req.params["id"]};
+            var rep = {"status": "", "id_recensione": req.params["id"], "new_recensione":req.body};
 
             if (index == -1){
                 rep.status = "Recensione non esiste";
@@ -138,9 +138,8 @@ const recensioniRoutes = (app, fs) => {
             } else {
                 rep.status = "Recensione modificata";
                 rep["old_recensione"] = data["recensioni"][index];
-                rep["new_recensione"] = req.body;
                 data["recensioni"][index] = req.body;
-
+                data["recensioni"][index]["id_recensione"] = req.params["id"];
             }                     
 
             writeFile(JSON.stringify(data, null, 2), () => {
