@@ -48,7 +48,7 @@ const recensioniRoutes = (app, fs) => {
             const obj = JSON.parse(data);
 
             var index = obj["recensioni"].findIndex(function (item, i) {
-                return item.id_recensione == id
+                return item.id_recensione === id
             });
 
             res.send(obj["recensioni"][index]);
@@ -65,8 +65,8 @@ const recensioniRoutes = (app, fs) => {
             const userId = req.params["user"];
             const obj = JSON.parse(data);
 
-            var reply = {"cliente":req.params["user"], "numero_recensioni":0, "ristoranti_recensiti":[]};
-            
+            var reply = { "cliente": req.params["user"], "numero_recensioni": 0, "ristoranti_recensiti": [] };
+
             obj["recensioni"].forEach(element => {
                 if (element.user_cliente == userId) {
                     reply["ristoranti_recensiti"].push(element)
@@ -88,8 +88,8 @@ const recensioniRoutes = (app, fs) => {
             const userId = req.params["user"];
             const obj = JSON.parse(data);
 
-            var reply = {"ristorante":req.params["user"], "numero_recensioni":0, "recensioni_clienti":[]};
-            
+            var reply = { "ristorante": req.params["user"], "numero_recensioni": 0, "recensioni_clienti": [] };
+
             obj["recensioni"].forEach(element => {
                 if (element.user_ristoratore == userId) {
                     reply["recensioni_clienti"].push(element)
@@ -108,11 +108,11 @@ const recensioniRoutes = (app, fs) => {
 
             data["contatore"]++;
 
-            req.body["id_recensione"] = data["contatore"];
+            req.body["id_recensione"] = toString(data["contatore"]);
             data["recensioni"].push(req.body);
 
             writeFile(JSON.stringify(data, null, 2), () => {
-            res.status(201).send(`Aggiunta nuova Recensione`);
+                res.status(201).send(`Aggiunta nuova Recensione`);
             });
         },
             true);
@@ -127,16 +127,16 @@ const recensioniRoutes = (app, fs) => {
                 return item.id_recensione === req.params["id"]
             });
 
-            if(req.params["id"]==req.body["id"] && index > -1){
+            if (req.params["id"] == req.body["id"] && index > -1) {
                 data["recensioni"][index] = req.body;
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                if (index == -1){
+                if (index == -1) {
                     res.status(200).send(`Recensione ${req.params["id"]} Non Esiste`);
-                }else if(req.params["id"]!=req.body["id"]){
+                } else if (req.params["id"] != req.body["id"]) {
                     res.status(200).send(`L'id della Recensione non può essere modificato`); //da togliere una volta che facciamo i controlli sui campi
-                }else{
+                } else {
                     res.status(201).send(`Recensione ${req.params["id"]} Aggiornato`);
                 }
             });
@@ -153,12 +153,12 @@ const recensioniRoutes = (app, fs) => {
                 return item.id_recensione == req.params["id"]
             });
 
-            if (index > -1){
+            if (index > -1) {
                 data["recensioni"].splice(index, 1);
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                if (index == -1){
+                if (index == -1) {
                     res.status(200).send(`Recensione ${req.params["id"]} Non Esiste`);
                 } else {
                     res.status(200).send(`Recensione ${req.params["id"]} Eliminata`);
