@@ -48,7 +48,7 @@ const recensioniRoutes = (app, fs) => {
             const obj = JSON.parse(data);
 
             var index = obj["recensioni"].findIndex(function (item, i) {
-                return item.id_recensione === id
+                return item.id_recensione == id
             });
 
             res.send(obj["recensioni"][index]);
@@ -66,11 +66,7 @@ const recensioniRoutes = (app, fs) => {
             data["recensioni"].push(req.body);
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                //if (index == -1){
-                    res.status(201).send(`Aggiunta nuova Recensione`);
-                //}else{
-                //    res.status(200).send(`Recensione ${contatore} già esiste`);
-                //}
+            res.status(201).send(`Aggiunta nuova Recensione`);
             });
         },
             true);
@@ -82,7 +78,7 @@ const recensioniRoutes = (app, fs) => {
         readFile(data => {
 
             var index = data["recensioni"].findIndex(function (item, i) {
-                return item.id_recensione === req.params["id"]
+                return item.id_recensione == req.params["id"]
             });
 
             if (index > -1){

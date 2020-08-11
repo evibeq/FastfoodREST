@@ -63,8 +63,7 @@ const ristoratoriRoutes = (app, fs) => {
             });
 
             if (index == -1){
-                const lastElement = data["ristoratori"].length;
-                data["ristoratori"][lastElement] = req.body;  
+                data["ristoratori"].push(req.body);  
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
@@ -137,9 +136,7 @@ const ristoratoriRoutes = (app, fs) => {
                 return item.user === req.params["user"]
             });
 
-            if (index > -1){
-                //const lastElement = data["ristoratori"].length;
-                //data["ristoratori"][lastElement] = req.body;  
+            if (index > -1){ 
                 data["ristoratori"][index]["prodotti_personalizzati"].push(req.body);
             }
 

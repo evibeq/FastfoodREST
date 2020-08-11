@@ -63,8 +63,7 @@ const clientiRoutes = (app, fs) => {
             });
 
             if (index == -1){
-                const lastElement = data["clienti"].length;
-                data["clienti"][lastElement] = req.body;  
+                data["clienti"].push(req.body);  
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
