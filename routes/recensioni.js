@@ -132,7 +132,7 @@ const recensioniRoutes = (app, fs) => {
             if (index == -1){
                 rep.status = "Recensione non esiste";
             } else if ("id_recensione" in req.body){
-                if (req.params["id"] != req.body["id"]) {
+                if (req.params["id"] != req.body["id_recensione"]) {
                     rep.status = "L'id della Recensione non può essere modificato";
                 }
             } else {
