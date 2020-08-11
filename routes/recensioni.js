@@ -127,7 +127,7 @@ const recensioniRoutes = (app, fs) => {
                 return item.id_recensione === req.params["id"]
             });
 
-            if (req.params["id"] == req.body["id"] && index > -1) {
+            if ((req.params["id"] == req.body["id"] || "id_recensione" in req.body["id"]) && index > -1) {
                 data["recensioni"][index] = req.body;
             }
 
