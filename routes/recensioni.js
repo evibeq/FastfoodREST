@@ -58,7 +58,7 @@ const recensioniRoutes = (app, fs) => {
 
         readFile(data => {
 
-            var contatore = data["recensioni"].getInt("contatore");
+            var contatore = data["recensioni"].getInt("id_recensione");
             contatore++;
 
             var index = data["recensioni"].findIndex(function (item, i) {
