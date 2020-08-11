@@ -108,7 +108,7 @@ const recensioniRoutes = (app, fs) => {
 
             data["contatore"]++;
 
-            req.body["id_recensione"] = toString(data["contatore"]);
+            req.body["id_recensione"] = json.stringify(data.["contatore"]);
             data["recensioni"].push(req.body);
 
             writeFile(JSON.stringify(data, null, 2), () => {
