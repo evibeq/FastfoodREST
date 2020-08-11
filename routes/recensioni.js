@@ -118,6 +118,32 @@ const recensioniRoutes = (app, fs) => {
             true);
     });
 
+    // UPDATE
+    app.put('/recensioni/:id', (req, res) => {
+
+        readFile(data => {
+
+            var index = data["recensioni"].findIndex(function (item, i) {
+                return item.id_recensione === req.params["id"]
+            });
+
+            if(req.params["id"]==req.body["id"] && index > -1){
+                data["recensioni"][index] = req.body;
+            }
+
+            writeFile(JSON.stringify(data, null, 2), () => {
+                if (index == -1){
+                    res.status(200).send(`Recensione ${req.params["id"]} Non Esiste`);
+                }else if(req.params["id"]!=req.body["id"]){
+                    res.status(200).send(`L'id della Recensione non può essere modificato`); //da togliere una volta che facciamo i controlli sui campi
+                }else{
+                    res.status(201).send(`Recensione ${req.params["id"]} Aggiornato`);
+                }
+            });
+        },
+            true);
+    });
+
     // DELETE
     app.delete('/recensioni/:id', (req, res) => {
 
