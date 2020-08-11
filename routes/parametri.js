@@ -48,7 +48,7 @@ const parametriRoutes = (app, fs) => {
         });
     });
     
-    // READ METODI PAGAmento
+    // READ METODI PAGAMENTO
     app.get('/metodi_pagamento', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
