@@ -1,5 +1,5 @@
 {
-    "contatore": 3,
+    "contatore": "3",
     "recensioni":[
         {
             "user_ristoratore":"ristorante1",

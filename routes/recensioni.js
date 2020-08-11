@@ -108,7 +108,7 @@ const recensioniRoutes = (app, fs) => {
 
             data["contatore"]++;
 
-            req.body["id_recensione"] = toString(data["contatore"]);
+            req.body["id_recensione"] = JSON.stringify(data["contatore"]);
             data["recensioni"].push(req.body);
 
             writeFile(JSON.stringify(data, null, 2), () => {
@@ -127,7 +127,15 @@ const recensioniRoutes = (app, fs) => {
                 return item.id_recensione === req.params["id"]
             });
 
-            if (req.params["id"] == req.body["id"] && index > -1) {
+            var rep = {"status": "", "id_recensione": req.params["id"]};
+
+            if (index == -1){
+                rep.status = "Recensione non esiste"
+            } else {
+                rep.status = "Recensione esiste"
+            }
+
+            if ((req.params["id"] == req.body["id"] || !("id_recensione" in req.body)) && index > -1) {
                 data["recensioni"][index] = req.body;
             }
 
