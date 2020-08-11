@@ -65,16 +65,16 @@ const recensioniRoutes = (app, fs) => {
             const userId = req.params["user"];
             const obj = JSON.parse(data);
 
-            var reply = { "cliente": req.params["user"], "numero_recensioni": 0, "ristoranti_recensiti": [] };
+            var rep = { "cliente": req.params["user"], "numero_recensioni": 0, "ristoranti_recensiti": [] };
 
             obj["recensioni"].forEach(element => {
                 if (element.user_cliente == userId) {
-                    reply["ristoranti_recensiti"].push(element)
+                    rep["ristoranti_recensiti"].push(element)
                 }
             });
 
-            reply["numero_recensioni"] = reply["ristoranti_recensiti"].length;
-            res.send(reply);
+            rep["numero_recensioni"] = rep["ristoranti_recensiti"].length;
+            res.send(rep);
         });
     });
 
@@ -88,16 +88,16 @@ const recensioniRoutes = (app, fs) => {
             const userId = req.params["user"];
             const obj = JSON.parse(data);
 
-            var reply = { "ristorante": req.params["user"], "numero_recensioni": 0, "recensioni_clienti": [] };
+            var rep = { "ristorante": req.params["user"], "numero_recensioni": 0, "recensioni_clienti": [] };
 
             obj["recensioni"].forEach(element => {
                 if (element.user_ristoratore == userId) {
-                    reply["recensioni_clienti"].push(element)
+                    rep["recensioni_clienti"].push(element)
                 }
             });
 
-            reply["numero_recensioni"] = reply["recensioni_clienti"].length;
-            res.send(reply);
+            rep["numero_recensioni"] = rep["recensioni_clienti"].length;
+            res.send(rep);
         });
     });
 
