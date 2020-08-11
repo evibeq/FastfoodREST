@@ -67,7 +67,7 @@ const recensioniRoutes = (app, fs) => {
 
             if (index == -1){
                 const lastElement = data["recensioni"].length;
-                data["recensioni"][lastElement] = req.body;  
+                data["recensioni"][lastElement] = req.body + ["id_recensione", contatore];  
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
