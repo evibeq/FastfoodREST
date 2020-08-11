@@ -1,3 +1,5 @@
+const { json } = require("express");
+
 const recensioniRoutes = (app, fs) => {
 
     // variables
@@ -58,25 +60,17 @@ const recensioniRoutes = (app, fs) => {
 
         readFile(data => {
 
-            var contatore = data["contatore"];
-            contatore++;
-            console.log(contatore);
+            data["contatore"]++;
 
-            var index = data["recensioni"].findIndex(function (item, i) {
-                return item.id_recensione === contatore
-            });
-
-            if (index == -1){
-                const lastElement = data["recensioni"].length;
-                data["recensioni"][lastElement] = req.body,`"id_recensione": ${contatore}`;
-            }
+            req.body["id_recensione"] = data["contatore"];
+            data["recensioni"].push(req.body);
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                if (index == -1){
-                    res.status(201).send(`Aggiunta nuova Recensione ${contatore}`);
-                }else{
-                    res.status(200).send(`Recensione ${contatore} già esiste`);
-                }
+                //if (index == -1){
+                    res.status(201).send(`Aggiunta nuova Recensione`);
+                //}else{
+                //    res.status(200).send(`Recensione ${contatore} già esiste`);
+                //}
             });
         },
             true);
