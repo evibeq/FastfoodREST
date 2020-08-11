@@ -45,11 +45,11 @@ const recensioniRoutes = (app, fs) => {
             const id = req.params["id"];
             const obj = JSON.parse(data);
 
-            var index = obj["id"].findIndex(function (item, i) {
+            var index = obj["recensioni"].findIndex(function (item, i) {
                 return item.id_recensione === id
             });
 
-            res.send(obj["id"][index]);
+            res.send(obj["recensioni"][index]);
         });
     });
 
