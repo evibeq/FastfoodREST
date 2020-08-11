@@ -127,9 +127,15 @@ const recensioniRoutes = (app, fs) => {
                 return item.id_recensione === req.params["id"]
             });
 
-            console.log("id_recensione" in req.body);
+            var rep = {"status": "", "id_recensione": req.params["id"]};
+
+            if (index == -1){
+                rep.status = "Recensione non esiste"
+            } else {
+                rep.status = "Recensione esiste"
+            }
+
             if ((req.params["id"] == req.body["id"] || !("id_recensione" in req.body)) && index > -1) {
-                console.log(!("id_recensione" in req.body));
                 data["recensioni"][index] = req.body;
             }
 
