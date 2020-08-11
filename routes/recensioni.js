@@ -58,7 +58,7 @@ const recensioniRoutes = (app, fs) => {
 
         readFile(data => {
 
-            var contatore = data["recensioni"].getInt("id_recensione");
+            var contatore = data["contatore"];
             contatore++;
             console.log(contatore);
 
