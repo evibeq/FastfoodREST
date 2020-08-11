@@ -55,6 +55,28 @@ const recensioniRoutes = (app, fs) => {
         });
     });
 
+    // READ USER
+    app.get('/recensioni/cliente/:user', (req, res) => {
+        fs.readFile(dataPath, 'utf8', (err, data) => {
+            if (err) {
+                throw err;
+            }
+
+            const userId = req.params["user"];
+            const obj = JSON.parse(data);
+
+            var reply = {"cliente":req.params["user"], "ristoranti_recensiti":[]}
+            
+            obj["recensioni"].forEach(element => {
+                if (element.user_cliente == userId) {
+                    reply["ristoranti_recensiti"].push(element)
+                }
+            });
+
+            res.send(reply);
+        });
+    });
+
     // CREATE
     app.post('/recensioni', (req, res) => {
 
