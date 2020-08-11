@@ -60,6 +60,7 @@ const recensioniRoutes = (app, fs) => {
 
             var contatore = data["recensioni"].getInt("id_recensione");
             contatore++;
+            console.log(contatore);
 
             var index = data["recensioni"].findIndex(function (item, i) {
                 return item.id_recensione === contatore
