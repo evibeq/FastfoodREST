@@ -4,6 +4,7 @@ const ristoratoriRoutes = require("./ristoratori");
 const parametriRoutes = require("./parametri");
 const prodottiRoutes = require("./prodotti");
 const recensioniRoutes = require("./recensioni");
+const ordiniRoutes = require("./ordini");
 
 const appRouter = (app, fs) => {
   // Default route here that handles empty routes
@@ -16,6 +17,7 @@ const appRouter = (app, fs) => {
   parametriRoutes(app, fs);
   prodottiRoutes(app, fs);
   recensioniRoutes(app, fs);
+  ordiniRoutes(app, fs);
 
 };
 

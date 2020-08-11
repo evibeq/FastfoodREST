@@ -130,23 +130,21 @@ const recensioniRoutes = (app, fs) => {
             var rep = {"status": "", "id_recensione": req.params["id"]};
 
             if (index == -1){
-                rep.status = "Recensione non esiste"
+                rep.status = "Recensione non esiste";
+            } else if ("id_recensione" in req.body){
+                if (req.params["id"] != req.body["id"]) {
+                    rep.status = "L'id della Recensione non può essere modificato";
+                }
             } else {
-                rep.status = "Recensione esiste"
-            }
-
-            if ((req.params["id"] == req.body["id"] || !("id_recensione" in req.body)) && index > -1) {
+                rep.status = "Recensione modificata";
+                rep["old_recensione"] = data["recensioni"][index];
+                rep["new_recensione"] = req.body;
                 data["recensioni"][index] = req.body;
-            }
+
+            }                     
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                if (index == -1) {
-                    res.status(200).send(`Recensione ${req.params["id"]} Non Esiste`);
-                } else if (req.params["id"] != req.body["id"]) {
-                    res.status(200).send(`L'id della Recensione non può essere modificato`); //da togliere una volta che facciamo i controlli sui campi
-                } else {
-                    res.status(201).send(`Recensione ${req.params["id"]} Aggiornato`);
-                }
+                res.status(200).send(rep);
             });
         },
             true);
