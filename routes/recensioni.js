@@ -65,7 +65,7 @@ const recensioniRoutes = (app, fs) => {
             const userId = req.params["user"];
             const obj = JSON.parse(data);
 
-            var reply = {"cliente":req.params["user"], "ristoranti_recensiti":[]}
+            var reply = {"cliente":req.params["user"], "numero_recensioni":0, "ristoranti_recensiti":[]};
             
             obj["recensioni"].forEach(element => {
                 if (element.user_cliente == userId) {
@@ -73,6 +73,7 @@ const recensioniRoutes = (app, fs) => {
                 }
             });
 
+            reply["numero_recensioni"] = reply["ristoranti_recensiti"].length;
             res.send(reply);
         });
     });
