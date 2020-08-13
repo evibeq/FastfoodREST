@@ -119,7 +119,10 @@ const recensioniRoutes = (app, fs) => {
                 rep.message = "Aggiunta nuova recensione";
                 rep["recensione"] = req.body;
                 rep["data_recensione"] = new Date().toLocaleString('it-IT', 'Europe/Rome');
-                console.log(new Date().getTimezoneOffset())
+                console.log(new Date().getTimezoneOffset());
+                console.log(new Date().toLocaleString("en-US", {timeZone: "Asia/Kolkata"}));
+                console.log(new Date().toLocaleString("en-US", {timeZone: "Europe/Rome"}));
+                console.log(new Date().toLocaleString("en-GB", {timeZone: "Australia/Brisbane"}));
                 res.status(201);
             } else {
                 rep.message = req.body["user_cliente"] + " ha già recensito " + req.body["user_ristoratore"];
