@@ -113,6 +113,7 @@ const recensioniRoutes = (app, fs) => {
             var rep = {"message": ""};
 
             if(index == -1) {
+                req.body["data_recensione"] = new Date().toLocaleString('it-IT');
                 data["contatore"]++;
                 req.body["id_recensione"] = JSON.stringify(data["contatore"]);
                 data["recensioni"].push(req.body);
