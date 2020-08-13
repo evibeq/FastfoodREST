@@ -106,10 +106,26 @@ const recensioniRoutes = (app, fs) => {
 
         readFile(data => {
 
-            data["contatore"]++;
+            var indexUser = data["recensioni"].findIndex(function (item, i) {
+                return item.user_cliente === req.body["user_cliente"]
+            });
 
-            req.body["id_recensione"] = JSON.stringify(data["contatore"]);
-            data["recensioni"].push(req.body);
+            var indexRist = data["recensioni"].findIndex(function (item, i) {
+                return item.user_ristoratore === req.body["user_ristoratore"]
+            });
+
+            var rep = {"message": ""};
+
+            if(indexUser == -1 || indexRist == -1) {
+                data["contatore"]++;
+                req.body["id_recensione"] = JSON.stringify(data["contatore"]);
+                data["recensioni"].push(req.body);
+                rep.message = "Aggiunta nuva recensione";
+                rep["recensione"] = req.body;
+            } else {
+                rep.message = req.body["user_cliente"] + " ha già recensito " + req.body["user_ristoratore"];
+                rep["recensione"] = req.body;
+            }
 
             writeFile(JSON.stringify(data, null, 2), () => {
                 res.status(201).send(`Aggiunta nuova Recensione`);
@@ -127,14 +143,14 @@ const recensioniRoutes = (app, fs) => {
                 return item.id_recensione === req.params["id"]
             });
 
-            var rep = {"status": "", "id_recensione": req.params["id"], "new_recensione":req.body};
+            var rep = {"message": "", "id_recensione": req.params["id"], "new_recensione":req.body};
 
             if (index == -1){
-                rep.status = "Recensione non esiste";
+                rep.message = "Recensione non esiste";
             } else if (("id_recensione" in req.body) && (req.params["id"] != req.body["id_recensione"])) {
-                rep.status = "L'id della Recensione non può essere modificato";
+                rep.message = "L'id della Recensione non può essere modificato";
             } else {
-                rep.status = "Recensione modificata";
+                rep.message = "Recensione modificata";
                 rep["old_recensione"] = data["recensioni"][index];
                 data["recensioni"][index] = req.body;
                 data["recensioni"][index]["id_recensione"] = req.params["id"];
