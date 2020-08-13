@@ -116,7 +116,7 @@ const recensioniRoutes = (app, fs) => {
                 data["contatore"]++;
                 req.body["id_recensione"] = JSON.stringify(data["contatore"]);
                 data["recensioni"].push(req.body);
-                rep.message = "Aggiunta nuva recensione";
+                rep.message = "Aggiunta nuova recensione";
                 rep["recensione"] = req.body;
                 res.status(201);
             } else {
