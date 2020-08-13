@@ -119,8 +119,8 @@ const recensioniRoutes = (app, fs) => {
                 rep.message = "Aggiunta nuova recensione";
                 rep["recensione"] = req.body;
                 rep["data_recensione"] = new Date().toLocaleString('it-IT', { timeZone: 'Europe/Rome', hour12: false });
-                const hasICU = typeof Intl === 'object';
-                console.log(hasICU);
+                const hasICU = typeof process.versions.icu === 'string';
+                console.log(hasICU, process.versions.icu);
                 res.status(201);
             } else {
                 rep.message = req.body["user_cliente"] + " ha già recensito " + req.body["user_ristoratore"];
