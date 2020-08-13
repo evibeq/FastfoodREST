@@ -106,17 +106,17 @@ const recensioniRoutes = (app, fs) => {
 
         readFile(data => {
 
-            var indexUser = data["recensioni"].findIndex(function (item, i) {
+            /*var indexUser = data["recensioni"].findIndex(function (item, i) {
                 return item.user_cliente === req.body["user_cliente"]
-            });
+            });*/
 
-            var indexRist = data["recensioni"].findIndex(function (item, i) {
-                return item.user_ristoratore === req.body["user_ristoratore"]
+            var index = data["recensioni"].findIndex(function (item, i) {
+                return (item.user_ristoratore === req.body["user_ristoratore"]) && (item.user_cliente === req.body["user_cliente"])
             });
 
             var rep = {"message": ""};
 
-            if(indexUser == -1 || indexRist == -1) {
+            if(index == -1) {
                 data["contatore"]++;
                 req.body["id_recensione"] = JSON.stringify(data["contatore"]);
                 data["recensioni"].push(req.body);
