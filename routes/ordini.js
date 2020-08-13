@@ -1,9 +1,9 @@
 const { json } = require("express");
 
-const recensioniRoutes = (app, fs) => {
+const ordiniRoutes = (app, fs) => {
 
     // variables
-    const dataPath = './data/recensioni.json';
+    const dataPath = './data/ordini.json';
 
     const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
         fs.readFile(filePath, encoding, (err, data) => {
@@ -27,7 +27,7 @@ const recensioniRoutes = (app, fs) => {
     };
 
     // READ
-    app.get('/recensioni', (req, res) => {
+    app.get('/ordini', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
                 throw err;
@@ -38,7 +38,7 @@ const recensioniRoutes = (app, fs) => {
     });
 
     // READ ID
-    app.get('/recensioni/:id', (req, res) => {
+    app.get('/ordini/:id', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
                 throw err;
@@ -47,16 +47,16 @@ const recensioniRoutes = (app, fs) => {
             const id = req.params["id"];
             const obj = JSON.parse(data);
 
-            var index = obj["recensioni"].findIndex(function (item, i) {
-                return item.id_recensione === id
+            var index = obj["ordini"].findIndex(function (item, i) {
+                return item.id_ordine === id
             });
 
-            res.send(obj["recensioni"][index]);
+            res.send(obj["ordini"][index]);
         });
     });
 
-    // READ RECENSIONI CLIENTE
-    app.get('/recensioni/cliente/:user', (req, res) => {
+    // READ ORDINI CLIENTE
+    app.get('/ordini/cliente/:user', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
                 throw err;
@@ -65,21 +65,21 @@ const recensioniRoutes = (app, fs) => {
             const userId = req.params["user"];
             const obj = JSON.parse(data);
 
-            var rep = { "cliente": req.params["user"], "numero_recensioni": 0, "ristoranti_recensiti": [] };
+            var rep = { "cliente": req.params["user"], "numero_ordini": 0, "ordini": [] };
 
-            obj["recensioni"].forEach(element => {
+            obj["ordini"].forEach(element => {
                 if (element.user_cliente == userId) {
-                    rep["ristoranti_recensiti"].push(element)
+                    rep["ordini"].push(element)
                 }
             });
 
-            rep["numero_recensioni"] = rep["ristoranti_recensiti"].length;
+            rep["numero_ordini"] = rep["ordini"].length;
             res.send(rep);
         });
     });
 
-    // READ RECENSIONI RISTORANTE
-    app.get('/recensioni/ristorante/:user', (req, res) => {
+    // READ ORDINI RISTORANTE
+    app.get('/ordini/ristorante/:user', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
                 throw err;
@@ -88,28 +88,28 @@ const recensioniRoutes = (app, fs) => {
             const userId = req.params["user"];
             const obj = JSON.parse(data);
 
-            var rep = { "ristorante": req.params["user"], "numero_recensioni": 0, "recensioni_clienti": [] };
+            var rep = { "ristorante": req.params["user"], "numero_ordini": 0, "ordini": [] };
 
-            obj["recensioni"].forEach(element => {
+            obj["ordini"].forEach(element => {
                 if (element.user_ristoratore == userId) {
-                    rep["recensioni_clienti"].push(element)
+                    rep["ordini"].push(element)
                 }
             });
 
-            rep["numero_recensioni"] = rep["recensioni_clienti"].length;
+            rep["numero_ordini"] = rep["ordini"].length;
             res.send(rep);
         });
     });
 
     // CREATE
-    app.post('/recensioni', (req, res) => {
+    app.post('/ordini', (req, res) => {
 
         readFile(data => {
 
             data["contatore"]++;
 
-            req.body["id_recensione"] = toString(data["contatore"]);
-            data["recensioni"].push(req.body);
+            req.body["id_ordine"] = toString(data["contatore"]);
+            data["ordini"].push(req.body);
 
             writeFile(JSON.stringify(data, null, 2), () => {
                 res.status(201).send(`Aggiunta nuova Recensione`);
@@ -119,7 +119,7 @@ const recensioniRoutes = (app, fs) => {
     });
 
     // UPDATE
-    app.put('/recensioni/:id', (req, res) => {
+    app.put('/ordini/:id', (req, res) => {
 
         readFile(data => {
 
@@ -145,7 +145,7 @@ const recensioniRoutes = (app, fs) => {
     });
 
     // DELETE
-    app.delete('/recensioni/:id', (req, res) => {
+    app.delete('/ordini/:id', (req, res) => {
 
         readFile(data => {
 
@@ -170,4 +170,4 @@ const recensioniRoutes = (app, fs) => {
 
 };
 
-module.exports = recensioniRoutes;
+module.exports = ordiniRoutes;
