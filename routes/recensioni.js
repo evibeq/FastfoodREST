@@ -122,13 +122,17 @@ const recensioniRoutes = (app, fs) => {
                 data["recensioni"].push(req.body);
                 rep.message = "Aggiunta nuva recensione";
                 rep["recensione"] = req.body;
+                res.status(201);
             } else {
                 rep.message = req.body["user_cliente"] + " ha già recensito " + req.body["user_ristoratore"];
                 rep["recensione"] = req.body;
+                res.status(409);
             }
 
+            //modificare status
+
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(201).send(rep)
+                res.send(rep)
             });
         },
             true);
