@@ -1,9 +1,9 @@
 {
-    "contatore":"",
+    "contatore": "1",
     "ordini":[
         {
-            "cliente": "",
-            "ristorante": "",
+            "user_cliente": "",
+            "user_ristoratore": "",
             "data_recensione":"",
             "prezzo":"",
             "prodotti": [
