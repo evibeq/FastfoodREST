@@ -113,13 +113,12 @@ const recensioniRoutes = (app, fs) => {
             var rep = {"message": ""};
 
             if(index == -1) {
-                req.body["data_recensione"] = new Date().toLocaleString('it-IT');
                 data["contatore"]++;
                 req.body["id_recensione"] = JSON.stringify(data["contatore"]);
                 data["recensioni"].push(req.body);
                 rep.message = "Aggiunta nuova recensione";
                 rep["recensione"] = req.body;
-                rep["data_recensione"] = new Date().toLocaleString('it-IT');
+                rep["data_recensione"] = new Date().toLocaleString('it-IT',{timeZone: "Europe/Rome"});
                 res.status(201);
             } else {
                 rep.message = req.body["user_cliente"] + " ha già recensito " + req.body["user_ristoratore"];
