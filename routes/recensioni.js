@@ -128,7 +128,7 @@ const recensioniRoutes = (app, fs) => {
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(201).send(`Aggiunta nuova Recensione`);
+                res.status(201).send(rep)
             });
         },
             true);
