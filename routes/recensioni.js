@@ -106,10 +106,6 @@ const recensioniRoutes = (app, fs) => {
 
         readFile(data => {
 
-            /*var indexUser = data["recensioni"].findIndex(function (item, i) {
-                return item.user_cliente === req.body["user_cliente"]
-            });*/
-
             var index = data["recensioni"].findIndex(function (item, i) {
                 return (item.user_ristoratore === req.body["user_ristoratore"]) && (item.user_cliente === req.body["user_cliente"])
             });
@@ -128,8 +124,6 @@ const recensioniRoutes = (app, fs) => {
                 rep["recensione"] = req.body;
                 res.status(409);
             }
-
-            //modificare status
 
             writeFile(JSON.stringify(data, null, 2), () => {
                 res.send(rep)
@@ -151,17 +145,20 @@ const recensioniRoutes = (app, fs) => {
 
             if (index == -1){
                 rep.message = "Recensione non esiste";
+                res.status(404);
             } else if (("id_recensione" in req.body) && (req.params["id"] != req.body["id_recensione"])) {
                 rep.message = "L'id della Recensione non può essere modificato";
+                res.status(409);
             } else {
                 rep.message = "Recensione modificata";
                 rep["old_recensione"] = data["recensioni"][index];
                 data["recensioni"][index] = req.body;
                 data["recensioni"][index]["id_recensione"] = req.params["id"];
+                res.status(201);
             }                     
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(200).send(rep);
+                res.send(rep);
             });
         },
             true);
@@ -176,16 +173,20 @@ const recensioniRoutes = (app, fs) => {
                 return item.id_recensione == req.params["id"]
             });
 
+            var rep = {"message": "", "id_recensione": req.params["id"]};
+
             if (index > -1) {
+                rep.message = "Recensione eliminata";
+                rep["recensione"] = data["recensioni"][index];
                 data["recensioni"].splice(index, 1);
+                res.status(200);
+            } else {
+                rep.message = "Recensione non esiste";
+                res.status(404);
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                if (index == -1) {
-                    res.status(200).send(`Recensione ${req.params["id"]} Non Esiste`);
-                } else {
-                    res.status(200).send(`Recensione ${req.params["id"]} Eliminata`);
-                }
+                res.send(rep);
             });
         },
             true);
