@@ -2,6 +2,8 @@ const clientiRoutes = (app, fs) => {
 
     // variables
     const dataPath = './data/clienti.json';
+    var validate = require('jsonschema').validate;
+    
 
     const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
         fs.readFile(filePath, encoding, (err, data) => {
@@ -30,6 +32,8 @@ const clientiRoutes = (app, fs) => {
             if (err) {
                 throw err;
             }
+
+            console.log(validate(4, {"type": "number"}));
 
             res.send(JSON.parse(data));
         });
@@ -62,14 +66,14 @@ const clientiRoutes = (app, fs) => {
                 return item.user === req.body["user"]
             });
 
-            if (index == -1){
-                data["clienti"].push(req.body);  
+            if (index == -1) {
+                data["clienti"].push(req.body);
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                if (index == -1){
+                if (index == -1) {
                     res.status(201).send(`Aggiunto nuovo Cliente, ${req.body["user"]}`);
-                }else{
+                } else {
                     res.status(200).send(`Cliente ${req.body["user"]} già esiste`);
                 }
             });
@@ -86,16 +90,16 @@ const clientiRoutes = (app, fs) => {
                 return item.user === req.params["user"]
             });
 
-            if(req.params["user"]==req.body["user"] && index > -1){
+            if (req.params["user"] == req.body["user"] && index > -1) {
                 data["clienti"][index] = req.body;
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                if (index == -1){
+                if (index == -1) {
                     res.status(200).send(`Cliente ${req.params["user"]} Non Esiste`);
-                }else if(req.params["user"]!=req.body["user"]){
+                } else if (req.params["user"] != req.body["user"]) {
                     res.status(200).send(`Lo user del Cliente non può essere modificato`);
-                }else{
+                } else {
                     res.status(201).send(`Cliente ${req.params["user"]} Aggiornato`);
                 }
             });
@@ -112,12 +116,12 @@ const clientiRoutes = (app, fs) => {
                 return item.user === req.params["user"]
             });
 
-            if (index > -1){
+            if (index > -1) {
                 data["clienti"].splice(index, 1);
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                if (index == -1){
+                if (index == -1) {
                     res.status(200).send(`Cliente ${req.params["user"]} Non Esiste`);
                 } else {
                     res.status(200).send(`Cliente ${req.params["user"]} Eliminato`);
@@ -130,3 +134,6 @@ const clientiRoutes = (app, fs) => {
 };
 
 module.exports = clientiRoutes;
+
+
+
