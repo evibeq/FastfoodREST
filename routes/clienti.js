@@ -2,7 +2,7 @@ const clientiRoutes = (app, fs) => {
 
     // variables
     const dataPath = './data/clienti.json';
-    var validate = require('jsonschema').validate;
+    
     
 
     const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
