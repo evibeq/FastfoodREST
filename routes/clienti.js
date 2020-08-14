@@ -33,8 +33,6 @@ const clientiRoutes = (app, fs) => {
                 throw err;
             }
 
-            console.log(validate(4, {"type": "number"}));
-
             res.send(JSON.parse(data));
         });
     });
