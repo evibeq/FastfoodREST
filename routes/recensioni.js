@@ -118,7 +118,8 @@ const recensioniRoutes = (app, fs) => {
                 data["recensioni"].push(req.body);
                 rep.message = "Aggiunta nuova recensione";
                 rep["recensione"] = req.body;
-                req.body["data_recensione"] = new Date().toLocaleString();
+                const option = {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false, timeZone: 'Europe/Rome'}
+                req.body["data_recensione"] = new Intl.DateTimeFormat('it-IT', option).format(new Date());
                 const hasICU = typeof process.versions.icu === 'string';
                 console.log(hasICU, process.versions.icu);
                 res.status(201);
