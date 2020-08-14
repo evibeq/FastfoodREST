@@ -118,7 +118,7 @@ const recensioniRoutes = (app, fs) => {
                 data["recensioni"].push(req.body);
                 rep.message = "Aggiunta nuova recensione";
                 rep["recensione"] = req.body;
-                rep["data_recensione"] = new Date().toString();
+                req.body["data_recensione"] = new Date().toLocaleString();
                 const hasICU = typeof process.versions.icu === 'string';
                 console.log(hasICU, process.versions.icu);
                 res.status(201);
