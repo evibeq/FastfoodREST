@@ -119,7 +119,7 @@ const recensioniRoutes = (app, fs) => {
                 rep.message = "Aggiunta nuova recensione";
                 rep["recensione"] = req.body;
                 var d = new Date();
-                var date = d.getDate() + "/" + number(d.getMonth() + 1) + "/" + d.getFullYear() + ", " + d.toLocaleTimeString("default", {hour12: false});
+                var date = d.getDate() + "/" + Number(d.getMonth() + 1) + "/" + d.getFullYear() + ", " + d.toLocaleTimeString("default", {hour12: false});
                 req.body["data_recensione"] = date;
                 res.status(201);
             } else {
