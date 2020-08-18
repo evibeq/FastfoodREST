@@ -73,6 +73,14 @@ const clientiRoutes = (app, fs) => {
                 res.status(200).send(rep);
             }
 
+            var newobj = {};
+
+            if (req.body.user == undefined) {
+
+            }
+
+            data.clienti.push(req.body); 
+
             
 
             writeFile(JSON.stringify(data, null, 2), () => {
