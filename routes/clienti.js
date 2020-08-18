@@ -62,11 +62,17 @@ const clientiRoutes = (app, fs) => {
 
         readFile(data => {
 
+            var rep = {};
+
+            if (req.body.user === undefined || req.body.user === "") {
+                rep["messaggio"] = `Il parametro user deve essere impostato`
+                res.status(200).send(rep);
+                return;
+            }
+
             var index = data["clienti"].findIndex(function (item, i) {
                 return item.user === req.body["user"]
             });
-
-            var rep = {};
 
             if (index > -1) {
                 rep["messaggio"] = `Cliente ${req.body["user"]} esiste`
