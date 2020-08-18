@@ -71,6 +71,7 @@ const clientiRoutes = (app, fs) => {
             if (index > -1) {
                 rep["messaggio"] = `Cliente ${req.body["user"]} esiste`
                 res.status(200).send(rep);
+                return;
             }
 
             var newobj = {};
