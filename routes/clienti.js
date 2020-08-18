@@ -65,7 +65,7 @@ const clientiRoutes = (app, fs) => {
             });
 
             if (index == -1) {
-                res.status(200).send(`Cliente ${req.body["user"]} già esiste`);
+                res.status(200).send(`Cliente ${req.body["user"]} esiste`);
             }
 
             
@@ -74,7 +74,7 @@ const clientiRoutes = (app, fs) => {
                 if (index == -1) {
                     res.status(201).send(`Aggiunto nuovo Cliente, ${req.body["user"]}`);
                 } else {
-                    res.status(200).send(`Cliente ${req.body["user"]} già esiste`);
+                    res.status(200).send(`Cliente ${req.body["user"]} già ESISTE`);
                 }
             });
         },
