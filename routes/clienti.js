@@ -63,27 +63,42 @@ const clientiRoutes = (app, fs) => {
         readFile(data => {
 
             var rep = {};
+            var valido = true;
 
-            if (req.body.user === undefined || req.body.user === "") {
-                rep["messaggio"] = `Il parametro user deve essere impostato`
-                res.status(200).send(rep);
+            if (req.body.user === undefined || req.body.user === "" ) {
+                rep.user = {"messaggio" : "Il parametro deve essere impostato"};
+                valido = false;
+            }
+            if (req.body.password === undefined || req.body.password === "") {
+                rep.password = {"messaggio" : "Il parametro deve essere impostato"};
+                valido = false;
+            }
+            if (req.body.nome === undefined || req.body.nome === ""){
+                rep.nome = {"messaggio" : "Il parametro deve essere impostato"};
+                valido = false;
+            }
+            if (req.body.cognome === undefined || req.body.cognome === ""){
+                rep.cognome = {"messaggio" : "Il parametro deve essere impostato"};
+                valido = false;
+            }
+            if (req.body.pagamento === undefined || req.body.pagamento === ""){
+                rep.pagamento = {"messaggio" : "Il parametro deve essere impostato"};
+                valido = false;
+            }
+
+            if (!valido){
+                res.status(409).send(rep);
                 return;
             }
 
-            var index = data["clienti"].findIndex(function (item, i) {
-                return item.user === req.body["user"]
+            var index = data.clienti.findIndex(function (item, i) {
+                return item.user == req.body.user;
             });
 
             if (index > -1) {
-                rep["messaggio"] = `Cliente ${req.body["user"]} esiste`
-                res.status(200).send(rep);
+                rep.messaggio = `Cliente ${req.body["user"]} esiste`;
+                res.status(409).send(rep);
                 return;
-            }
-
-            var newobj = {};
-
-            if (req.body.user == undefined) {
-
             }
 
             data.clienti.push(req.body); 
@@ -91,11 +106,7 @@ const clientiRoutes = (app, fs) => {
             
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                if (index == -1) {
-                    res.status(201).send(`Aggiunto nuovo Cliente, ${req.body["user"]}`);
-                } else {
-                    res.status(200).send(`Cliente ${req.body["user"]} già ESISTE`);
-                }
+                res.status(200).send(`Cliente ${req.body["user"]} già ESISTE`);
             });
         },
             true);
