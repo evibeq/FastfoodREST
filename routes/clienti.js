@@ -65,8 +65,10 @@ const clientiRoutes = (app, fs) => {
             });
 
             if (index == -1) {
-                data["clienti"].push(req.body);
+                res.status(200).send(`Cliente ${req.body["user"]} già esiste`);
             }
+
+            
 
             writeFile(JSON.stringify(data, null, 2), () => {
                 if (index == -1) {
