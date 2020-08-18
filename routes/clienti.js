@@ -96,17 +96,25 @@ const clientiRoutes = (app, fs) => {
             });
 
             if (index > -1) {
-                rep.user = {"messaggio" : "Il cliente " + req.body.user + " è già registrato"};
+                rep = {"messaggio" : "Cliente " + req.body.user + " è già registrato"};
                 res.status(409).send(rep);
                 return;
             }
 
-            data.clienti.push(req.body); 
+            var obj = {};
+            obj.user = req.body.user;
+            obj.password = req.body.password;
+            obj.nome = req.body.nome;
+            obj.cognome = req.body.cognome;
+            obj.pagamento = req.body.pagamento;
+            obj.preferenza_privacy = req.body.preferenza_privacy;
+            obj.preferenza_prodotto = req.body.preferenza_prodotto;
 
-            
+            data.clienti.push(obj); 
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(201).send(`Cliente ${req.body["user"]} aggiunto`);
+                rep = {"messaggio" : "Cliente " + req.body.user + " registrato con successo!"}
+                res.status(201).send(rep);
             });
         },
             true);
