@@ -96,7 +96,7 @@ const clientiRoutes = (app, fs) => {
             });
 
             if (index > -1) {
-                rep.messaggio = `Cliente ${req.body["user"]} esiste`;
+                rep.user = {"messaggio" : "Il cliente " + req.body.user + " è già registrato"};
                 res.status(409).send(rep);
                 return;
             }
@@ -106,7 +106,7 @@ const clientiRoutes = (app, fs) => {
             
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(200).send(`Cliente ${req.body["user"]} già ESISTE`);
+                res.status(201).send(`Cliente ${req.body["user"]} aggiunto`);
             });
         },
             true);
