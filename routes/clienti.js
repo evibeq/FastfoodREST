@@ -46,14 +46,19 @@ const clientiRoutes = (app, fs) => {
                 throw err;
             }
 
-            const userId = req.params["user"];
+            const userId = req.params.clienti;
             const obj = JSON.parse(data);
 
-            var index = obj["clienti"].findIndex(function (item, i) {
+            var index = obj.clienti.findIndex(function (item, i) {
                 return item.user === userId
             });
 
-            res.send(obj["clienti"][index]);
+            if (index > -1) {
+                res.status(200).send(obj.clienti[index]);
+            }else{
+                res.status(404).send({"messaggio" : "Cliente " + req.params.user + "non esiste."});
+            }
+            
         });
     });
 
