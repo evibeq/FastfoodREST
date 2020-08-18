@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 const clientiRoutes = (app, fs) => {
 
     // variables
@@ -64,8 +66,11 @@ const clientiRoutes = (app, fs) => {
                 return item.user === req.body["user"]
             });
 
-            if (index == -1) {
-                res.status(200).send(`Cliente ${req.body["user"]} esiste`);
+            var rep = {};
+
+            if (index > -1) {
+                rep["messaggio"] = `Cliente ${req.body["user"]} esiste`
+                res.status(200).send(rep);
             }
 
             
