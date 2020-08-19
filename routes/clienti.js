@@ -2,10 +2,7 @@ const { response } = require("express");
 
 const clientiRoutes = (app, fs) => {
 
-    // variables
     const dataPath = './data/clienti.json';
-    
-    
 
     const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
         fs.readFile(filePath, encoding, (err, data) => {
@@ -46,19 +43,17 @@ const clientiRoutes = (app, fs) => {
                 throw err;
             }
 
-            const userId = req.params.clienti;
             const obj = JSON.parse(data);
 
             var index = obj.clienti.findIndex(function (item, i) {
-                return item.user === userId
+                return item.user === req.params.user
             });
 
             if (index > -1) {
                 res.status(200).send(obj.clienti[index]);
             }else{
-                res.status(404).send({"messaggio" : "Cliente " + req.params.user + "non esiste."});
-            }
-            
+                res.status(404).send({"messaggio" : "Cliente " + req.params.user + " non esiste."});
+            }  
         });
     });
 
