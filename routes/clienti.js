@@ -178,20 +178,17 @@ const clientiRoutes = (app, fs) => {
 
         readFile(data => {
 
-            var index = data["clienti"].findIndex(function (item, i) {
-                return item.user === req.params["user"]
+            var index = data.clienti.findIndex(function (item, i) {
+                return item.user === req.params.user
             });
 
-            if (index > -1) {
-                data["clienti"].splice(index, 1);
+            if (index === -1) {
+                res.status(404).send({"messaggio" : "Cliente " + req.params.user + " non esiste."});
+                return;
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                if (index == -1) {
-                    res.status(200).send(`Cliente ${req.params["user"]} Non Esiste`);
-                } else {
-                    res.status(200).send(`Cliente ${req.params["user"]} Eliminato`);
-                }
+                res.status(200).send({"messaggio" : "Cliente " + req.params.user + " eliminato."});
             });
         },
             true);
@@ -200,6 +197,3 @@ const clientiRoutes = (app, fs) => {
 };
 
 module.exports = clientiRoutes;
-
-
-
