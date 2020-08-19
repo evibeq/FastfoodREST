@@ -1,6 +1,5 @@
 const ristoratoriRoutes = (app, fs) => {
 
-    // variables
     const dataPath = './data/ristoratori.json';
 
     const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
@@ -42,18 +41,21 @@ const ristoratoriRoutes = (app, fs) => {
                 throw err;
             }
 
-            const userId = req.params["user"];
             const obj = JSON.parse(data);
 
-            var index = obj["ristoratori"].findIndex(function (item, i) {
-                return item.user === userId
+            var index = obj.ristoratori.findIndex(function (item, i) {
+                return item.user === req.params.user
             });
 
-            res.send(obj["ristoratori"][index]);
+            if (index > -1) {
+                res.status(200).send(obj.ristoratori[index]);
+            } else {
+                res.status(404).send({ "messaggio": "Ristoratore " + req.params.user + " non esiste." });
+            }
         });
     });
 
-    // CREATE USER
+    // CREATE
     app.post('/ristoratori', (req, res) => {
 
         readFile(data => {
@@ -62,14 +64,14 @@ const ristoratoriRoutes = (app, fs) => {
                 return item.user === req.body["user"]
             });
 
-            if (index == -1){
-                data["ristoratori"].push(req.body);  
+            if (index == -1) {
+                data["ristoratori"].push(req.body);
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                if (index == -1){
+                if (index == -1) {
                     res.status(201).send(`Aggiunto nuovo Ristoratore, ${req.body["user"]}`);
-                }else{
+                } else {
                     res.status(200).send(`Ristoratore ${req.body["user"]} già esiste`);
                 }
             });
@@ -86,16 +88,16 @@ const ristoratoriRoutes = (app, fs) => {
                 return item.user === req.params["user"]
             });
 
-            if(req.params["user"]==req.body["user"] && index > -1){
+            if (req.params["user"] == req.body["user"] && index > -1) {
                 data["ristoratori"][index] = req.body;
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                if (index == -1){
+                if (index == -1) {
                     res.status(200).send(`Ristoratore ${req.params["user"]} Non Esiste`);
-                }else if(req.params["user"]!=req.body["user"]){
+                } else if (req.params["user"] != req.body["user"]) {
                     res.status(200).send(`Lo user del Ristoratore non può essere modificato`);
-                }else{
+                } else {
                     res.status(201).send(`Ristoratore ${req.params["user"]} Aggiornato`);
                 }
             });
@@ -112,12 +114,12 @@ const ristoratoriRoutes = (app, fs) => {
                 return item.user === req.params["user"]
             });
 
-            if (index > -1){
+            if (index > -1) {
                 data["ristoratori"].splice(index, 1);
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                if (index == -1){
+                if (index == -1) {
                     res.status(200).send(`Ristoratore ${req.params["user"]} Non Esiste`);
                 } else {
                     res.status(200).send(`Ristoratore ${req.params["user"]} Eliminato`);
@@ -136,14 +138,14 @@ const ristoratoriRoutes = (app, fs) => {
                 return item.user === req.params["user"]
             });
 
-            if (index > -1){ 
+            if (index > -1) {
                 data["ristoratori"][index]["prodotti_personalizzati"].push(req.body);
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                if (index == -1){
+                if (index == -1) {
                     res.status(201).send(`Non esiste Ristoratore ${req.params["user"]}`);
-                }else{
+                } else {
                     res.status(200).send(`Prodotto Personalizzato aggiunto a ${req.params["user"]}`);
                 }
             });
@@ -160,21 +162,21 @@ const ristoratoriRoutes = (app, fs) => {
                 return item.user === req.params["user"]
             });
 
-            if (indexUser > -1){
+            if (indexUser > -1) {
 
                 var indexNome = data["ristoratori"][indexUser]["prodotti_personalizzati"].findIndex(function (item, i) {
                     return item.nome === req.params["nome"]
                 });
-                
-                if (indexNome > -1){
+
+                if (indexNome > -1) {
                     data["ristoratori"][indexUser]["prodotti_personalizzati"].splice(indexNome, 1);
                 }
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                if (indexUser == -1){
+                if (indexUser == -1) {
                     res.status(200).send(`Ristoratore ${req.params["user"]} Non Esiste`);
-                } else if (indexNome == -1){
+                } else if (indexNome == -1) {
                     res.status(200).send(`Prodotto Personalizzato ${req.params["nome"]} Non Esiste`);
                 } else {
                     res.status(200).send(`Prodotto Personalizzato ${req.params["nome"]} Eliminato`);

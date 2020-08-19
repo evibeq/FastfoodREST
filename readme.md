@@ -1,7 +1,7 @@
 # Applacazione REST
 
-Bequaj Evandro, 931423
+931423 - Bequaj Evandro
 
-Ciobanu Vasile, 931531
+931531 - Ciobanu Vasile
 
 Link a Heroku: https://fastfoodrest.herokuapp.com/
