@@ -155,19 +155,18 @@ const ristoratoriRoutes = (app, fs) => {
         readFile(data => {
 
             var index = data["ristoratori"].findIndex(function (item, i) {
-                return item.user === req.params["user"]
+                return item.user === req.params.user
             });
 
-            if (index > -1) {
-                data["ristoratori"].splice(index, 1);
+            if (index === -1) {
+                res.status(404).send({ "messaggio": "Ristoratore " + req.params.user + " non esiste." });
+                return;
             }
 
+            data.ristoratori.splice(index, 1);
+
             writeFile(JSON.stringify(data, null, 2), () => {
-                if (index == -1) {
-                    res.status(200).send(`Ristoratore ${req.params["user"]} Non Esiste`);
-                } else {
-                    res.status(200).send(`Ristoratore ${req.params["user"]} Eliminato`);
-                }
+                res.status(200).send({ "messaggio": "Ristoratore " + req.params.user + " eliminato." });
             });
         },
             true);

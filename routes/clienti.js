@@ -171,7 +171,7 @@ const clientiRoutes = (app, fs) => {
             true);
     });
 
-    // DELETE
+    // DELETE USER
     app.delete('/clienti/:user', (req, res) => {
 
         readFile(data => {
@@ -184,6 +184,8 @@ const clientiRoutes = (app, fs) => {
                 res.status(404).send({ "messaggio": "Cliente " + req.params.user + " non esiste." });
                 return;
             }
+
+            data.clienti.splice(index, 1);
 
             writeFile(JSON.stringify(data, null, 2), () => {
                 res.status(200).send({ "messaggio": "Cliente " + req.params.user + " eliminato." });
