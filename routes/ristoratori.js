@@ -113,7 +113,7 @@ const ristoratoriRoutes = (app, fs) => {
             obj.prodotti = [];
             obj.prodotti_personalizzati = [];
 
-            data.clienti.push(obj);
+            data.ristoratori.push(obj);
 
             writeFile(JSON.stringify(data, null, 2), () => {
                 rep = { "messaggio": "Ristoratore " + req.body.user + " registrato con successo!" }
