@@ -112,7 +112,7 @@ const clientiRoutes = (app, fs) => {
 
             writeFile(JSON.stringify(data, null, 2), () => {
                 rep = { "messaggio": "Cliente " + req.body.user + " registrato con successo!" }
-                res.status(201).send(rep);
+                res.status(200).send(rep);
             });
         },
             true);
@@ -165,7 +165,7 @@ const clientiRoutes = (app, fs) => {
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(201).send(rep);
+                res.status(200).send(rep);
             });
         },
             true);
