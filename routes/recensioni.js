@@ -183,27 +183,25 @@ const recensioniRoutes = (app, fs) => {
             true);
     });
 
-    // DELETE
+    // DELETE ID
     app.delete('/recensioni/:id', (req, res) => {
 
         readFile(data => {
 
             var index = data.recensioni.findIndex(function (item, i) {
-                return item.id_recensione == req.params["id"]
+                return item.id_recensione == req.params.id
             });
 
-            var rep = { "message": "", "id_recensione": req.params["id"] };
+            if (index === -1)
+                return res.status(404).send({ messaggio: "Recensione " + req.params.id + " non esiste." });
 
-            if (index > -1) {
-                rep.message = "Recensione eliminata";
-                rep["recensione"] = data["recensioni"][index];
-                data["recensioni"].splice(index, 1);
-                res.status(200);
-            } else {
-                rep.message = "Recensione non esiste";
-                res.status(404);
-            }
-
+            rep = {
+                messaggio: "recensione eliminata",
+                recensione: data.recensioni[index]
+            };
+            
+            data.recensioni.splice(index, 1);
+ 
             writeFile(JSON.stringify(data, null, 2), () => {
                 res.status(200).send(rep);
             });

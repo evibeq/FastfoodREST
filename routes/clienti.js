@@ -50,7 +50,7 @@ const clientiRoutes = (app, fs) => {
             if (index > -1) {
                 res.status(200).send(obj.clienti[index]);
             } else {
-                res.status(404).send({ messaggio: "Cliente " + req.params.user + " non esiste." });
+                res.status(404).send({ messaggio: "Cliente non esiste", user: req.params.user });
             }
         });
     });
@@ -64,23 +64,23 @@ const clientiRoutes = (app, fs) => {
             var valido = true;
 
             if (req.body.user === undefined || req.body.user === "") {
-                rep.user = { messaggio: "Il parametro deve essere impostato." };
+                rep.user = { messaggio: "Parametro deve essere impostato" };
                 valido = false;
             }
             if (req.body.password === undefined || req.body.password === "") {
-                rep.password = { messaggio: "Il parametro deve essere impostato." };
+                rep.password = { messaggio: "Parametro deve essere impostato" };
                 valido = false;
             }
             if (req.body.nome === undefined || req.body.nome === "") {
-                rep.nome = { messaggio: "Il parametro deve essere impostato." };
+                rep.nome = { messaggio: "Parametro deve essere impostato" };
                 valido = false;
             }
             if (req.body.cognome === undefined || req.body.cognome === "") {
-                rep.cognome = { messaggio: "Il parametro deve essere impostato." };
+                rep.cognome = { messaggio: "Parametro deve essere impostato" };
                 valido = false;
             }
             if (req.body.pagamento === undefined || req.body.pagamento === "") {
-                rep.pagamento = { messaggio: "Il parametro deve essere impostato." };
+                rep.pagamento = { messaggio: "Parametro deve essere impostato" };
                 valido = false;
             }
 
@@ -92,7 +92,7 @@ const clientiRoutes = (app, fs) => {
             });
 
             if (index > -1) 
-                return res.status(409).send({ messaggio: "Cliente " + req.body.user + " è già registrato." });
+                return res.status(409).send({ messaggio: "Cliente già registrato", user: req.body.user });
 
             const obj = {
                 user: req.body.user,
@@ -107,8 +107,7 @@ const clientiRoutes = (app, fs) => {
             data.clienti.push(obj);
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                rep = { messaggio: "Cliente " + req.body.user + " registrato con successo!" }
-                res.status(200).send(rep);
+                res.status(200).send({ messaggio: "Cliente registrato", cliente: obj });
             });
         },
             true);
@@ -123,14 +122,12 @@ const clientiRoutes = (app, fs) => {
                 return item.user === req.params.user
             });
 
-            if (index === -1) {
-                let rep = { messaggio: "Cliente " + req.params.user + " non esiste." }
-                return res.status(404).send(rep);
-            }
+            if (index === -1)
+                return res.status(404).send({ messaggio: "Cliente non esiste", user: req.params.user });
 
             rep = {
+                messaggio: "Cliente aggiornato",
                 user: req.params.user,
-                messaggio: "Cliente aggiornato.",
                 parametri_aggiornati: []
             };
 
@@ -175,14 +172,18 @@ const clientiRoutes = (app, fs) => {
                 return item.user === req.params.user
             });
 
-            if (index === -1) {
-                return res.status(404).send({ messaggio: "Cliente " + req.params.user + " non esiste." });
-            }
+            if (index === -1)
+                return res.status(404).send({ messaggio: "Cliente non esiste", user: req.params.user });
 
+            rep = {
+                messaggio: "Cliente eliminato",
+                cliente: data.clienti[index]
+            };
+            
             data.clienti.splice(index, 1);
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(200).send({ messaggio: "Cliente " + req.params.user + " eliminato." });
+                res.status(200).send(rep);
             });
         },
             true);
