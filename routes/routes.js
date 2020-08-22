@@ -9,7 +9,7 @@ const ordiniRoutes = require("./ordini");
 const appRouter = (app, fs) => {
   // Default route here that handles empty routes
   app.get("/", (req, res) => {
-    res.send("Pagina Home");
+    res.send("Pagina Home. FastFood API.");
   });
 
   clientiRoutes(app, fs);

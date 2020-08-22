@@ -1,6 +1,5 @@
 const parametriRoutes = (app, fs) => {
 
-    // variables
     const dataPath = './data/parametri.json';
 
     const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
@@ -32,7 +31,7 @@ const parametriRoutes = (app, fs) => {
             }
 
             obj = JSON.parse(data)
-            res.send(obj["ingredienti"]);
+            res.send(obj.ingredienti);
         });
     });
 
@@ -44,7 +43,7 @@ const parametriRoutes = (app, fs) => {
             }
 
             obj = JSON.parse(data)
-            res.send(obj["tipologie_prodotti"]);
+            res.send(obj.tipologie_prodotti);
         });
     });
     
@@ -56,7 +55,7 @@ const parametriRoutes = (app, fs) => {
             }
 
             obj = JSON.parse(data)
-            res.send(obj["metodi_pagamento"]);
+            res.send(obj.metodi_pagamento);
         });
     });
 
