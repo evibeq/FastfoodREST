@@ -1,6 +1,5 @@
 const prodottiRoutes = (app, fs) => {
 
-    // variables
     const dataPath = './data/prodotti.json';
 
     const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
@@ -42,14 +41,13 @@ const prodottiRoutes = (app, fs) => {
                 throw err;
             }
 
-            const prodId = req.params["nome"];
             const obj = JSON.parse(data);
 
-            var index = obj["prodotti"].findIndex(function (item, i) {
-                return item.nome === prodId
+            var index = obj.prodotti.findIndex(function (item, i) {
+                return item.nome === req.params.nome
             });
 
-            res.send(obj["prodotti"][index]);
+            res.send(obj.prodotti[index]);
         });
     });
 };

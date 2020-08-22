@@ -1,7 +1,12 @@
-# Applacazione REST
+# Applicazione REST
 
-931423 - Bequaj Evandro
+Progetto Applicazioni Web e Cloud - A.A. 2019/2020
 
+Studenti  
+931423 - Bequaj Evandro  
 931531 - Ciobanu Vasile
 
-Link a Heroku: https://fastfoodrest.herokuapp.com/
+Link Heroku: https://fastfoodrest.herokuapp.com/
+
+## Premessa
+L’obiettivo è implementare un’applicazione REST per supportare lo sviluppo dell’applicazione web FastFood.

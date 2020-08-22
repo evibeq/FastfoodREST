@@ -99,14 +99,15 @@ const clientiRoutes = (app, fs) => {
                 return;
             }
 
-            var obj = {};
-            obj.user = req.body.user;
-            obj.password = req.body.password;
-            obj.nome = req.body.nome;
-            obj.cognome = req.body.cognome;
-            obj.pagamento = req.body.pagamento;
-            obj.preferenza_privacy = req.body.preferenza_privacy;
-            obj.preferenza_prodotto = req.body.preferenza_prodotto;
+            const obj = {
+                user: req.body.user.toString(),
+                password: req.body.password.toString(),
+                nome: req.body.nome.toString(),
+                cognome: req.body.cognome.toString(),
+                pagamento: req.body.pagamento.toString(),
+                preferenza_privacy: req.body.preferenza_privacy.toString(),
+                preferenza_prodotto: req.body.preferenza_prodotto.toString()
+            };
 
             data.clienti.push(obj);
 
