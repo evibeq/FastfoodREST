@@ -137,27 +137,27 @@ const clientiRoutes = (app, fs) => {
 
             if (req.body.password != undefined && req.body.password != "") {
                 rep.parametri_aggiornati.push({ parametro: "password", vecchio_parametro: data.clienti[index].password, nuovo_parametro: req.body.password })
-                data.clienti[index].password = req.body.password.toString();
+                data.clienti[index].password = req.body.password;
             }
             if (req.body.nome != undefined && req.body.nome != "") {
                 rep.parametri_aggiornati.push({ parametro: "nome", vecchio_parametro: data.clienti[index].nome, nuovo_parametro: req.body.nome })
-                data.clienti[index].nome = req.body.nome.toString();
+                data.clienti[index].nome = req.body.nome;
             }
             if (req.body.cognome != undefined && req.body.cognome != "") {
                 rep.parametri_aggiornati.push({ parametro: "cognome", vecchio_parametro: data.clienti[index].cognome, nuovo_parametro: req.body.cognome })
-                data.clienti[index].cognome = req.body.cognome.toString();
+                data.clienti[index].cognome = req.body.cognome;
             }
             if (req.body.pagamento != undefined && req.body.pagamento != "") {
                 rep.parametri_aggiornati.push({ parametro: "pagamento", vecchio_parametro: data.clienti[index].pagamento, nuovo_parametro: req.body.pagamento })
-                data.clienti[index].pagamento = req.body.pagamento.toString();
+                data.clienti[index].pagamento = req.body.pagamento;
             }
             if (req.body.preferenza_privacy != undefined && req.body.preferenza_privacy != "") {
                 rep.parametri_aggiornati.push({ parametro: "preferenza_privacy", vecchio_parametro: data.clienti[index].preferenza_privacy, nuovo_parametro: req.body.preferenza_privacy })
-                data.clienti[index].preferenza_privacy = req.body.preferenza_privacy.toString();
+                data.clienti[index].preferenza_privacy = req.body.preferenza_privacy;
             }
             if (req.body.preferenza_prodotto != undefined && req.body.preferenza_prodotto != "") {
                 rep.parametri_aggiornati.push({ parametro: "preferenza_prodotto", vecchio_parametro: data.clienti[index].preferenza_prodotto, nuovo_parametro: req.body.preferenza_prodotto })
-                data.clienti[index].preferenza_prodotto = req.body.preferenza_prodotto.toString();
+                data.clienti[index].preferenza_prodotto = req.body.preferenza_prodotto;
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
