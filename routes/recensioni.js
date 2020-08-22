@@ -128,7 +128,7 @@ const recensioniRoutes = (app, fs) => {
             });
 
             if (index > -1) {
-                rep = { message: req.bodyuser_cliente + " ha già recensito " + req.bodyuser_ristoratore, recensione: req.body }
+                rep = { message: req.body.user_cliente + " ha già recensito " + req.body.user_ristoratore, recensione: req.body }
                 return res.status(409).send(rep);
             }
 
@@ -139,13 +139,12 @@ const recensioniRoutes = (app, fs) => {
                 user_ristoratore: req.body.user_ristoratore,
                 user_cliente: req.body.user_cliente,
                 recensione: req.body.recensione,
-                data_recensione: d.getDate() + "/" + Number(d.getMonth() + 1) + "/" + d.getFullYear() + ", " + d.toLocaleTimeString("default", { hour12: false }),
-                data: d,
-                id_recensione: data.contatore
+                data: d.getDate() + "/" + Number(d.getMonth() + 1) + "/" + d.getFullYear() + ", " + d.toLocaleTimeString("default", { hour12: false }),
+                id: data.contatore
             }
 
             data.recensioni.push(obj);
-
+ 
             rep = { messaggio: "Aggiunta nuova recensione", recensione: obj }
 
             writeFile(JSON.stringify(data, null, 2), () => {
