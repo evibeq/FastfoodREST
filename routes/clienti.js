@@ -96,13 +96,13 @@ const clientiRoutes = (app, fs) => {
             }
 
             const obj = {
-                user: req.body.user.toString(),
-                password: req.body.password.toString(),
-                nome: req.body.nome.toString(),
-                cognome: req.body.cognome.toString(),
-                pagamento: req.body.pagamento.toString(),
-                preferenza_privacy: req.body.preferenza_privacy.toString(),
-                preferenza_prodotto: req.body.preferenza_prodotto.toString()
+                user: req.body.user,
+                password: req.body.password,
+                nome: req.body.nome,
+                cognome: req.body.cognome,
+                pagamento: req.body.pagamento,
+                preferenza_privacy: req.body.preferenza_privacy,
+                preferenza_prodotto: req.body.preferenza_prodotto
             };
 
             data.clienti.push(obj);
