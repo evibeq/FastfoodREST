@@ -77,7 +77,7 @@ const recensioniRoutes = (app, fs) => {
     });
 
     // READ RECENSIONI RISTORANTE
-    app.get('/recensioni/ristorante/:user', (req, res) => {
+    app.get('/recensioni/ristoratore/:user', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
                 throw err;

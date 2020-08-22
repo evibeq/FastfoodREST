@@ -1,8 +1,5 @@
-const { json } = require("express");
-
 const ordiniRoutes = (app, fs) => {
 
-    // variables
     const dataPath = './data/ordini.json';
 
     const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
@@ -79,7 +76,7 @@ const ordiniRoutes = (app, fs) => {
     });
 
     // READ ORDINI RISTORANTE
-    app.get('/ordini/ristorante/:user', (req, res) => {
+    app.get('/ordini/ristoratore/:user', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
                 throw err;
