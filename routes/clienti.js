@@ -44,14 +44,13 @@ const clientiRoutes = (app, fs) => {
             const obj = JSON.parse(data);
 
             var index = obj.clienti.findIndex(function (item, i) {
-                return item.user === req.params.user
+                return item.user == req.params.user
             });
 
-            if (index > -1) {
-                res.status(200).send(obj.clienti[index]);
-            } else {
-                res.status(404).send({ messaggio: "Cliente non esiste", user: req.params.user });
-            }
+            if (index === -1)
+                return res.status(404).send({ messaggio: "Cliente non esiste", user: req.params.user });
+
+            res.send(obj.clienti[index]);
         });
     });
 
@@ -91,7 +90,7 @@ const clientiRoutes = (app, fs) => {
                 return item.user == req.body.user;
             });
 
-            if (index > -1) 
+            if (index > -1)
                 return res.status(409).send({ messaggio: "Cliente già registrato", user: req.body.user });
 
             const obj = {
@@ -119,7 +118,7 @@ const clientiRoutes = (app, fs) => {
         readFile(data => {
 
             var index = data.clienti.findIndex(function (item, i) {
-                return item.user === req.params.user
+                return item.user == req.params.user
             });
 
             if (index === -1)
@@ -169,7 +168,7 @@ const clientiRoutes = (app, fs) => {
         readFile(data => {
 
             var index = data.clienti.findIndex(function (item, i) {
-                return item.user === req.params.user
+                return item.user == req.params.user
             });
 
             if (index === -1)
@@ -179,7 +178,7 @@ const clientiRoutes = (app, fs) => {
                 messaggio: "Cliente eliminato",
                 cliente: data.clienti[index]
             };
-            
+
             data.clienti.splice(index, 1);
 
             writeFile(JSON.stringify(data, null, 2), () => {

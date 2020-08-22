@@ -47,6 +47,9 @@ const prodottiRoutes = (app, fs) => {
                 return item.nome === req.params.nome
             });
 
+            if (index === -1)
+                return res.status(404).send({ messaggio: "prodotto non esiste", nome: req.params.nome });
+
             res.send(obj.prodotti[index]);
         });
     });

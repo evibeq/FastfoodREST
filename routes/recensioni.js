@@ -44,15 +44,13 @@ const recensioniRoutes = (app, fs) => {
             const obj = JSON.parse(data);
 
             var index = obj.recensioni.findIndex(function (item, i) {
-                return item.id_recensione === req.params.id
+                return item.id == req.params.id
             });
 
-            if (index > -1) {
-                res.status(200).send(obj.recensioni[index]);
-            } else {
-                res.status(404).send({ messaggio: "Recensione " + req.params.user + " non esiste." });
-            }
+            if (index === -1)
+                return res.status(404).send({ messaggio: "Recensione non esiste", id: req.params.id });
 
+            res.status.send(obj.recensioni[index]);
         });
     });
 
@@ -109,28 +107,27 @@ const recensioniRoutes = (app, fs) => {
             var valido = true;
 
             if (req.body.user_ristoratore === undefined || req.body.user_ristoratore === "") {
-                rep.user_ristoratore = { messaggio: "Il parametro deve essere impostato." };
+                rep.user_ristoratore = { messaggio: "Parametro deve essere impostato" };
                 valido = false;
             }
             if (req.body.user_cliente === undefined || req.body.user_cliente === "") {
-                rep.user_cliente = { messaggio: "Il parametro deve essere impostato." };
+                rep.user_cliente = { messaggio: "Parametro deve essere impostato" };
                 valido = false;
             }
             if (req.body.recensione === undefined || req.body.recensione === "") {
-                rep.recensione = { messaggio: "Il parametro deve essere impostato." };
+                rep.recensione = { messaggio: "Parametro deve essere impostato" };
                 valido = false;
             }
 
-            if (!valido) return res.status(409).send(rep);
+            if (!valido)
+                return res.status(409).send(rep);
 
             var index = data.recensioni.findIndex(function (item, i) {
                 return (item.user_ristoratore == req.body.user_ristoratore) && (item.user_cliente == req.body.user_cliente)
             });
 
-            if (index > -1) {
-                rep = { message: req.body.user_cliente + " ha già recensito " + req.body.user_ristoratore, recensione: req.body }
-                return res.status(409).send(rep);
-            }
+            if (index > -1)
+                return res.status(409).send({ messaggio: req.body.user_cliente + " ha già recensito " + req.body.user_ristoratore, recensione: req.body });
 
             data.contatore++;
             var d = new Date();
@@ -139,16 +136,14 @@ const recensioniRoutes = (app, fs) => {
                 user_ristoratore: req.body.user_ristoratore,
                 user_cliente: req.body.user_cliente,
                 recensione: req.body.recensione,
-                data: d.getDate() + "/" + Number(d.getMonth() + 1) + "/" + d.getFullYear() + ", " + d.toLocaleTimeString("default", { hour12: false }),
+                data: d.getDate() + "/" + Number(d.getMonth() + 1) + "/" + d.getFullYear() + " " + d.toLocaleTimeString("default", { hour12: false }),
                 id: data.contatore
             }
 
             data.recensioni.push(obj);
- 
-            rep = { messaggio: "Aggiunta nuova recensione", recensione: obj }
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(200).send(rep)
+                res.status(200).send({ messaggio: "Recensione creata", recensione: obj })
             });
         },
             true);
@@ -160,18 +155,18 @@ const recensioniRoutes = (app, fs) => {
         readFile(data => {
 
             if (req.body.password != undefined && req.body.password != "")
-                return res.status(400).send({messaggio: "Il campo recensione non può essere vuoto."});
+                return res.status(400).send({ messaggio: "Il campo recensione non può essere vuoto" });
 
             var index = data.recensioni.findIndex(function (item, i) {
                 return item.id === req.params.id
             });
 
             if (index === -1)
-                return res.status(404).send({messaggio: "Recensione " + req.params.id + " non esiste."});
+                return res.status(404).send({ messaggio: "Recensione non esiste", id:req.params.id });
 
             var rep = {
-                messaggio: "Recensione modificata.",
-                vecchia_recensione: data.recensioni[index],   
+                messaggio: "Recensione modificata",
+                vecchia_recensione: data.recensioni[index],
             }
             data.recensioni[index].recensione = req.body.recensione;
             rep.nuova_recensione = data.recensioni[index];
@@ -193,15 +188,15 @@ const recensioniRoutes = (app, fs) => {
             });
 
             if (index === -1)
-                return res.status(404).send({ messaggio: "Recensione " + req.params.id + " non esiste." });
+                return res.status(404).send({ messaggio: "Recensione non esiste", id: req.params.id });
 
             rep = {
-                messaggio: "recensione eliminata",
+                messaggio: "Recensione eliminata",
                 recensione: data.recensioni[index]
             };
-            
+
             data.recensioni.splice(index, 1);
- 
+
             writeFile(JSON.stringify(data, null, 2), () => {
                 res.status(200).send(rep);
             });
