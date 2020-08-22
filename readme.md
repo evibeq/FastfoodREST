@@ -1,6 +1,6 @@
-# Applacazione REST
+# Applicazione REST
 
-931423 - Bequaj Evandro
+931423 - Beqaj Evandro
 
 931531 - Ciobanu Vasile
 
