@@ -84,16 +84,15 @@ const clientiRoutes = (app, fs) => {
                 valido = false;
             }
 
-            if (!valido) return res.status(409).send(rep);
+            if (!valido)
+                return res.status(409).send(rep);
 
             var index = data.clienti.findIndex(function (item, i) {
                 return item.user == req.body.user;
             });
 
-            if (index > -1) {
-                rep = { messaggio: "Cliente " + req.body.user + " è già registrato." };
-                return res.status(409).send(rep);
-            }
+            if (index > -1) 
+                return res.status(409).send({ messaggio: "Cliente " + req.body.user + " è già registrato." });
 
             const obj = {
                 user: req.body.user,
@@ -120,20 +119,20 @@ const clientiRoutes = (app, fs) => {
 
         readFile(data => {
 
-            rep = {};
-
             var index = data.clienti.findIndex(function (item, i) {
                 return item.user === req.params.user
             });
 
             if (index === -1) {
-                let rep = { messaggio: "Cliente " + req.params.user + " non esiste" }
+                let rep = { messaggio: "Cliente " + req.params.user + " non esiste." }
                 return res.status(404).send(rep);
             }
 
-            rep.user = req.params.user;
-            rep.messaggio = "Cliente aggiornato.";
-            rep.parametri_aggiornati = [];
+            rep = {
+                user = req.params.user,
+                messaggio = "Cliente aggiornato.",
+                parametri_aggiornati = []
+            };
 
             if (req.body.password != undefined && req.body.password != "") {
                 rep.parametri_aggiornati.push({ parametro: "password", vecchio_parametro: data.clienti[index].password, nuovo_parametro: req.body.password })

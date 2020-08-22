@@ -50,7 +50,7 @@ const ristoratoriRoutes = (app, fs) => {
             if (index > -1) {
                 res.status(200).send(obj.ristoratori[index]);
             } else {
-                res.status(404).send({ "messaggio": "Ristoratore " + req.params.user + " non esiste." });
+                res.status(404).send({ messaggio: "Ristoratore " + req.params.user + " non esiste." });
             }
         });
     });

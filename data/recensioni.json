@@ -5,22 +5,22 @@
             "user_ristoratore":"ristorante1",
             "user_cliente":"ciob",
             "recensione":"Molto buono sto kebab!",
-            "data_recensione":"",
-            "id_recensione": "1"
+            "data":"",
+            "id": "1"
         },
         {
             "user_ristoratore":"ristorante2",
             "user_cliente":"ciob",
             "recensione":"Mi fa schifo sto kebab!",
-            "data_recensione":"",
-            "id_recensione": "2"
+            "data":"",
+            "id": "2"
         },
         {
             "user_ristoratore":"ristorante3",
             "user_cliente":"evibeq",
             "recensione":"Molto buono!",
-            "data_recensione":"",
-            "id_recensione": "3"
+            "data":"",
+            "id": "3"
         }
     ]
 }

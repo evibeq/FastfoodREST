@@ -159,28 +159,25 @@ const recensioniRoutes = (app, fs) => {
 
         readFile(data => {
 
-            var index = data["recensioni"].findIndex(function (item, i) {
-                return item.id_recensione === req.params["id"]
+            if (req.body.password != undefined && req.body.password != "")
+                return res.status(400).send({messaggio: "Il campo recensione non può essere vuoto."});
+
+            var index = data.recensioni.findIndex(function (item, i) {
+                return item.id === req.params.id
             });
 
-            var rep = { "message": "", "id_recensione": req.params["id"], "new_recensione": req.body };
+            if (index === -1)
+                return res.status(404).send({messaggio: "Recensione " + req.params.id + " non esiste."});
 
-            if (index == -1) {
-                rep.message = "Recensione non esiste";
-                res.status(404);
-            } else if (("id_recensione" in req.body) && (req.params["id"] != req.body["id_recensione"])) {
-                rep.message = "L'id della Recensione non può essere modificato";
-                res.status(409);
-            } else {
-                rep.message = "Recensione modificata";
-                rep["old_recensione"] = data["recensioni"][index];
-                data["recensioni"][index] = req.body;
-                data["recensioni"][index]["id_recensione"] = req.params["id"];
-                res.status(201);
+            var rep = {
+                messaggio: "Recensione modificata",
+                vecchia_recensione: data.recensioni[index],   
             }
+            data.recensioni[index].recensione = req.body.recensione;
+            rep.nuova_recensione = data.recensioni[index];
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.send(rep);
+                res.status(200).send(rep);
             });
         },
             true);
@@ -208,7 +205,7 @@ const recensioniRoutes = (app, fs) => {
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.send(rep);
+                res.status(200).send(rep);
             });
         },
             true);
