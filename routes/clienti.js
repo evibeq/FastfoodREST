@@ -129,9 +129,9 @@ const clientiRoutes = (app, fs) => {
             }
 
             rep = {
-                user = req.params.user,
-                messaggio = "Cliente aggiornato.",
-                parametri_aggiornati = []
+                user: req.params.user,
+                messaggio: "Cliente aggiornato.",
+                parametri_aggiornati: []
             };
 
             if (req.body.password != undefined && req.body.password != "") {

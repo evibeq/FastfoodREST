@@ -170,7 +170,7 @@ const recensioniRoutes = (app, fs) => {
                 return res.status(404).send({messaggio: "Recensione " + req.params.id + " non esiste."});
 
             var rep = {
-                messaggio: "Recensione modificata",
+                messaggio: "Recensione modificata.",
                 vecchia_recensione: data.recensioni[index],   
             }
             data.recensioni[index].recensione = req.body.recensione;
