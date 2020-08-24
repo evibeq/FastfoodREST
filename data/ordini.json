@@ -4,13 +4,13 @@
         {
             "user_ristoratore": "",
             "user_cliente": "",
+            "prezzo":"",
             "prodotti": [
                 {
                     "nome_prodotto":"",
                     "quantita":""
                 }
             ],
-            "prezzo":"",
             "data":"",
             "id":""
         }

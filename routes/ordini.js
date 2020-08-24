@@ -117,23 +117,28 @@ const ordiniRoutes = (app, fs) => {
                 valido = false;
             }
             if (req.body.prodotti.length === 0 || (typeof req.body.prodotti) === "array") {
-                rep.prodotti = { messaggio: "Parametro deve essere impostato" };
-                valido = false;
-            }
-            if (req.body.prezzo === undefined ||  req.body.prezzo <= 0 || req.body.prezzo === "") {
                 rep.prodotti = { messaggio: "Parametro non valido" };
                 valido = false;
             }
+            if (req.body.prezzo === undefined || req.body.prezzo <= 0 || req.body.prezzo === "") {
+                rep.prezzo = { messaggio: "Parametro non valido" };
+                valido = false;
+            }
+
+            var prodotti = [];
+
+            req.body.prodotti.forEach(element => {
+                if (element.nome_prodotto === undefined || element.nome_prodotto === "" || element.quantita === undefined || element.quantita === "" || element.quantita <= 0){
+                    rep.prodotti = {messaggio: "Parametri non validi"};
+                    valido = false;
+                    return;
+                }
+                var prodotto = {nome_prodotto: element.nome_prodotto, quantita: element.quantita};
+                prodotti.push(prodotto);
+            });
 
             if (!valido)
                 return res.status(409).send(rep);
-
-            var index = data.recensioni.findIndex(function (item, i) {
-                return (item.user_ristoratore == req.body.user_ristoratore) && (item.user_cliente == req.body.user_cliente)
-            });
-
-            if (index > -1)
-                return res.status(409).send({ messaggio: req.body.user_cliente + " ha già recensito " + req.body.user_ristoratore, recensione: req.body });
 
             data.contatore++;
             var d = new Date();
@@ -141,15 +146,16 @@ const ordiniRoutes = (app, fs) => {
             const obj = {
                 user_ristoratore: req.body.user_ristoratore,
                 user_cliente: req.body.user_cliente,
-                recensione: req.body.recensione,
+                prezzo: req.body.prezzo,
+                prodotti: prodotti,
                 data: d.getDate() + "/" + Number(d.getMonth() + 1) + "/" + d.getFullYear() + " " + d.toLocaleTimeString("default", { hour12: false }),
                 id: data.contatore
             }
 
-            data.recensioni.push(obj);
+            data.ordini.push(obj);
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(200).send({ messaggio: "Recensione creata", recensione: obj })
+                res.status(200).send({ messaggio: "Ordine ricevuto", ordine: obj })
             });
         },
             true);
@@ -160,7 +166,7 @@ const ordiniRoutes = (app, fs) => {
 
         readFile(data => {
 
-            var index = data["recensioni"].findIndex(function (item, i) {
+            var index = data.ordini.findIndex(function (item, i) {
                 return item.id_recensione === req.params["id"]
             });
 
