@@ -2,18 +2,17 @@
     "contatore": "1",
     "ordini":[
         {
-            "user_cliente": "",
             "user_ristoratore": "",
-            "data_recensione":"",
-            "prezzo":"",
+            "user_cliente": "",
             "prodotti": [
                 {
                     "nome_prodotto":"",
                     "quantita":""
                 }
             ],
-            "id_ordine":""
-
+            "prezzo":"",
+            "data":"",
+            "id":""
         }
     ]
 }

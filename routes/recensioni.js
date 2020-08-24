@@ -93,7 +93,7 @@ const recensioniRoutes = (app, fs) => {
                 }
             });
 
-            rep.numero_recensioni = reprecensioni.length;
+            rep.numero_recensioni = rep.recensioni.length;
             res.status(200).send(rep);
         });
     });

@@ -2,6 +2,7 @@ const ordiniRoutes = (app, fs) => {
 
     const dataPath = './data/ordini.json';
 
+    // Funzione READFILE
     const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
         fs.readFile(filePath, encoding, (err, data) => {
             if (err) {
@@ -12,6 +13,7 @@ const ordiniRoutes = (app, fs) => {
         });
     };
 
+    // Funzione WRITEFILE
     const writeFile = (fileData, callback, filePath = dataPath, encoding = 'utf8') => {
 
         fs.writeFile(filePath, fileData, encoding, (err) => {
@@ -23,7 +25,7 @@ const ordiniRoutes = (app, fs) => {
         });
     };
 
-    // READ
+    // GET /ordini
     app.get('/ordini', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -34,88 +36,126 @@ const ordiniRoutes = (app, fs) => {
         });
     });
 
-    // READ ID
+    // GET /ordini/:id
     app.get('/ordini/:id', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
                 throw err;
             }
 
-            const id = req.params["id"];
             const obj = JSON.parse(data);
 
-            var index = obj["ordini"].findIndex(function (item, i) {
-                return item.id_ordine === id
+            var index = obj.ordini.findIndex(function (item, i) {
+                return item.id_ordine == req.params.id
             });
 
-            res.send(obj["ordini"][index]);
+            if (index === -1)
+                return res.status(404).send({ messaggio: "Ordine non esiste", id: req.params.id });
+
+            res.status.send(obj.ordini[index]);
         });
     });
 
-    // READ ORDINI CLIENTE
+    // GET /ordini/cliente/:user
     app.get('/ordini/cliente/:user', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
                 throw err;
             }
 
-            const userId = req.params["user"];
             const obj = JSON.parse(data);
 
-            var rep = { "cliente": req.params["user"], "numero_ordini": 0, "ordini": [] };
+            var rep = { cliente: req.params.user, numero_ordini: 0, ordini: [] };
 
-            obj["ordini"].forEach(element => {
-                if (element.user_cliente == userId) {
-                    rep["ordini"].push(element)
+            obj.ordini.forEach(element => {
+                if (element.user_cliente == req.params.user) {
+                    rep.ordini.push(element)
                 }
             });
 
-            rep["numero_ordini"] = rep["ordini"].length;
-            res.send(rep);
+            rep.numero_ordini = rep.ordini.length;
+            res.status(200).send(rep);
         });
     });
 
-    // READ ORDINI RISTORANTE
+    // GET /ordini/ristoratore/:user
     app.get('/ordini/ristoratore/:user', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
                 throw err;
             }
 
-            const userId = req.params["user"];
             const obj = JSON.parse(data);
 
-            var rep = { "ristorante": req.params["user"], "numero_ordini": 0, "ordini": [] };
+            var rep = { ristorante: req.params.user, numero_ordini: 0, ordini: [] };
 
-            obj["ordini"].forEach(element => {
-                if (element.user_ristoratore == userId) {
-                    rep["ordini"].push(element)
+            obj.ordini.forEach(element => {
+                if (element.user_ristoratore == req.params.user) {
+                    rep.ordini.push(element)
                 }
             });
 
-            rep["numero_ordini"] = rep["ordini"].length;
-            res.send(rep);
+            rep.numero_ordini = rep.ordini.length;
+            res.status(200).send(rep);
         });
     });
 
-    // CREATE
+    // POST /ordini
     app.post('/ordini', (req, res) => {
 
         readFile(data => {
 
-            data["contatore"]++;
+            var rep = {};
+            var valido = true;
 
-            req.body["id_ordine"] = toString(data["contatore"]);
-            data["ordini"].push(req.body);
+            if (req.body.user_ristoratore === undefined || req.body.user_ristoratore === "") {
+                rep.user_ristoratore = { messaggio: "Parametro deve essere impostato" };
+                valido = false;
+            }
+            if (req.body.user_cliente === undefined || req.body.user_cliente === "") {
+                rep.user_cliente = { messaggio: "Parametro deve essere impostato" };
+                valido = false;
+            }
+            if (req.body.prodotti.length === 0 || (typeof req.body.prodotti) === "array") {
+                rep.prodotti = { messaggio: "Parametro deve essere impostato" };
+                valido = false;
+            }
+            if (req.body.prezzo === undefined ||  req.body.prezzo <= 0 || req.body.prezzo === "") {
+                rep.prodotti = { messaggio: "Parametro non valido" };
+                valido = false;
+            }
+
+            if (!valido)
+                return res.status(409).send(rep);
+
+            var index = data.recensioni.findIndex(function (item, i) {
+                return (item.user_ristoratore == req.body.user_ristoratore) && (item.user_cliente == req.body.user_cliente)
+            });
+
+            if (index > -1)
+                return res.status(409).send({ messaggio: req.body.user_cliente + " ha già recensito " + req.body.user_ristoratore, recensione: req.body });
+
+            data.contatore++;
+            var d = new Date();
+
+            const obj = {
+                user_ristoratore: req.body.user_ristoratore,
+                user_cliente: req.body.user_cliente,
+                recensione: req.body.recensione,
+                data: d.getDate() + "/" + Number(d.getMonth() + 1) + "/" + d.getFullYear() + " " + d.toLocaleTimeString("default", { hour12: false }),
+                id: data.contatore
+            }
+
+            data.recensioni.push(obj);
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(201).send(`Aggiunta nuova Recensione`);
+                res.status(200).send({ messaggio: "Recensione creata", recensione: obj })
             });
         },
             true);
     });
 
-    // UPDATE
+    // PUT /ordini/:id
     app.put('/ordini/:id', (req, res) => {
 
         readFile(data => {
@@ -141,7 +181,7 @@ const ordiniRoutes = (app, fs) => {
             true);
     });
 
-    // DELETE
+    // DELETE /ordini/:id
     app.delete('/ordini/:id', (req, res) => {
 
         readFile(data => {

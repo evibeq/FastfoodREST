@@ -2,6 +2,7 @@ const clientiRoutes = (app, fs) => {
 
     const dataPath = './data/clienti.json';
 
+    // Funzione READFILE
     const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
         fs.readFile(filePath, encoding, (err, data) => {
             if (err) {
@@ -12,6 +13,7 @@ const clientiRoutes = (app, fs) => {
         });
     };
 
+    // Funzione WRITEFILE
     const writeFile = (fileData, callback, filePath = dataPath, encoding = 'utf8') => {
 
         fs.writeFile(filePath, fileData, encoding, (err) => {
@@ -23,7 +25,7 @@ const clientiRoutes = (app, fs) => {
         });
     };
 
-    // READ 
+    // GET /clienti 
     app.get('/clienti', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -34,7 +36,7 @@ const clientiRoutes = (app, fs) => {
         });
     });
 
-    // READ USER
+    // GET /clienti/:user
     app.get('/clienti/:user', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -54,7 +56,7 @@ const clientiRoutes = (app, fs) => {
         });
     });
 
-    // CREATE
+    // POST /clienti
     app.post('/clienti', (req, res) => {
 
         readFile(data => {
@@ -112,7 +114,7 @@ const clientiRoutes = (app, fs) => {
             true);
     });
 
-    // UPDATE
+    // PUT /clienti/:user
     app.put('/clienti/:user', (req, res) => {
 
         readFile(data => {
@@ -162,7 +164,7 @@ const clientiRoutes = (app, fs) => {
             true);
     });
 
-    // DELETE USER
+    // DELETE /clienti/:user
     app.delete('/clienti/:user', (req, res) => {
 
         readFile(data => {
