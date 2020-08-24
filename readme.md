@@ -2,7 +2,7 @@
 Progetto Applicazioni Web e Cloud - A.A. 2019/2020
 
 Studenti  
-931423 - Bequaj Evandro  
+931423 - Beqaj Evandro  
 931531 - Ciobanu Vasile
 
 Link Heroku: https://fastfoodrest.herokuapp.com/
