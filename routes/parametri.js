@@ -23,7 +23,7 @@ const parametriRoutes = (app, fs) => {
         });
     };
 
-    // READ INGREDIENTI
+    // READ INGREDIENTI - GET /ingredienti
     app.get('/ingredienti', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -35,7 +35,7 @@ const parametriRoutes = (app, fs) => {
         });
     });
 
-    // READ TIPOLOGIE PRODOTTI
+    // READ TIPOLOGIE PRODOTTI - GET /tipologie_prodotti
     app.get('/tipologie_prodotti', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -47,7 +47,7 @@ const parametriRoutes = (app, fs) => {
         });
     });
     
-    // READ METODI PAGAMENTO
+    // READ METODI PAGAMENTO - GET /metodi_pagamento
     app.get('/metodi_pagamento', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {

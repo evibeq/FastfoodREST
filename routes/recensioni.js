@@ -154,11 +154,11 @@ const recensioniRoutes = (app, fs) => {
 
         readFile(data => {
 
-            if (req.body.password != undefined && req.body.password != "")
+            if (req.body.recensione === undefined || req.body.recensione === "")
                 return res.status(400).send({ messaggio: "Il campo recensione non può essere vuoto" });
 
             var index = data.recensioni.findIndex(function (item, i) {
-                return item.id === req.params.id
+                return item.id == req.params.id
             });
 
             if (index === -1)
@@ -184,13 +184,13 @@ const recensioniRoutes = (app, fs) => {
         readFile(data => {
 
             var index = data.recensioni.findIndex(function (item, i) {
-                return item.id_recensione == req.params.id
+                return item.id == req.params.id
             });
 
             if (index === -1)
                 return res.status(404).send({ messaggio: "Recensione non esiste", id: req.params.id });
 
-            rep = {
+            const rep = {
                 messaggio: "Recensione eliminata",
                 recensione: data.recensioni[index]
             };

@@ -25,7 +25,7 @@ const clientiRoutes = (app, fs) => {
         });
     };
 
-    // GET /clienti 
+    // READ - GET /clienti 
     app.get('/clienti', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -36,7 +36,7 @@ const clientiRoutes = (app, fs) => {
         });
     });
 
-    // GET /clienti/:user
+    // READ CLIENTE - GET /clienti/:user
     app.get('/clienti/:user', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -56,7 +56,7 @@ const clientiRoutes = (app, fs) => {
         });
     });
 
-    // POST /clienti
+    // CREATE - POST /clienti
     app.post('/clienti', (req, res) => {
 
         readFile(data => {
@@ -114,7 +114,7 @@ const clientiRoutes = (app, fs) => {
             true);
     });
 
-    // PUT /clienti/:user
+    // UPDATE - PUT /clienti/:user
     app.put('/clienti/:user', (req, res) => {
 
         readFile(data => {
@@ -126,7 +126,7 @@ const clientiRoutes = (app, fs) => {
             if (index === -1)
                 return res.status(404).send({ messaggio: "Cliente non esiste", user: req.params.user });
 
-            rep = {
+            var rep = {
                 messaggio: "Cliente aggiornato",
                 user: req.params.user,
                 parametri_aggiornati: []
@@ -164,7 +164,7 @@ const clientiRoutes = (app, fs) => {
             true);
     });
 
-    // DELETE /clienti/:user
+    // DELETE - DELETE /clienti/:user
     app.delete('/clienti/:user', (req, res) => {
 
         readFile(data => {

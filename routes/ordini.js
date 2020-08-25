@@ -25,7 +25,7 @@ const ordiniRoutes = (app, fs) => {
         });
     };
 
-    // GET /ordini
+    // READ - GET /ordini
     app.get('/ordini', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -36,7 +36,7 @@ const ordiniRoutes = (app, fs) => {
         });
     });
 
-    // GET /ordini/:id
+    // READ ID - GET /ordini/:id
     app.get('/ordini/:id', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -56,7 +56,7 @@ const ordiniRoutes = (app, fs) => {
         });
     });
 
-    // GET /ordini/cliente/:user
+    // READ ORDINI CLIENTE - GET /ordini/cliente/:user
     app.get('/ordini/cliente/:user', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -78,7 +78,7 @@ const ordiniRoutes = (app, fs) => {
         });
     });
 
-    // GET /ordini/ristoratore/:user
+    // READ ORDINI RISTORANTE - GET /ordini/ristoratore/:user
     app.get('/ordini/ristoratore/:user', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -100,7 +100,7 @@ const ordiniRoutes = (app, fs) => {
         });
     });
 
-    // POST /ordini
+    // CREATE - POST /ordini
     app.post('/ordini', (req, res) => {
 
         readFile(data => {
@@ -116,7 +116,7 @@ const ordiniRoutes = (app, fs) => {
                 rep.user_cliente = { messaggio: "Parametro deve essere impostato" };
                 valido = false;
             }
-            if (req.body.prodotti.length === 0 || (typeof req.body.prodotti) === "array") {
+            if (req.body.prodotti.length === 0 || (typeof req.body.prodotti) != "array") {
                 rep.prodotti = { messaggio: "Parametro non valido" };
                 valido = false;
             }
@@ -124,6 +124,9 @@ const ordiniRoutes = (app, fs) => {
                 rep.prezzo = { messaggio: "Parametro non valido" };
                 valido = false;
             }
+
+            if (!valido)
+                return res.status(409).send(rep);
 
             var prodotti = [];
 
@@ -161,51 +164,90 @@ const ordiniRoutes = (app, fs) => {
             true);
     });
 
-    // PUT /ordini/:id
+    // UPDATE - PUT /ordini/:id
     app.put('/ordini/:id', (req, res) => {
 
         readFile(data => {
 
             var index = data.ordini.findIndex(function (item, i) {
-                return item.id_recensione === req.params["id"]
+                return item.id == req.params.id
             });
 
-            if (req.params["id"] == req.body["id"] && index > -1) {
-                data["recensioni"][index] = req.body;
+            if (index === -1)
+                return res.status(404).send({ messaggio: "Ordine non esiste", id: req.params.id });
+
+            var rep = {};
+
+            var valido = true;
+
+            if (req.body.prodotti.length === 0 || (typeof req.body.prodotti) != "array") {
+                rep.prodotti = { messaggio: "Parametro non valido" };
+                valido = false;
+            }
+            if (req.body.prezzo === undefined || req.body.prezzo <= 0 || req.body.prezzo === "") {
+                rep.prezzo = { messaggio: "Parametro non valido" };
+                valido = false;
             }
 
-            writeFile(JSON.stringify(data, null, 2), () => {
-                if (index == -1) {
-                    res.status(200).send(`Recensione ${req.params["id"]} Non Esiste`);
-                } else if (req.params["id"] != req.body["id"]) {
-                    res.status(200).send(`L'id della Recensione non può essere modificato`); //da togliere una volta che facciamo i controlli sui campi
-                } else {
-                    res.status(201).send(`Recensione ${req.params["id"]} Aggiornato`);
+            if (!valido)
+                return res.status(409).send(rep);
+
+            var prodotti = [];
+
+            req.body.prodotti.forEach(element => {
+                if (element.nome_prodotto === undefined || element.nome_prodotto === "" || element.quantita === undefined || element.quantita === "" || element.quantita <= 0){
+                    rep.prodotti = {messaggio: "Parametri non validi"};
+                    valido = false;
+                    return;
                 }
+                var prodotto = {nome_prodotto: element.nome_prodotto, quantita: element.quantita};
+                prodotti.push(prodotto);
+            });
+
+            if (!valido)
+                return res.status(409).send(rep);
+
+            rep = {
+            messaggio: "Ordine aggiornato",
+            id: req.params.id,
+            parametri_aggiornati:
+                {
+                    prodotti: prodotti,
+                    prezzo: req.body.prezzo
+                }
+            }
+
+            data.ordini[index].prodotti = prodotti;
+            data.ordini[index].prezzo = req.body.prezzo;
+
+            writeFile(JSON.stringify(data, null, 2), () => {
+                res.status(200).send(rep);
             });
         },
             true);
     });
 
-    // DELETE /ordini/:id
+    // DELETE ORDINE - DELETE /ordini/:id
     app.delete('/ordini/:id', (req, res) => {
 
         readFile(data => {
 
-            var index = data["recensioni"].findIndex(function (item, i) {
-                return item.id_recensione == req.params["id"]
+            var index = data.ordini.findIndex(function (item, i) {
+                return item.id == req.params.id
             });
 
-            if (index > -1) {
-                data["recensioni"].splice(index, 1);
-            }
+            if (index === -1)
+                return res.status(404).send({ messaggio: "Ordine non esiste", id: req.params.id });
+
+            const rep = {
+                messaggio: "Ordine eliminato",
+                ordine: data.ordini[index]
+            };
+
+            data.ordini.splice(index, 1);
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                if (index == -1) {
-                    res.status(200).send(`Recensione ${req.params["id"]} Non Esiste`);
-                } else {
-                    res.status(200).send(`Recensione ${req.params["id"]} Eliminata`);
-                }
+                res.status(200).send(rep);
             });
         },
             true);
