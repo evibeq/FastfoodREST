@@ -102,14 +102,14 @@ const ristoratoriRoutes = (app, fs) => {
                 return res.status(409).send({ messaggio: "Ristoratore già registrato.", user: req.body.user });
 
             var obj = {
-                user = req.body.user,
-                password = req.body.password,
-                nome_ristorante = req.body.nome_ristorante,
-                numero_telefono = req.body.numero_telefono,
-                partita_iva = req.body.partita_iva,
-                indirizzo = req.body.indirizzo,
-                prodotti = [],
-                prodotti_personalizzati = []
+                user : req.body.user,
+                password : req.body.password,
+                nome_ristorante : req.body.nome_ristorante,
+                numero_telefono : req.body.numero_telefono,
+                partita_iva : req.body.partita_iva,
+                indirizzo : req.body.indirizzo,
+                prodotti : [],
+                prodotti_personalizzati : []
             };
 
             if (req.body.prodotti.length > 0) 
