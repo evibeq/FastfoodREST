@@ -44,8 +44,11 @@ const ristoratoriRoutes = (app, fs) => {
             const obj = JSON.parse(data);
 
             var index = obj.ristoratori.findIndex(function (item, i) {
-                return item.user === req.params.user
+                return item.user == req.params.user
             });
+
+            if (index === -1)
+                return res.status(404).send({ messaggio: "Ristoratore non esiste", user: req.params.user });
 
             if (index > -1) {
                 res.status(200).send(obj.ristoratori[index]);
