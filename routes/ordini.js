@@ -119,6 +119,7 @@ const ordiniRoutes = (app, fs) => {
             if (req.body.prodotti.length === 0 || (typeof req.body.prodotti) != "array") {
                 rep.prodotti = { messaggio: "Parametro non valido" };
                 valido = false;
+                console.log(req.body.prodotti.length, typeof req.body.prodotti);
             }
             if (req.body.prezzo === undefined || req.body.prezzo <= 0 || req.body.prezzo === "") {
                 rep.prezzo = { messaggio: "Parametro non valido" };
