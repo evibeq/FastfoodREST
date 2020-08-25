@@ -108,6 +108,19 @@ const ordiniRoutes = (app, fs) => {
             var rep = {};
             var valido = true;
 
+            var cane = [
+                {
+                    "nome_prodotto": "kebab",
+                    "quantita": 4
+                },
+                {
+                    "nome_prodotto": "cane",
+                    "quantita": 2
+                }
+            ];
+
+            console.log(cane, typeof cane, cane.length);
+
             if (req.body.user_ristoratore === undefined || req.body.user_ristoratore === "") {
                 rep.user_ristoratore = { messaggio: "Parametro deve essere impostato" };
                 valido = false;
@@ -119,7 +132,7 @@ const ordiniRoutes = (app, fs) => {
             if (req.body.prodotti.length === 0 || (typeof req.body.prodotti) != "array") {
                 rep.prodotti = { messaggio: "Parametro non valido" };
                 valido = false;
-                console.log(req.body.prodotti.length, typeof req.body.prodotti);
+                console.log(req.body.prodotti.length, req.body.prodotti, typeof req.body.prodotti);
             }
             if (req.body.prezzo === undefined || req.body.prezzo <= 0 || req.body.prezzo === "") {
                 rep.prezzo = { messaggio: "Parametro non valido" };
