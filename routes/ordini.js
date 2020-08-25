@@ -180,7 +180,7 @@ const ordiniRoutes = (app, fs) => {
 
             var valido = true;
 
-            if (req.body.prodotti.length === 0 || (typeof req.body.prodotti) != "array") {
+            if (req.body.prodotti.length === 0 || (typeof req.body.prodotti) != "object") {
                 rep.prodotti = { messaggio: "Parametro non valido" };
                 valido = false;
             }
