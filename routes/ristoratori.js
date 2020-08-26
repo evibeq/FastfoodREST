@@ -108,9 +108,12 @@ const ristoratoriRoutes = (app, fs) => {
                 numero_telefono : req.body.numero_telefono,
                 partita_iva : req.body.partita_iva,
                 indirizzo : req.body.indirizzo,
-                prodotti : req.body.prodotti, //ocio!
+                prodotti : [],
                 prodotti_personalizzati : []
             };
+
+            if ("prodotti" in req.body)
+                obj.prodotti = req.body.prodotti;
 
             data.ristoratori.push(obj);
 
