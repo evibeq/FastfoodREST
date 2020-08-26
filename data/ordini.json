@@ -5,6 +5,8 @@
             "user_ristoratore": "",
             "user_cliente": "",
             "prezzo":"",
+            "punto_ritiro":"",
+            "tempo_attesa":"", 
             "prodotti": [
                 {
                     "nome_prodotto":"",
