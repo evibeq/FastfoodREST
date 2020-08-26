@@ -233,7 +233,7 @@ const ristoratoriRoutes = (app, fs) => {
                 rep.prezzo = { messaggio: "Il parametro deve essere impostato." };
                 valido = false;
             }
-            if (req.body.ingredienti === undefined && typeof req.body.ingredienti != "object" || req.body.ingredienti.length == 0) {
+            if (req.body.ingredienti === undefined || typeof req.body.ingredienti != "object") {
                 rep.ingredienti = { messaggio: "Parametro non valido." };
                 valido = false;
             }
