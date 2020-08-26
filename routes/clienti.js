@@ -176,7 +176,7 @@ const clientiRoutes = (app, fs) => {
             if (index === -1)
                 return res.status(404).send({ messaggio: "Cliente non esiste", user: req.params.user });
 
-            rep = {
+            const rep = {
                 messaggio: "Cliente eliminato",
                 cliente: data.clienti[index]
             };

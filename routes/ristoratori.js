@@ -129,22 +129,46 @@ const ristoratoriRoutes = (app, fs) => {
 
         readFile(data => {
 
-            var index = data["ristoratori"].findIndex(function (item, i) {
-                return item.user === req.params["user"]
+            var index = data.ristoratori.findIndex(function (item, i) {
+                return item.user == req.params.user
             });
 
-            if (req.params["user"] == req.body["user"] && index > -1) {
-                data["ristoratori"][index] = req.body;
+            if (index === -1)
+                return res.status(404).send({ messaggio: "Ristoratore non esiste", user: req.params.user });
+
+            var rep = {
+                messaggio: "Ristoratore aggiornato",
+                user: req.params.user,
+                parametri_aggiornati: []
+            };
+
+            if (req.body.password != undefined && req.body.password != "") {
+                rep.parametri_aggiornati.push({ parametro: "password", vecchio_parametro: data.ristoratori[index].password, nuovo_parametro: req.body.password })
+                data.ristoratori[index].password = req.body.password;
+            }
+            if (req.body.nome_ristorante != undefined && req.body.nome_ristorante != "") {
+                rep.parametri_aggiornati.push({ parametro: "nome_ristorante", vecchio_parametro: data.ristoratori[index].nome_ristorante, nuovo_parametro: req.body.nome_ristorante })
+                data.ristoratori[index].nome_ristorante = req.body.nome_ristorante;
+            }
+            if (req.body.numero_telefono != undefined && req.body.numero_telefono != "") {
+                rep.parametri_aggiornati.push({ parametro: "numero_telefono", vecchio_parametro: data.ristoratori[index].numero_telefono, nuovo_parametro: req.body.numero_telefono })
+                data.ristoratori[index].numero_telefono = req.body.numero_telefono;
+            }
+            if (req.body.partita_iva != undefined && req.body.partita_iva != "") {
+                rep.parametri_aggiornati.push({ parametro: "partita_iva", vecchio_parametro: data.ristoratori[index].partita_iva, nuovo_parametro: req.body.partita_iva })
+                data.ristoratori[index].partita_iva = req.body.partita_iva;
+            }
+            if (req.body.indirizzo != undefined && req.body.indirizzo != "") {
+                rep.parametri_aggiornati.push({ parametro: "indirizzo", vecchio_parametro: data.ristoratori[index].indirizzo, nuovo_parametro: req.body.indirizzo })
+                data.ristoratori[index].indirizzo = req.body.indirizzo;
+            }
+            if (req.body.prodotti != undefined && typeof req.body.prodotti == "object") {
+                rep.parametri_aggiornati.push({ parametro: "prodotti", vecchio_parametro: data.ristoratori[index].prodotti, nuovo_parametro: req.body.prodotti })
+                data.ristoratori[index].prodotti = req.body.prodotti;
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                if (index == -1) {
-                    res.status(200).send(`Ristoratore ${req.params["user"]} Non Esiste`);
-                } else if (req.params["user"] != req.body["user"]) {
-                    res.status(200).send(`Lo user del Ristoratore non può essere modificato`);
-                } else {
-                    res.status(201).send(`Ristoratore ${req.params["user"]} Aggiornato`);
-                }
+                res.status(200).send(rep);
             });
         },
             true);
@@ -155,19 +179,24 @@ const ristoratoriRoutes = (app, fs) => {
 
         readFile(data => {
 
-            var index = data["ristoratori"].findIndex(function (item, i) {
+            var index = data.ristoratori.findIndex(function (item, i) {
                 return item.user === req.params.user
             });
 
             if (index === -1) {
-                res.status(404).send({ messaggio: "Ristoratore " + req.params.user + " non esiste." });
+                res.status(404).send({ messaggio: "Ristoratore non esiste", user: req.params.user });
                 return;
             }
+
+            const rep = {
+                messaggio: "Ristoratore eliminato",
+                ristoratore: data.ristoratori[index]
+            };
 
             data.ristoratori.splice(index, 1);
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(200).send({ messaggio: "Ristoratore " + req.params.user + " eliminato." });
+                res.status(200).send({rep});
             });
         },
             true);
@@ -178,20 +207,52 @@ const ristoratoriRoutes = (app, fs) => {
 
         readFile(data => {
 
-            var index = data["ristoratori"].findIndex(function (item, i) {
-                return item.user === req.params["user"]
+            var index = data.ristoratori.findIndex(function (item, i) {
+                return item.user === req.params.user
             });
 
-            if (index > -1) {
-                data["ristoratori"][index]["prodotti_personalizzati"].push(req.body);
+            if (index === -1)
+                return res.status(404).send({ messaggio: "Ristoratore non esiste", user: req.params.user });
+
+            var rep = {};
+            var valido = true;
+
+            if (req.body.nome === undefined || req.body.nome === "") {
+                rep.nome = { messaggio: "Il parametro deve essere impostato." };
+                valido = false;
+            }
+            if (req.body.foto === undefined || req.body.foto === "") {
+                rep.foto = { messaggio: "Il parametro deve essere impostato." };
+                valido = false;
+            }
+            if (req.body.tipologia === undefined || req.body.tipologia === "") {
+                rep.tipologia = { messaggio: "Il parametro deve essere impostato." };
+                valido = false;
+            }
+            if (req.body.prezzo === undefined || req.body.prezzo === "") {
+                rep.prezzo = { messaggio: "Il parametro deve essere impostato." };
+                valido = false;
+            }
+            if (req.body.ingredienti === undefined && typeof req.body.ingredienti != "object" || req.body.ingredienti.length == 0) {
+                rep.ingredienti = { messaggio: "Parametro non valido." };
+                valido = false;
             }
 
+            if (!valido)
+                return res.status(409).send(rep);
+
+            const obj = {
+                nome: req.body.nome,
+                foto: req.body.foto,
+                tipologia: req.body.tipologia,
+                prezzo: req.body.prezzo,
+                ingredienti: req.body.ingredienti
+            };
+
+            data.ristoratori[index].prodotti_personalizzati.push(obj);
+
             writeFile(JSON.stringify(data, null, 2), () => {
-                if (index == -1) {
-                    res.status(201).send(`Non esiste Ristoratore ${req.params["user"]}`);
-                } else {
-                    res.status(200).send(`Prodotto Personalizzato aggiunto a ${req.params["user"]}`);
-                }
+                res.status(200).send({ messaggio: "Prodotto personalizzato aggiunto", user: req.params.user, prodotto_personalizzato: obj});
             });
         },
             true);
@@ -202,29 +263,30 @@ const ristoratoriRoutes = (app, fs) => {
 
         readFile(data => {
 
-            var indexUser = data["ristoratori"].findIndex(function (item, i) {
-                return item.user === req.params["user"]
+            var indexUser = data.ristoratori.findIndex(function (item, i) {
+                return item.user == req.params.user
             });
 
-            if (indexUser > -1) {
+            if (indexUser === -1)
+                return res.status(404).send({ messaggio: "Ristoratore non esiste", user: req.params.user });
 
-                var indexNome = data["ristoratori"][indexUser]["prodotti_personalizzati"].findIndex(function (item, i) {
-                    return item.nome === req.params["nome"]
-                });
+            var indexProd = data.ristoratori[indexUser].prodotti_personalizzati.findIndex(function (item, i) {
+                return item.nome == req.params.nome
+            });
 
-                if (indexNome > -1) {
-                    data["ristoratori"][indexUser]["prodotti_personalizzati"].splice(indexNome, 1);
-                }
-            }
+            if (indexProd === -1)
+                return res.status(404).send({ messaggio: "Prodotto personalizzato non esiste", user: req.params.user, prodotto_personalizzato: req.params.nome });
+            
+            const rep = {
+                messaggio: "Prodotto personalizzato eliminato",
+                user: req.params.user,
+                prodotto_personalizzato: data.ristoratori[indexUser].prodotti_personalizzati[indexProd]
+            };
+
+            data.ristoratori[indexUser].prodotti_personalizzati.splice(indexProd, 1);
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                if (indexUser == -1) {
-                    res.status(200).send(`Ristoratore ${req.params["user"]} Non Esiste`);
-                } else if (indexNome == -1) {
-                    res.status(200).send(`Prodotto Personalizzato ${req.params["nome"]} Non Esiste`);
-                } else {
-                    res.status(200).send(`Prodotto Personalizzato ${req.params["nome"]} Eliminato`);
-                }
+                res.status(200).send(rep);
             });
         },
             true);
