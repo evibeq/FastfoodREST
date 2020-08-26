@@ -124,6 +124,14 @@ const ordiniRoutes = (app, fs) => {
                 rep.prezzo = { messaggio: "Parametro non valido" };
                 valido = false;
             }
+            if (req.body.punto_ritiro === undefined || req.body.punto_ritiro === "") {
+                rep.punto_ritiro = { messaggio: "Parametro deve essere impostato" };
+                valido = false;
+            }
+            if (req.body.tempo_attesa === undefined || req.body.tempo_attesa <= 0 || req.body.tempo_attesa === "") {
+                rep.tempo_attesa = { messaggio: "Parametro non valido" };
+                valido = false;
+            }
 
             if (!valido)
                 return res.status(409).send(rep);
@@ -150,6 +158,8 @@ const ordiniRoutes = (app, fs) => {
                 user_ristoratore: req.body.user_ristoratore,
                 user_cliente: req.body.user_cliente,
                 prezzo: req.body.prezzo,
+                punto_ritiro: req.body.punto_ritiro,
+                tempo_attesa: req.body.tempo_attesa,
                 prodotti: prodotti,
                 data: d.getDate() + "/" + Number(d.getMonth() + 1) + "/" + d.getFullYear() + " " + d.toLocaleTimeString("default", { hour12: false }),
                 id: data.contatore
@@ -188,6 +198,14 @@ const ordiniRoutes = (app, fs) => {
                 rep.prezzo = { messaggio: "Parametro non valido" };
                 valido = false;
             }
+            if (req.body.punto_ritiro === undefined || req.body.punto_ritiro === "") {
+                rep.punto_ritiro = { messaggio: "Parametro non valido" };
+                valido = false;
+            }
+            if (req.body.tempo_attesa === undefined || req.body.tempo_attesa <= 0 || req.body.tempo_attesa === "") {
+                rep.tempo_attesa = { messaggio: "Parametro non valido" };
+                valido = false;
+            }
 
             if (!valido)
                 return res.status(409).send(rep);
@@ -213,12 +231,16 @@ const ordiniRoutes = (app, fs) => {
             parametri_aggiornati:
                 {
                     prodotti: prodotti,
-                    prezzo: req.body.prezzo
+                    prezzo: req.body.prezzo,
+                    punto_ritiro: req.body.punto_ritiro,
+                    tempo_attesa: req.body.tempo_attesa
                 }
             }
 
             data.ordini[index].prodotti = prodotti;
             data.ordini[index].prezzo = req.body.prezzo;
+            data.ordini[index].punto_ritiro = req.body.punto_ritiro;
+            data.ordini[index].tempo_attesa = req.body.tempo_attesa;
 
             writeFile(JSON.stringify(data, null, 2), () => {
                 res.status(200).send(rep);
