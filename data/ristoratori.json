@@ -26,7 +26,9 @@
             "nome_ristorante": "Melo Magno",
             "numero_telefono": "3461597353",
             "partita_iva": "7260103550",
-            "indirizzo": "via Carlo Marso"
+            "indirizzo": "via Carlo Marso",
+            "prodotti":[],
+            "prodotti_personalizzati":[]
         },
         {
             "user": "evibeq",
@@ -34,7 +36,9 @@
             "nome_ristorante": "Er Pagnotta",
             "numero_telefono": "3461597353",
             "partita_iva": "7260103550",
-            "indirizzo": "via Federico Engeli"
+            "indirizzo": "via Federico Engeli",
+            "prodotti":[],
+            "prodotti_personalizzati":[]
         }
     ]
 }
