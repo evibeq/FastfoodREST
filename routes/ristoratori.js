@@ -243,7 +243,7 @@ const ristoratoriRoutes = (app, fs) => {
 
             const obj = {
                 nome: req.body.nome,
-                foto: data.ristoratori[index].user + req.body.nome + ".jpg",
+                foto: data.ristoratori[index].user + req.body.nome,
                 tipologia: req.body.tipologia,
                 prezzo: req.body.prezzo,
                 ingredienti: req.body.ingredienti
@@ -261,15 +261,15 @@ const ristoratoriRoutes = (app, fs) => {
 
     //CARICA IMMAGINE
     app.post('/upload/:id_immagine', function (req, res) {
-        if (!req.files || Object.keys(req.files).length === 0) {
+        if (!req.files || Object.keys(req.files).length === 0)
             return res.status(400).send({messaggio : "Non è stata inviata alcuna immagine"});
-        }
 
         let immagine = req.files.immagine;
 
-        console.log(immagine.mimetype);
+        if (!immagine.mimetype.includes('image'))
+            return res.status(400).send({messaggio : "Il file inviato deve essere un'immagine"});
 
-        immagine.mv('./images/' + req.params.id_immagine, function (err) {
+        immagine.mv('.public/images/' + req.params.id_immagine, function (err) {
             if (err)
                 return res.status(500).send({messaggio : "Errore", errore : err });
 
