@@ -98,18 +98,18 @@ const ristoratoriRoutes = (app, fs) => {
                 return item.user === req.body.user
             });
 
-            if (index > -1) 
+            if (index > -1)
                 return res.status(409).send({ messaggio: "Ristoratore già registrato.", user: req.body.user });
 
             var obj = {
-                user : req.body.user,
-                password : req.body.password,
-                nome_ristorante : req.body.nome_ristorante,
-                numero_telefono : req.body.numero_telefono,
-                partita_iva : req.body.partita_iva,
-                indirizzo : req.body.indirizzo,
-                prodotti : [],
-                prodotti_personalizzati : []
+                user: req.body.user,
+                password: req.body.password,
+                nome_ristorante: req.body.nome_ristorante,
+                numero_telefono: req.body.numero_telefono,
+                partita_iva: req.body.partita_iva,
+                indirizzo: req.body.indirizzo,
+                prodotti: [],
+                prodotti_personalizzati: []
             };
 
             if ("prodotti" in req.body)
@@ -196,7 +196,7 @@ const ristoratoriRoutes = (app, fs) => {
             data.ristoratori.splice(index, 1);
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(200).send({rep});
+                res.status(200).send({ rep });
             });
         },
             true);
@@ -243,7 +243,7 @@ const ristoratoriRoutes = (app, fs) => {
 
             const obj = {
                 nome: req.body.nome,
-                foto: req.body.foto,
+                foto: ".public/images/" + data.ristoratori[index].nome + req.body.nome + ".jpg",
                 tipologia: req.body.tipologia,
                 prezzo: req.body.prezzo,
                 ingredienti: req.body.ingredienti
@@ -251,11 +251,28 @@ const ristoratoriRoutes = (app, fs) => {
 
             data.ristoratori[index].prodotti_personalizzati.push(obj);
 
+
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(200).send({ messaggio: "Prodotto personalizzato aggiunto", user: req.params.user, prodotto_personalizzato: obj});
+                res.status(200).send({ messaggio: "Prodotto personalizzato aggiunto", user: req.params.user, prodotto_personalizzato: obj, id_immagine: obj.foto });
             });
         },
             true);
+    });
+
+    //CARICA IMMAGINE
+    app.post('/upload/:id_immagine', function (req, res) {
+        if (!req.files || Object.keys(req.files).length === 0) {
+            return res.status(400).send({messaggio : "Non è stata inviata alcuna immagine"});
+        }
+
+        let immagine = req.files.immagine;
+
+        immagine.mv(req.params.id_immagine, function (err) {
+            if (err)
+                return res.status(500).send({messaggio : "Errore", errore : err });
+
+            res.send({messaggio : "Immagine caricata con successo"});
+        });
     });
 
     // DELETE PRODOTTO PERSONALIZZATO
@@ -276,7 +293,7 @@ const ristoratoriRoutes = (app, fs) => {
 
             if (indexProd === -1)
                 return res.status(404).send({ messaggio: "Prodotto personalizzato non esiste", user: req.params.user, prodotto_personalizzato: req.params.nome });
-            
+
             const rep = {
                 messaggio: "Prodotto personalizzato eliminato",
                 user: req.params.user,

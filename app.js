@@ -17,6 +17,8 @@ var port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(express.static('images'));
+
 // this is where we'll handle our various routes from
 const routes = require("./routes/routes.js")(app, fs);
 
