@@ -269,7 +269,7 @@ const ristoratoriRoutes = (app, fs) => {
         if (!immagine.mimetype.includes('image'))
             return res.status(400).send({messaggio : "Il file inviato deve essere un'immagine"});
 
-        immagine.mv('.public/images/' + req.params.id_immagine, function (err) {
+        immagine.mv('./images/' + req.params.id_immagine, function (err) {
             if (err)
                 return res.status(500).send({messaggio : "Errore", errore : err });
 
