@@ -243,7 +243,7 @@ const ristoratoriRoutes = (app, fs) => {
 
             const obj = {
                 nome: req.body.nome,
-                foto: ".public/images/" + data.ristoratori[index].nome + req.body.nome + ".jpg",
+                foto: data.ristoratori[index].user + req.body.nome + ".jpg",
                 tipologia: req.body.tipologia,
                 prezzo: req.body.prezzo,
                 ingredienti: req.body.ingredienti
@@ -267,7 +267,7 @@ const ristoratoriRoutes = (app, fs) => {
 
         let immagine = req.files.immagine;
 
-        immagine.mv(req.params.id_immagine, function (err) {
+        immagine.mv('./images/' + req.params.id_immagine, function (err) {
             if (err)
                 return res.status(500).send({messaggio : "Errore", errore : err });
 
