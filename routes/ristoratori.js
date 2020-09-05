@@ -302,8 +302,9 @@ const ristoratoriRoutes = (app, fs) => {
                 prodotto_personalizzato: data.ristoratori[indexUser].prodotti_personalizzati[indexProd]
             };
 
+            console.log(".public/images/" + data.ristoratori[indexUser].prodotti_personalizzati[indexProd].foto);
+
             fs.unlink(".public/images/" + data.ristoratori[indexUser].prodotti_personalizzati[indexProd].foto, (err) => {
-                console.log(".public/images/" + data.ristoratori[indexUser].prodotti_personalizzati[indexProd].foto);
                 if (err) {
                   console.error(err)
                   return
