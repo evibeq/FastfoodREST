@@ -1,6 +1,7 @@
 // load up the express framework and body-parser helper
 const express = require("express");
 const bodyParser = require("body-parser");
+const fileUpload = require('express-fileupload');
 
 // create an instance of express to serve our end points
 const app = express();
@@ -17,6 +18,7 @@ var port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(fileUpload());
 app.use(express.static('images'));
 
 // this is where we'll handle our various routes from
