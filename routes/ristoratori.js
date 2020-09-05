@@ -243,7 +243,7 @@ const ristoratoriRoutes = (app, fs) => {
 
             const obj = {
                 nome: req.body.nome,
-                foto: data.ristoratori[index].user + req.body.nome,
+                foto: data.ristoratori[index].user + req.body.nome + ".jpg",
                 tipologia: req.body.tipologia,
                 prezzo: req.body.prezzo,
                 ingredienti: req.body.ingredienti
