@@ -302,6 +302,14 @@ const ristoratoriRoutes = (app, fs) => {
                 prodotto_personalizzato: data.ristoratori[indexUser].prodotti_personalizzati[indexProd]
             };
 
+            fs.unlink(".public/images/" + data.ristoratori[indexUser].prodotti_personalizzati[indexProd].foto, (err) => {
+                if (err) {
+                  console.error(err)
+                  return
+                }
+                //file removed
+              })
+
             data.ristoratori[indexUser].prodotti_personalizzati.splice(indexProd, 1);
 
             writeFile(JSON.stringify(data, null, 2), () => {
