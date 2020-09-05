@@ -303,11 +303,13 @@ const ristoratoriRoutes = (app, fs) => {
             };
 
             fs.unlink(".public/images/" + data.ristoratori[indexUser].prodotti_personalizzati[indexProd].foto, (err) => {
+                console.log(".public/images/" + data.ristoratori[indexUser].prodotti_personalizzati[indexProd].foto);
                 if (err) {
                   console.error(err)
                   return
                 }
                 //file removed
+                console.log("File rimosso");
               })
 
             data.ristoratori[indexUser].prodotti_personalizzati.splice(indexProd, 1);
