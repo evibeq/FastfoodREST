@@ -267,6 +267,8 @@ const ristoratoriRoutes = (app, fs) => {
 
         let immagine = req.files.immagine;
 
+        console.log(immagine.mimetype);
+
         immagine.mv('./images/' + req.params.id_immagine, function (err) {
             if (err)
                 return res.status(500).send({messaggio : "Errore", errore : err });
