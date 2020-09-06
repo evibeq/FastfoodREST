@@ -97,7 +97,10 @@ const clientiRoutes = (app, fs) => {
             if (index > -1)
                 return res.status(409).send({ messaggio: "Cliente già registrato", user: req.body.user });
 
-            const hashedPsw = await bcrypt.hash(req.body.password, 10);
+            //const hashedPsw = await bcrypt.hash(req.body.password, 10);
+
+            try {const hashedPsw = await bcrypt.hash(req.body.password, 10)}
+            catch {}
 
             const obj = {
                 user: req.body.user,
