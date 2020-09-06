@@ -8,11 +8,9 @@ Studenti
 Link Heroku: https://fastfoodrest.herokuapp.com/
 
 ## TODO
-- Definire se un ristoratore può possedere più di un ristorante con lo stesso account
-- Gestione immagini dei piatti
-- Definire se bisogna implementare l'autenticazione
+- Autenticazione
 - Implementare i file XML
-- mail da inviare al prof (cosa intende per prenotazioni?)
+- Riformulare file JSON
 
 ## Premessa
 L’obiettivo è implementare un’applicazione REST per supportare lo sviluppo dell’applicazione web FastFood.
@@ -67,6 +65,7 @@ Metodi
 `DELETE /ristoratori/:user`  
 
 `POST /prodottipersonalizzati/:user`  
+`POST /upload/:id_immagine`  
 `DELETE /prodottipersonalizzati/:user/:nome`  
 ___
 ### Prodotti
@@ -105,9 +104,11 @@ ___
 ### Ordini
 ```
 {
-    "user_cliente": "",
     "user_ristoratore": "",
+    "user_cliente": "",
     "prezzo":"",
+    "punto_ritiro":"",
+    "tempo_attesa":"", 
     "prodotti": [
         {
             "nome_prodotto":"",
