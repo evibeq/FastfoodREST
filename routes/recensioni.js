@@ -2,7 +2,7 @@ const recensioniRoutes = (app, fs) => {
 
     const dataPath = './data/recensioni.json';
 
-    const toXML = require('jstoxml');
+    const { toXML } = require('jstoxml');
 
     const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
         fs.readFile(filePath, encoding, (err, data) => {
