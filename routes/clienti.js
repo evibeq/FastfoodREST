@@ -59,7 +59,7 @@ const clientiRoutes = (app, fs) => {
     });
 
     // CREATE - POST /clienti
-    app.post('/clienti', async (req, res) => {
+    app.post('/clienti', (req, res) => {
 
         readFile(data => {
 
@@ -97,10 +97,7 @@ const clientiRoutes = (app, fs) => {
             if (index > -1)
                 return res.status(409).send({ messaggio: "Cliente già registrato", user: req.body.user });
 
-            //const hashedPsw = await bcrypt.hash(req.body.password, 10);
-
-            try {const hashedPsw = await bcrypt.hash(req.body.password, 10)}
-            catch {}
+            const hashedPsw = bcrypt.hash(req.body.password, 8);
 
             const obj = {
                 user: req.body.user,
