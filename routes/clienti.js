@@ -2,7 +2,7 @@ const clientiRoutes = (app, fs) => {
 
     const dataPath = './data/clienti.json';
 
-    const bcrypt = require('bcrypt');
+    //const bcrypt = require('bcrypt'); BCRYPT
 
     // Funzione READFILE
     const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
@@ -59,7 +59,7 @@ const clientiRoutes = (app, fs) => {
     });
 
     // CREATE - POST /clienti
-    app.post('/clienti', (req, res) => {
+    app.post('/clienti', async (req, res) => {
 
         readFile(data => {
 
@@ -97,11 +97,11 @@ const clientiRoutes = (app, fs) => {
             if (index > -1)
                 return res.status(409).send({ messaggio: "Cliente già registrato", user: req.body.user });
 
-            const hashedPsw = bcrypt.hash(req.body.password, 8);
+            //const hashedPsw = await bcrypt.hash(req.body.password, 10); BCRYPT
 
             const obj = {
                 user: req.body.user,
-                password: hashedPsw,
+                password: req.body.password,
                 nome: req.body.nome,
                 cognome: req.body.cognome,
                 pagamento: req.body.pagamento,
