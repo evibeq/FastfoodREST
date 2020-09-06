@@ -6,7 +6,8 @@
     "dependencies": {
       "express": "^4.17.1",
       "express-fileupload":"^1.2.0",
-      "bcrypt": "^5.0.0"
+      "bcrypt": "^5.0.0",
+      "jstoxml": "1.6.10"
     },
     "devDependencies": {},
     "scripts": {

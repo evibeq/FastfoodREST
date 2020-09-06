@@ -2,6 +2,8 @@ const recensioniRoutes = (app, fs) => {
 
     const dataPath = './data/recensioni.json';
 
+    const toXML = require('jstoxml');
+
     const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
         fs.readFile(filePath, encoding, (err, data) => {
             if (err) {
@@ -31,6 +33,16 @@ const recensioniRoutes = (app, fs) => {
             }
 
             res.send(JSON.parse(data));
+        });
+    });
+
+    app.get('/recensionixml', (req, res) => {
+        fs.readFile(dataPath, 'utf8', (err, data) => {
+            if (err) {
+                throw err;
+            }
+
+            res.send(toXML(JSON.parse(data)));
         });
     });
 
