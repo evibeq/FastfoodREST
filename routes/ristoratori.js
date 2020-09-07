@@ -2,6 +2,9 @@ const ristoratoriRoutes = (app, fs) => {
 
     const dataPath = './data/ristoratori.json';
 
+    const convert = require('xml-js');
+    const options = {spaces: 4, compact: true};
+
     const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
         fs.readFile(filePath, encoding, (err, data) => {
             if (err) {
@@ -34,6 +37,16 @@ const ristoratoriRoutes = (app, fs) => {
         });
     });
 
+    app.get('/ristoratorixml', (req, res) => {
+        fs.readFile(dataPath, 'utf8', (err, data) => {
+            if (err) {
+                throw err;
+            }
+
+            res.send(convert.json2xml(JSON.parse(data), options));
+        });
+    });
+
     // READ USER
     app.get('/ristoratori/:user', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
@@ -51,6 +64,25 @@ const ristoratoriRoutes = (app, fs) => {
                 return res.status(404).send({ messaggio: "Ristoratore non esiste", user: req.params.user });
 
             res.send(obj.ristoratori[index]);
+        });
+    });
+
+    app.get('/ristoratorixml/:user', (req, res) => {
+        fs.readFile(dataPath, 'utf8', (err, data) => {
+            if (err) {
+                throw err;
+            }
+
+            const obj = JSON.parse(data);
+
+            var index = obj.ristoratori.findIndex(function (item, i) {
+                return item.user == req.params.user
+            });
+
+            if (index === -1)
+                return res.status(404).send({ messaggio: "Ristoratore non esiste", user: req.params.user });
+
+            res.send(convert.json2xml(obj.ristoratori[index]), options);
         });
     });
 

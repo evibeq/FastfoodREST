@@ -1,6 +1,9 @@
 const ordiniRoutes = (app, fs) => {
 
     const dataPath = './data/ordini.json';
+    
+    const convert = require('xml-js');
+    const options = {spaces: 4, compact: true};
 
     // Funzione READFILE
     const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
@@ -36,6 +39,16 @@ const ordiniRoutes = (app, fs) => {
         });
     });
 
+    app.get('/ordinixml', (req, res) => {
+        fs.readFile(dataPath, 'utf8', (err, data) => {
+            if (err) {
+                throw err;
+            }
+
+            res.send(convert.json2xml(JSON.parse(data), options));
+        });
+    });
+
     // READ ID - GET /ordini/:id
     app.get('/ordini/:id', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
@@ -53,6 +66,25 @@ const ordiniRoutes = (app, fs) => {
                 return res.status(404).send({ messaggio: "Ordine non esiste", id: req.params.id });
 
             res.status.send(obj.ordini[index]);
+        });
+    });
+
+    app.get('/ordinixml/:id', (req, res) => {
+        fs.readFile(dataPath, 'utf8', (err, data) => {
+            if (err) {
+                throw err;
+            }
+
+            const obj = JSON.parse(data);
+
+            var index = obj.ordini.findIndex(function (item, i) {
+                return item.id_ordine == req.params.id
+            });
+
+            if (index === -1)
+                return res.status(404).send({ messaggio: "Ordine non esiste", id: req.params.id });
+
+            res.status.send(convert.json2xml(obj.ordini[index], options));
         });
     });
 
@@ -78,6 +110,27 @@ const ordiniRoutes = (app, fs) => {
         });
     });
 
+    app.get('/ordinixml/cliente/:user', (req, res) => {
+        fs.readFile(dataPath, 'utf8', (err, data) => {
+            if (err) {
+                throw err;
+            }
+
+            const obj = JSON.parse(data);
+
+            var rep = { cliente: req.params.user, numero_ordini: 0, ordini: [] };
+
+            obj.ordini.forEach(element => {
+                if (element.user_cliente == req.params.user) {
+                    rep.ordini.push(element)
+                }
+            });
+
+            rep.numero_ordini = rep.ordini.length;
+            res.status(200).send(convert.json2xml(rep, options));
+        });
+    });
+
     // READ ORDINI RISTORANTE - GET /ordini/ristoratore/:user
     app.get('/ordini/ristoratore/:user', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
@@ -97,6 +150,27 @@ const ordiniRoutes = (app, fs) => {
 
             rep.numero_ordini = rep.ordini.length;
             res.status(200).send(rep);
+        });
+    });
+
+    app.get('/ordinixml/ristoratore/:user', (req, res) => {
+        fs.readFile(dataPath, 'utf8', (err, data) => {
+            if (err) {
+                throw err;
+            }
+
+            const obj = JSON.parse(data);
+
+            var rep = { ristorante: req.params.user, numero_ordini: 0, ordini: [] };
+
+            obj.ordini.forEach(element => {
+                if (element.user_ristoratore == req.params.user) {
+                    rep.ordini.push(element)
+                }
+            });
+
+            rep.numero_ordini = rep.ordini.length;
+            res.status(200).send(convert.json2xml(rep, options));
         });
     });
 
