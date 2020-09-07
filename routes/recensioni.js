@@ -63,7 +63,7 @@ const recensioniRoutes = (app, fs) => {
             if (index === -1)
                 return res.status(404).send({ messaggio: "Recensione non esiste", id: req.params.id });
 
-            res.status.send(obj.recensioni[index]);
+            res.send(obj.recensioni[index]);
         });
     });
 
@@ -82,7 +82,7 @@ const recensioniRoutes = (app, fs) => {
             if (index === -1)
                 return res.status(404).send({ messaggio: "Recensione non esiste", id: req.params.id });
 
-            res.status.send(convert.json2xml(obj.recensioni[index], options));
+            res.send(convert.json2xml(obj.recensioni[index], options));
         });
     });
 
