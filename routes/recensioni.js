@@ -3,6 +3,7 @@ const recensioniRoutes = (app, fs) => {
     const dataPath = './data/recensioni.json';
 
     const convert = require('xml-js');
+    const options = {spaces: 4, compact: true};
 
     const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
         fs.readFile(filePath, encoding, (err, data) => {
@@ -42,8 +43,6 @@ const recensioniRoutes = (app, fs) => {
                 throw err;
             }
 
-            const options = {spaces: 4, compact: true};
-
             res.send(convert.json2xml(JSON.parse(data), options));
         });
     });
@@ -65,6 +64,25 @@ const recensioniRoutes = (app, fs) => {
                 return res.status(404).send({ messaggio: "Recensione non esiste", id: req.params.id });
 
             res.status.send(obj.recensioni[index]);
+        });
+    });
+
+    app.get('/recensionixml/:id', (req, res) => {
+        fs.readFile(dataPath, 'utf8', (err, data) => {
+            if (err) {
+                throw err;
+            }
+
+            const obj = JSON.parse(data);
+
+            var index = obj.recensioni.findIndex(function (item, i) {
+                return item.id == req.params.id
+            });
+
+            if (index === -1)
+                return res.status(404).send({ messaggio: "Recensione non esiste", id: req.params.id });
+
+            res.status.send(convert.json2xml(obj.recensioni[index], options));
         });
     });
 
@@ -90,6 +108,27 @@ const recensioniRoutes = (app, fs) => {
         });
     });
 
+    app.get('/recensionixml/cliente/:user', (req, res) => {
+        fs.readFile(dataPath, 'utf8', (err, data) => {
+            if (err) {
+                throw err;
+            }
+
+            const obj = JSON.parse(data);
+
+            var rep = { cliente: req.params.user, numero_recensioni: 0, recensioni: [] };
+
+            obj.recensioni.forEach(element => {
+                if (element.user_cliente == req.params.user) {
+                    rep.recensioni.push(element)
+                }
+            });
+
+            rep.numero_recensioni = rep.recensioni.length;
+            res.status(200).send(convert.json2xml(rep, options));
+        });
+    });
+
     // READ RECENSIONI RISTORANTE
     app.get('/recensioni/ristoratore/:user', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
@@ -109,6 +148,27 @@ const recensioniRoutes = (app, fs) => {
 
             rep.numero_recensioni = rep.recensioni.length;
             res.status(200).send(rep);
+        });
+    });
+
+    app.get('/recensionixml/ristoratore/:user', (req, res) => {
+        fs.readFile(dataPath, 'utf8', (err, data) => {
+            if (err) {
+                throw err;
+            }
+
+            const obj = JSON.parse(data);
+
+            var rep = { ristorante: req.params.user, numero_recensioni: 0, recensioni: [] };
+
+            obj.recensioni.forEach(element => {
+                if (element.user_ristoratore == req.params.user) {
+                    rep.recensioni.push(element)
+                }
+            });
+
+            rep.numero_recensioni = rep.recensioni.length;
+            res.status(200).send(convert.json2xml(rep, options));
         });
     });
 
