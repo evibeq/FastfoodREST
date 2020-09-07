@@ -42,7 +42,7 @@ const recensioniRoutes = (app, fs) => {
                 throw err;
             }
 
-            res.send(parser.toXml(JSON.parse(data)));
+            res.send(parser.toXml(JSON.parse(data), {sanitize: true, ignoreNull: false}));
         });
     });
 
