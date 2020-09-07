@@ -2,7 +2,7 @@ const recensioniRoutes = (app, fs) => {
 
     const dataPath = './data/recensioni.json';
 
-    const parser = require('xml2json');
+    const convert = require('xml-js');
 
     const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
         fs.readFile(filePath, encoding, (err, data) => {
@@ -42,7 +42,7 @@ const recensioniRoutes = (app, fs) => {
                 throw err;
             }
 
-            res.send(parser.toXml(JSON.parse(data), {sanitize: true, ignoreNull: false}));
+            res.send(convert.json2xml(JSON.parse(data)));
         });
     });
 
