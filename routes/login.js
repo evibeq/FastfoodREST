@@ -4,28 +4,28 @@ const loginRoutes = (app, fs) => {
 
     const bcrypt = require('bcrypt');
 
-            // Funzione READFILE
-            const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
-                fs.readFileSync(filePath, encoding, (err, data) => {
-                    if (err) {
-                        throw err;
-                    }
-        
-                    callback(returnJson ? JSON.parse(data) : data);
-                });
-            };
-        
-            // Funzione WRITEFILE
-            const writeFile = (fileData, callback, filePath = dataPath, encoding = 'utf8') => {
-        
-                fs.writeFile(filePath, fileData, encoding, (err) => {
-                    if (err) {
-                        throw err;
-                    }
-        
-                    callback();
-                });
-            };
+    // Funzione READFILE
+    const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
+        fs.readFileSync(filePath, encoding, (err, data) => {
+            if (err) {
+                throw err;
+            }
+
+            callback(returnJson ? JSON.parse(data) : data);
+        });
+    };
+
+    // Funzione WRITEFILE
+    const writeFile = (fileData, callback, filePath = dataPath, encoding = 'utf8') => {
+
+        fs.writeFile(filePath, fileData, encoding, (err) => {
+            if (err) {
+                throw err;
+            }
+
+            callback();
+        });
+    };
 
     const users = []
 
@@ -37,7 +37,7 @@ const loginRoutes = (app, fs) => {
 
             readFile(data => {
 
-                const hashedPassword = bcrypt.hash(req.body.password, 10)
+                const hashedPassword = bcrypt.hashSync(req.body.password, 10)
                 const user = { user: req.body.user, password: hashedPassword }
                 login.utenti.push(user)
     
