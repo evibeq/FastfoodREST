@@ -37,7 +37,7 @@ const loginRoutes = (app, fs) => {
 
             readFile(data => {
 
-                const hashedPassword = bcrypt.hash(req.body.password, 10)
+                const hashedPassword = bcrypt.hash(req.body.password, 5)
                 const user = { user: req.body.user, password: hashedPassword }
                 login.utenti.push(user)
     
