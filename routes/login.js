@@ -27,7 +27,6 @@ const loginRoutes = (app, fs) => { //STO A LAVORA'
         });
     };
 
-    // READ - GET /ordini
     app.get('/login', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -36,6 +35,33 @@ const loginRoutes = (app, fs) => { //STO A LAVORA'
 
             res.send(JSON.parse(data));
         });
+    });
+
+
+
+
+    app.post('/ordini', async (req, res) => {
+
+        readFile(async (data) => {
+
+            try {
+
+                console.log("entro nel try");
+                const hashedPassword = await bcrypt.hash(req.body.password, 10)
+                console.log("creo la password hashata");
+                const user = { name: req.body.name, password: hashedPassword }
+                data.utenti.push(obj);
+                console.log("push nel doc");
+            } catch {
+                res.status(500).send()
+            }
+
+            writeFile(JSON.stringify(data, null, 2), () => {
+                console.log("entro nel writefile");
+                res.send({ messaggio: "user creato" })
+            });
+        },
+            true);
     });
 
 
