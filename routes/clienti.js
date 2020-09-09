@@ -5,8 +5,6 @@ const clientiRoutes = (app, fs) => {
     const convert = require('xml-js');
     const options = {spaces: 4, compact: true};
 
-    //const bcrypt = require('bcrypt'); BCRYPT
-
     // Funzione READFILE
     const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
         fs.readFile(filePath, encoding, (err, data) => {
@@ -128,8 +126,6 @@ const clientiRoutes = (app, fs) => {
 
             if (index > -1)
                 return res.status(409).send({ messaggio: "Cliente già registrato", user: req.body.user });
-
-            //const hashedPsw = await bcrypt.hash(req.body.password, 10); BCRYPT
 
             const obj = {
                 user: req.body.user,

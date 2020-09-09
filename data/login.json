@@ -1,0 +1,9 @@
+{
+    "utenti":[
+        {
+            "user":"",
+            "password":"",
+            "tipo_utente":""
+        }
+    ]
+}

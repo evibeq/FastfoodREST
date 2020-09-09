@@ -5,6 +5,7 @@ const parametriRoutes = require("./parametri");
 const prodottiRoutes = require("./prodotti");
 const recensioniRoutes = require("./recensioni");
 const ordiniRoutes = require("./ordini");
+const loginRoutes = require("./login");
 
 const appRouter = (app, fs) => {
   // Default route here that handles empty routes
@@ -18,6 +19,7 @@ const appRouter = (app, fs) => {
   prodottiRoutes(app, fs);
   recensioniRoutes(app, fs);
   ordiniRoutes(app, fs);
+  loginRoutes(app, fs);
 
 };
 
