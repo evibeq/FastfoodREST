@@ -42,22 +42,24 @@ const clientiRoutes = (app, fs) => {
 
     app.post('/users', async (req, res) => {
 
-        readFile(data => {
+        try {
+            readFile(data => {
 
-            try {
                 const hashedPassword = await bcrypt.hash(req.body.password, 10)
-                const user = { name: req.body.name, tipo_utente:req.body.tipo_utente, password: hashedPassword }
+                const user = { name: req.body.name, tipo_utente: req.body.tipo_utente, password: hashedPassword }
                 data.utenti.push(user)
                 res.status(201).send()
-            } catch {
-                res.status(500).send()
-            }
 
-            writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(200).send(rep);
-            });
-        },
-            true);
+
+                writeFile(JSON.stringify(data, null, 2), () => {
+                    res.status(200).send(rep);
+                });
+            },
+                true);
+
+        } catch {
+            res.status(500).send()
+        }
     });
 
     app.post('/users/login', async (req, res) => {
