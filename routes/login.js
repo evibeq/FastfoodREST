@@ -26,22 +26,25 @@ const loginRoutes = (app, fs) => { //STO A LAVORA'
                     callback();
                 });
             };
-/*
-    app.post('/users', (req, res) => {
+
+    app.post('/users', async (req, res) => {
 
             readFile(data => {
-
-                const hashedPassword = passwordHashed(req.body.password)
-                const user = { user: req.body.user, password: hashedPassword }
-                login.utenti.push(user)
+                try{
+                    const hashedPassword = await bcrypt.hash(req.body.password, 10)
+                    const user = { user: req.body.user, password: hashedPassword }
+                    login.utenti.push(user)
+                }catch {
+                    res.status(500).send()
+                }
     
                 writeFile(JSON.stringify(data, null, 2), () => {
-                    res.status(200).send({ messaggio: "Ordine ricevuto" })
+                    res.status(200).send({ messaggio: "persona ricevuta" })
                 });
             },
                 true);
     })
-
+/*
     app.post('/users/login', async (req, res) => {
         const user = users.find(user => user.name === req.body.name)
         if (user == null) {
@@ -72,44 +75,6 @@ const loginRoutes = (app, fs) => { //STO A LAVORA'
         });
     
         */
-        app.post('/users', async (req, res) => {
-    
-            try {
-                readFile(data => {
-    
-                    const hashedPassword = await bcrypt.hash(req.body.password, 10)
-                    const user = { name: req.body.name, tipo_utente: req.body.tipo_utente, password: hashedPassword }
-                    data.utenti.push(user)
-                    res.status(201).send()
-    
-    
-                    writeFile(JSON.stringify(data, null, 2), () => {
-                        res.status(200).send(rep);
-                    });
-                },
-                    true);
-    
-            } catch {
-                res.status(500).send()
-            }
-        });
-    
-        app.post('/users/login', async (req, res) => {
-            const user = users.find(user => user.name === req.body.name)
-            if (user == null) {
-                return res.status(400).send('Cannot find user')
-            }
-            try {
-                if (await bcrypt.compare(req.body.password, user.password)) {
-                    res.send('Success')
-                } else {
-                    res.send('Not Allowed')
-                }
-            } catch {
-                res.status(500).send()
-            }
-        })
-    */
 
 
 };
