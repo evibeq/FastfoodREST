@@ -28,7 +28,7 @@ const loginRoutes = (app, fs) => { //STO A LAVORA'
     };
 
     // READ - GET /ordini
-    app.get('/ordini', (req, res) => {
+    app.get('/login', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
                 throw err;
