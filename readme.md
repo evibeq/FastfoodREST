@@ -9,7 +9,6 @@ Link Heroku: https://fastfoodrest.herokuapp.com/
 
 ## TODO
 - Autenticazione
-- Implementare i file XML
 - Riformulare file JSON
 
 ## Premessa

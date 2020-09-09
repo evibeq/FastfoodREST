@@ -82,7 +82,7 @@ const ristoratoriRoutes = (app, fs) => {
             if (index === -1)
                 return res.status(404).send({ messaggio: "Ristoratore non esiste", user: req.params.user });
 
-            res.send(convert.json2xml(obj.ristoratori[index]), options);
+            res.send(convert.json2xml(obj.ristoratori[index], options));
         });
     });
 
