@@ -48,10 +48,10 @@ const loginRoutes = (app, fs) => { //STO A LAVORA'
 
                 console.log("entro nel try");
                 const hashedPassword = await bcrypt.hash(req.body.password, 10)
-                console.log("creo la password hashata");
+                console.log("creo la password hashata", hashedPassword);
                 const user = { name: req.body.name, password: hashedPassword }
-                data.utenti.push(obj);
-                console.log("push nel doc");
+                data.utenti.push(user);
+                console.log("push nel doc", user);
 
             } catch {
                 res.status(500).send("ho fallito")
