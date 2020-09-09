@@ -30,14 +30,14 @@ const loginRoutes = (app, fs) => {
     const users = []
 
     async function passwordHashed(password) {     
-        return await bcrypt.hash(password, 10)
+        return await bcrypt.hash(password, 5)
     }
 
     app.get('/users', (req, res) => {
         res.json(users)
     })
 
-    app.post('/users', (req, res) => {
+    app.post('/users', async (req, res) => {
 
             readFile(data => {
 
