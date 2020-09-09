@@ -35,17 +35,19 @@ const loginRoutes = (app, fs) => {
 
     app.post('/users', (req, res) => {
 
+        bcrypt.hash(req.body.password, 10).then(function(hash) {
+            // Store hash in your password DB.
             readFile(data => {
 
-                const hashedPassword = bcrypt.hashSync(req.body.password, 10)
-                const user = { user: req.body.user, password: hashedPassword }
+                const user = { user: req.body.user, password: hash }
                 login.utenti.push(user)
     
                 writeFile(JSON.stringify(data, null, 2), () => {
-                    res.status(200).send({ messaggio: "Ordine ricevuto" })
+                    res.status(200).send({ messaggio: "User aggiunto" })
                 });
             },
                 true);
+        });
     })
 /*
     app.post('/users/login', async (req, res) => {
