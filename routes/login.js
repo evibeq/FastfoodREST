@@ -13,7 +13,7 @@ const loginRoutes = (app, fs) => {
     app.post('/users', async (req, res) => {
         try {
             const hashedPassword = await bcrypt.hash(req.body.password, 10)
-            const user = { name: req.body.name, password: hashedPassword }
+            const user = { user: req.body.user, password: hashedPassword }
             users.push(user)
             res.status(201).send()
         } catch {
