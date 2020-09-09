@@ -52,8 +52,9 @@ const loginRoutes = (app, fs) => { //STO A LAVORA'
                 const user = { name: req.body.name, password: hashedPassword }
                 data.utenti.push(obj);
                 console.log("push nel doc");
+
             } catch {
-                res.status(500).send()
+                res.status(500).send("ho fallito")
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
