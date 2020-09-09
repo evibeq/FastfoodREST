@@ -18,7 +18,7 @@ const loginRoutes = (app, fs) => {
             // Funzione WRITEFILE
             const writeFile = (fileData, callback, filePath = dataPath, encoding = 'utf8') => {
         
-                fs.writeFileSync(filePath, fileData, encoding, (err) => {
+                fs.writeFile(filePath, fileData, encoding, (err) => {
                     if (err) {
                         throw err;
                     }
@@ -33,12 +33,11 @@ const loginRoutes = (app, fs) => {
         res.json(users)
     })
 
-    app.post('/users', async (req, res) => {
-        try { 
+    app.post('/users', (req, res) => {
 
             readFile(data => {
 
-                const hashedPassword = await bcrypt.hash(req.body.password, 10)
+                const hashedPassword = bcrypt.hash(req.body.password, 10)
                 const user = { user: req.body.user, password: hashedPassword }
                 login.utenti.push(user)
     
@@ -47,12 +46,8 @@ const loginRoutes = (app, fs) => {
                 });
             },
                 true);
-
-        } catch {
-            res.status(500).send()
-        }
     })
-
+/*
     app.post('/users/login', async (req, res) => {
         const user = users.find(user => user.name === req.body.name)
         if (user == null) {
