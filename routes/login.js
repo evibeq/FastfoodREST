@@ -45,20 +45,14 @@ const loginRoutes = (app, fs) => { //STO A LAVORA'
         readFile(async (data) => {
 
             try {
-
-                console.log("entro nel try");
                 const hashedPassword = await bcrypt.hash(req.body.password, 10)
-                console.log("creo la password hashata", hashedPassword);
-                const user = { name: req.body.name, password: hashedPassword }
+                const user = { user: req.body.user, tipo_utente: req.body.tipo_utente, password: hashedPassword }
                 data.utenti.push(user);
-                console.log("push nel doc", user);
-
             } catch {
-                res.status(500).send("ho fallito")
+                res.status(500).send({messaggio : "hashing faillito"})
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                console.log("entro nel writefile");
                 res.send({ messaggio: "user creato" })
             });
         },
