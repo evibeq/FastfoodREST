@@ -5,7 +5,7 @@ const loginRoutes = (app, fs) => {
     const bcrypt = require('bcrypt');
 
             // Funzione READFILE
-            const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
+            const readFile = async (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
                 fs.readFileSync(filePath, encoding, (err, data) => {
                     if (err) {
                         throw err;
@@ -32,7 +32,7 @@ const loginRoutes = (app, fs) => {
     app.get('/users', (req, res) => {
         res.json(users)
     })
-
+/*
     app.post('/users', (req, res) => {
 
             readFile(data => {
@@ -47,7 +47,7 @@ const loginRoutes = (app, fs) => {
             },
                 true);
     })
-/*
+*/
     app.post('/users/login', async (req, res) => {
         const user = users.find(user => user.name === req.body.name)
         if (user == null) {
