@@ -5,7 +5,7 @@ const loginRoutes = (app, fs) => {
     const bcrypt = require('bcrypt');
 
             // Funzione READFILE
-            const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
+            async const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
                 fs.readFileSync(filePath, encoding, (err, data) => {
                     if (err) {
                         throw err;
