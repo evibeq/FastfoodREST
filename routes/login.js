@@ -1,4 +1,4 @@
-const loginRoutes = (app, fs) => {
+const loginRoutes = (app, fs) => { //STO A LAVORA'
 
     const dataPath = './data/login.json';
 
@@ -16,7 +16,7 @@ const loginRoutes = (app, fs) => {
             };
         
             // Funzione WRITEFILE
-            const writeFile = (fileData, callback, filePath = dataPath, encoding = 'utf8') => {
+            const writeFile = async (fileData, callback, filePath = dataPath, encoding = 'utf8') => {
         
                 fs.writeFile(filePath, fileData, encoding, (err) => {
                     if (err) {
@@ -26,18 +26,12 @@ const loginRoutes = (app, fs) => {
                     callback();
                 });
             };
-
-    const users = []
-
-    app.get('/users', (req, res) => {
-        res.json(users)
-    })
 /*
     app.post('/users', (req, res) => {
 
             readFile(data => {
 
-                const hashedPassword = bcrypt.hash(req.body.password, 5)
+                const hashedPassword = passwordHashed(req.body.password)
                 const user = { user: req.body.user, password: hashedPassword }
                 login.utenti.push(user)
     
@@ -47,7 +41,7 @@ const loginRoutes = (app, fs) => {
             },
                 true);
     })
-*/
+
     app.post('/users/login', async (req, res) => {
         const user = users.find(user => user.name === req.body.name)
         if (user == null) {
@@ -64,7 +58,7 @@ const loginRoutes = (app, fs) => {
         }
     })
     
-    /*
+
     
         // READ - GET /clienti 
         app.get('/clienti', (req, res) => {
@@ -77,7 +71,7 @@ const loginRoutes = (app, fs) => {
             });
         });
     
-    
+        */
         app.post('/users', async (req, res) => {
     
             try {
