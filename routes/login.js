@@ -27,7 +27,7 @@ const loginRoutes = (app, fs) => { //STO A LAVORA'
         });
     };
 
-    app.get('/login', (req, res) => {
+    app.get('/users', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
                 throw err;
@@ -37,7 +37,7 @@ const loginRoutes = (app, fs) => { //STO A LAVORA'
         });
     });
 
-    app.post('/login', async (req, res) => {
+    app.post('/signup', (req, res) => {
 
         readFile(async (data) => {
 
@@ -46,16 +46,39 @@ const loginRoutes = (app, fs) => { //STO A LAVORA'
                 const user = { user: req.body.user, tipo_utente: req.body.tipo_utente, password: hashedPassword }
                 data.utenti.push(user);
             } catch {
-                res.status(500).send({messaggio : "hashing faillito"})
+                res.status(500).send({ messaggio: "Hashing fallito" })
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.send({ messaggio: "user creato" })
+                res.send({ messaggio: "User creato" })
             });
         },
             true);
     });
 
+    app.post('/login', (req, res) => {
+
+        readFile(async (data) => {
+
+            var index = data.utenti.findIndex(function (item, i) {
+                return item.user == req.body.user
+            });
+
+            if (index === -1)
+                return res.status(404).send({ messaggio: "User non esiste", user: req.body.user });
+
+            try {
+                if (await bcrypt.compare(req.body.password, data.utenti[index].password)) {
+                    res.send('Grandeeee');
+                } else {
+                    res.send('You shall not pass!');
+                }
+            } catch {
+                res.status(500).send();
+            }
+        },
+            true);
+    });
 
 };
 
