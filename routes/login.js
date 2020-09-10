@@ -46,12 +46,36 @@ const loginRoutes = (app, fs) => { //STO A LAVORA'
                 const user = { user: req.body.user, tipo_utente: req.body.tipo_utente, password: hashedPassword }
                 data.utenti.push(user);
             } catch {
-                res.status(500).send({messaggio : "hashing fallito"})
+                res.status(500).send({ messaggio: "Hashing fallito" })
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.send({ messaggio: "user creato" })
+                res.send({ messaggio: "User creato" })
             });
+        },
+            true);
+    });
+
+    app.post('/login', (req, res) => {
+
+        readFile(async (data) => {
+
+            var index = data.utenti.findIndex(function (item, i) {
+                return item.user == req.params.user
+            });
+
+            if (index === -1)
+                return res.status(404).send({ messaggio: "User non esiste", user: req.params.user });
+
+            try {
+                if (await bcrypt.compare(req.body.password, data.utenti[index].password)) {
+                    res.send('Grandeeee');
+                } else {
+                    res.send('You shall not pass!');
+                }
+            } catch {
+                res.status(500).send();
+            }
         },
             true);
     });
