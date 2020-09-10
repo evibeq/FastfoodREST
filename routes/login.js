@@ -27,7 +27,7 @@ const loginRoutes = (app, fs) => { //STO A LAVORA'
         });
     };
 
-    app.get('/login', (req, res) => {
+    app.get('/users', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
                 throw err;
@@ -37,10 +37,7 @@ const loginRoutes = (app, fs) => { //STO A LAVORA'
         });
     });
 
-
-
-
-    app.post('/login', async (req, res) => {
+    app.post('/signup', (req, res) => {
 
         readFile(async (data) => {
 
@@ -49,7 +46,7 @@ const loginRoutes = (app, fs) => { //STO A LAVORA'
                 const user = { user: req.body.user, tipo_utente: req.body.tipo_utente, password: hashedPassword }
                 data.utenti.push(user);
             } catch {
-                res.status(500).send({messaggio : "hashing faillito"})
+                res.status(500).send({messaggio : "hashing fallito"})
             }
 
             writeFile(JSON.stringify(data, null, 2), () => {
@@ -58,7 +55,6 @@ const loginRoutes = (app, fs) => { //STO A LAVORA'
         },
             true);
     });
-
 
 };
 
