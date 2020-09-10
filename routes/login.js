@@ -37,9 +37,6 @@ const loginRoutes = (app, fs) => { //STO A LAVORA'
         });
     });
 
-
-
-
     app.post('/login', async (req, res) => {
 
         readFile(async (data) => {
