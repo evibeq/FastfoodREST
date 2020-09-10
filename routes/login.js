@@ -61,11 +61,11 @@ const loginRoutes = (app, fs) => { //STO A LAVORA'
         readFile(async (data) => {
 
             var index = data.utenti.findIndex(function (item, i) {
-                return item.user == req.params.user
+                return item.user == req.body.user
             });
 
             if (index === -1)
-                return res.status(404).send({ messaggio: "User non esiste", user: req.params.user });
+                return res.status(404).send({ messaggio: "User non esiste", user: req.body.user });
 
             try {
                 if (await bcrypt.compare(req.body.password, data.utenti[index].password)) {
