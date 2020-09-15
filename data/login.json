@@ -1,39 +1,39 @@
 {
-    "utenti":[
+    "utenti": [
         {
-            "user":"ciob",
-            "password":"123",
-            "tipo_utente":"cliente"
+            "user": "ciob",
+            "password": "$2b$10$RDAtUPQupExlbLiLNdFuUOmQz22A/LWuYr4Pb7C4.z3XEQ4PsmogC",
+            "tipo_utente": "cliente"
         },
         {
-            "user":"evibeq",
-            "password":"123",
-            "tipo_utente":"cliente"
+            "user": "evibeq",
+            "password": "$2b$10$9Iz9eesO50Njou2a9rPqeO1/9IO1BH2IdMcL2fPu/pl0eQBVh1sh6",
+            "tipo_utente": "cliente"
         },
         {
-            "user":"den",
-            "password":"123",
-            "tipo_utente":"cliente"
+            "user": "den",
+            "password": "$2b$10$G/x40hjRcTFY4DuJa4D/E.uO9HigcYnFeXIrLhfleUnBXeA4SnLoG",
+            "tipo_utente": "cliente"
         },
         {
-            "user":"isola",
-            "password":"123",
-            "tipo_utente":"ristoratore"
+            "user": "isola",
+            "password": "$2b$10$x0hVBPUKaD7HKS3XXi.6EudsvRa2WVuRY.UaRJd89enHACIls9upm",
+            "tipo_utente": "ristoratore"
         },
         {
-            "user":"gorla",
-            "password":"123",
-            "tipo_utente":"ristoratore"
+            "user": "gorla",
+            "password": "$2b$10$3CMwLjQJ6s.xnEjCeU6GkepuRh.6YAu0hcdma9TR9r0GvkevRvPLq",
+            "tipo_utente": "ristoratore"
         },
         {
-            "user":"piola",
-            "password":"123",
-            "tipo_utente":"ristoratore"
+            "user": "piola",
+            "password": "$2b$10$fxrLwMu0h27Irjya9d55VOzEK5Wr6PTu8hv4DMteKhwDPRwsR36ca",
+            "tipo_utente": "ristoratore"
         },
         {
-            "user":"saronno",
-            "password":"123",
-            "tipo_utente":"ristoratore"
+            "user": "saronno",
+            "password": "$2b$10$s57YBwLCwiBef5.7l6Og5e2IQk9srWGG2FsmySSMqWUz.KU2qN8Ty",
+            "tipo_utente": "ristoratore"
         }
     ]
 }

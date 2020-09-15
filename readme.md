@@ -7,14 +7,15 @@ Studenti
 
 Link Heroku: https://fastfoodrest.herokuapp.com/
 
-## TODO
-- Autenticazione
-- Riformulare file JSON
-
 ## Premessa
 L’obiettivo è implementare un’applicazione REST per supportare lo sviluppo dell’applicazione web FastFood.
 
 ## API
+Al fine di realizzare le richieste, ci si è basati sul paradigma CRUD.  
+Utilizzando metodi HTTP (GET, POST, PUT, DELETE) per la gestione delle risorse.
+Per la gestione dei dati si sono utilizzati file JSON locali.
+Implemetato un web server utilizzando Node JS ed il frameword Express.
+si è utilizzato  
 
 ### Clienti
 ```
