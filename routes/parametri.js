@@ -5,27 +5,6 @@ const parametriRoutes = (app, fs) => {
     const convert = require('xml-js');
     const options = {spaces: 4, compact: true};
 
-    const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
-        fs.readFile(filePath, encoding, (err, data) => {
-            if (err) {
-                throw err;
-            }
-
-            callback(returnJson ? JSON.parse(data) : data);
-        });
-    };
-
-    const writeFile = (fileData, callback, filePath = dataPath, encoding = 'utf8') => {
-
-        fs.writeFile(filePath, fileData, encoding, (err) => {
-            if (err) {
-                throw err;
-            }
-
-            callback();
-        });
-    };
-
     // READ INGREDIENTI - GET /ingredienti
     app.get('/ingredienti', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
@@ -38,6 +17,7 @@ const parametriRoutes = (app, fs) => {
         });
     });
 
+    //XML
     app.get('/ingredientixml', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -60,6 +40,8 @@ const parametriRoutes = (app, fs) => {
             res.send(obj.tipologie_prodotti);
         });
     });
+
+    //XML
     app.get('/tipologie_prodottixml', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -83,6 +65,7 @@ const parametriRoutes = (app, fs) => {
         });
     });
 
+    //XML
     app.get('/metodi_pagamentoxml', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {

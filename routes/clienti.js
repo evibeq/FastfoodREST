@@ -39,6 +39,7 @@ const clientiRoutes = (app, fs) => {
         });
     });
 
+    //XML
     app.get('/clientixml', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -69,6 +70,7 @@ const clientiRoutes = (app, fs) => {
         });
     });
 
+    //XML
     app.get('/clientixml/:user', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -100,10 +102,6 @@ const clientiRoutes = (app, fs) => {
                 rep.user = { messaggio: "Parametro deve essere impostato" };
                 valido = false;
             }
-            if (req.body.password === undefined || req.body.password === "") {
-                rep.password = { messaggio: "Parametro deve essere impostato" };
-                valido = false;
-            }
             if (req.body.nome === undefined || req.body.nome === "") {
                 rep.nome = { messaggio: "Parametro deve essere impostato" };
                 valido = false;
@@ -129,7 +127,6 @@ const clientiRoutes = (app, fs) => {
 
             const obj = {
                 user: req.body.user,
-                password: req.body.password,
                 nome: req.body.nome,
                 cognome: req.body.cognome,
                 pagamento: req.body.pagamento,
@@ -164,10 +161,6 @@ const clientiRoutes = (app, fs) => {
                 parametri_aggiornati: []
             };
 
-            if (req.body.password != undefined && req.body.password != "") {
-                rep.parametri_aggiornati.push({ parametro: "password", vecchio_parametro: data.clienti[index].password, nuovo_parametro: req.body.password })
-                data.clienti[index].password = req.body.password;
-            }
             if (req.body.nome != undefined && req.body.nome != "") {
                 rep.parametri_aggiornati.push({ parametro: "nome", vecchio_parametro: data.clienti[index].nome, nuovo_parametro: req.body.nome })
                 data.clienti[index].nome = req.body.nome;

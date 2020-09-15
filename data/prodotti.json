@@ -1,25 +1,18 @@
 {
     "prodotti":[
         {
-            "nome":"",
-            "foto":"",
-            "tipologia":"",
-            "prezzo":"",
-            "ingredienti":[]
-        },
-        {
-            "nome":"Pasta al pomodoro",
-            "foto":"",
-            "tipologia":"Pasta",
-            "prezzo":"5",
-            "ingredienti":[]
-        },
-        {
-            "nome":"Kebab",
-            "foto":"",
+            "nome":"Cheeseburger",
+            "foto":"cheeseburger.png",
             "tipologia":"Panino",
-            "prezzo":"5",
-            "ingredienti":[]
+            "prezzo":"4,99",
+            "ingredienti":["Pane", "Formaggio", "Bacon"]
+        },
+        {
+            "nome":"Fishburger",
+            "foto":"fishburger.png",
+            "tipologia":"Panino",
+            "prezzo":"5,99",
+            "ingredienti":["Pane", "Pesce", "Formaggio"]
         }
     ]
 }

@@ -39,6 +39,7 @@ const ordiniRoutes = (app, fs) => {
         });
     });
 
+    //XML
     app.get('/ordinixml', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -69,6 +70,7 @@ const ordiniRoutes = (app, fs) => {
         });
     });
 
+    //XML
     app.get('/ordinixml/:id', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -110,6 +112,7 @@ const ordiniRoutes = (app, fs) => {
         });
     });
 
+    //XML
     app.get('/ordinixml/cliente/:user', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -153,6 +156,7 @@ const ordiniRoutes = (app, fs) => {
         });
     });
 
+    //XML
     app.get('/ordinixml/ristoratore/:user', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -202,7 +206,7 @@ const ordiniRoutes = (app, fs) => {
                 rep.punto_ritiro = { messaggio: "Parametro deve essere impostato" };
                 valido = false;
             }
-            if (req.body.tempo_attesa === undefined || req.body.tempo_attesa <= 0 || req.body.tempo_attesa === "") {
+            if (req.body.tempo_attesa === undefined || req.body.tempo_attesa <= 0 || req.body.tempo_attesa === "" || typeof req.body.tempo_attesa != "number") {
                 rep.tempo_attesa = { messaggio: "Parametro non valido" };
                 valido = false;
             }

@@ -1,5 +1,6 @@
 {
-    "ingredienti":["indrediente1", "indrediente C"],
-    "tipologie_prodotti":["tipologia1","tipologia A"],
-    "metodi_pagamento":["metodi pagamento1","metodi pagamento2"]
+    "ingredienti":["Pane", "Pane grano duro", "Mozzarella", "Insalata", "Pomodori", "Pesto", "Pollo", "Maiale", "Bacon", "Pesce", "Formaggio"],
+    "tipologie_prodotti":["Panino", "Patatine", "Bibita", "Gelato"],
+    "metodi_pagamento":["Contanti", "Carta di credito", "Paypal"],
+    "tipologia_cliente": ["cliente", "ristoratore"]
 }

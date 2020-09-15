@@ -2,24 +2,27 @@
     "contatore": "3",
     "recensioni":[
         {
-            "user_ristoratore":"ristorante1",
-            "user_cliente":"ciob",
-            "recensione":"Molto buono sto kebab!",
-            "data":"",
+            "user_ristoratore":"isola",
+            "user_cliente":"den",
+            "recensione":"Non mi è piaciuto buono il Chicken Burger!",
+            "stelle": "5",
+            "data":"12/09/2020 15:08:42",
             "id": "1"
         },
         {
-            "user_ristoratore":"ristorante2",
-            "user_cliente":"ciob",
-            "recensione":"Mi fa schifo sto kebab!",
-            "data":"",
+            "user_ristoratore":"saronno",
+            "user_cliente":"evibeq",
+            "recensione":"Il posto è nuovo, pulito e molto spazioso!",
+            "stelle": "4",
+            "data":"13/09/2020 15:56:36",
             "id": "2"
         },
         {
-            "user_ristoratore":"ristorante3",
-            "user_cliente":"evibeq",
-            "recensione":"Molto buono!",
-            "data":"",
+            "user_ristoratore":"gorla",
+            "user_cliente":"ciob",
+            "recensione":"L'hamburger mi è piaciuto tantissimo!",
+            "stelle": "5",
+            "data":"14/09/2020 23:33:43",
             "id": "3"
         }
     ]

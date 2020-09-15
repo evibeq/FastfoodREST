@@ -37,6 +37,7 @@ const recensioniRoutes = (app, fs) => {
         });
     });
 
+    //XML
     app.get('/recensionixml', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -67,6 +68,7 @@ const recensioniRoutes = (app, fs) => {
         });
     });
 
+    //XML
     app.get('/recensionixml/:id', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -108,6 +110,7 @@ const recensioniRoutes = (app, fs) => {
         });
     });
 
+    //XML
     app.get('/recensionixml/cliente/:user', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -151,6 +154,7 @@ const recensioniRoutes = (app, fs) => {
         });
     });
 
+    //XML
     app.get('/recensionixml/ristoratore/:user', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -190,6 +194,10 @@ const recensioniRoutes = (app, fs) => {
             }
             if (req.body.recensione === undefined || req.body.recensione === "") {
                 rep.recensione = { messaggio: "Parametro deve essere impostato" };
+                valido = false;
+            }
+            if (req.body.stelle === undefined || req.body.stelle === "" || req.body.stelle < 0 || req.body.stelle > 5 || typeof req.body.stelle != "number") {
+                rep.recensione = { messaggio: "Parametro non valido" };
                 valido = false;
             }
 
