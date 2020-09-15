@@ -42,7 +42,7 @@ Metodi
 `PUT /clienti/:user`  
 `DELETE /clienti/:user`  
 
-XML
+XML  
 `GET /clientixml`  
 `GET /clientixml/:user`  
 ___
@@ -77,7 +77,7 @@ Metodi
 `POST /upload/:id_immagine`  
 `DELETE /prodottipersonalizzati/:user/:nome`  
 
-XML
+XML  
 `GET /ristoratorixml`  
 `GET /ristoratorixml/:user`
 ___
@@ -95,7 +95,7 @@ Metodi
 `GET /prodotti`  
 `GET /prodotti/:nome`  
 
-XML
+XML  
 `GET /prodottixml`  
 `GET /prodottixml/:nome`
 ___
@@ -119,7 +119,7 @@ Metodi
 `PUT /recensioni/:id`  
 `DELETE /recensioni/:id`
 
-XML
+XML  
 `GET /recensionixml`  
 `GET /recensionixml/:id`  
 `GET /recensionixml/cliente/:user`  
@@ -152,7 +152,7 @@ Metodi
 `PUT /ordini/:id`  
 `DELETE /ordini/:id`  
 
-XML
+XML  
 `GET /ordinixml`  
 `GET /ordinixml/:id`  
 `GET /ordinixml/cliente/:user`  
@@ -165,7 +165,7 @@ Metodi
 `GET /metodi_pagamento`  
 `GET /tipologia_utente`  
 
-XML
+XML  
 `GET /ingredientixml`  
 `GET /tipologie_prodottixml`  
 `GET /tipologia_utentexml`  
