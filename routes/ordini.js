@@ -206,7 +206,7 @@ const ordiniRoutes = (app, fs) => {
                 rep.punto_ritiro = { messaggio: "Parametro deve essere impostato" };
                 valido = false;
             }
-            if (req.body.tempo_attesa === undefined || req.body.tempo_attesa <= 0 || req.body.tempo_attesa === "" || typeof req.body.tempo_attesa != "number") {
+            if (req.body.tempo_attesa === undefined || req.body.tempo_attesa <= 0 || req.body.tempo_attesa === "" || isNaN(req.body.tempo_attesa)) {
                 rep.tempo_attesa = { messaggio: "Parametro non valido" };
                 valido = false;
             }

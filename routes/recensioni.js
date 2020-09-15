@@ -196,7 +196,7 @@ const recensioniRoutes = (app, fs) => {
                 rep.recensione = { messaggio: "Parametro deve essere impostato" };
                 valido = false;
             }
-            if (req.body.stelle === undefined || req.body.stelle === "" || req.body.stelle < 0 || req.body.stelle > 5 || typeof req.body.stelle != "number") {
+            if (req.body.stelle === undefined || req.body.stelle === "" || req.body.stelle < 0 || req.body.stelle > 5 || isNaN(req.body.stelle)) {
                 rep.recensione = { messaggio: "Parametro non valido" };
                 valido = false;
             }

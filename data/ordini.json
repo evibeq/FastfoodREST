@@ -36,7 +36,7 @@
             "user_cliente": "ciob",
             "prezzo":"15,97",
             "punto_ritiro":"ristorante",
-            "tempo_attesa":"1", 
+            "tempo_attesa":"2", 
             "prodotti": [
                 {
                     "nome_prodotto":"Hamburger",
