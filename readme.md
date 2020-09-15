@@ -11,17 +11,23 @@ Link Heroku: https://fastfoodrest.herokuapp.com/
 L’obiettivo è implementare un’applicazione REST per supportare lo sviluppo dell’applicazione web FastFood.
 
 ## API
-Al fine di realizzare le richieste, ci si è basati sul paradigma CRUD.  
-Utilizzando metodi HTTP (GET, POST, PUT, DELETE) per la gestione delle risorse.
-Per la gestione dei dati si sono utilizzati file JSON locali.
-Implemetato un web server utilizzando Node JS ed il frameword Express.
-si è utilizzato  
 
-### Clienti
+### Login
 ```
 {
     "user": "",
     "password": "",
+    "tipo_utente": ""
+}
+```
+Metodi    
+`POST /signup`  
+`POST /login`    
+___
+### Clienti
+```
+{
+    "user": "",
     "nome": "",
     "cognome": "",
     "pagamento": "",
@@ -34,13 +40,16 @@ Metodi
 `GET /clienti/:user`  
 `POST /clienti`  
 `PUT /clienti/:user`  
-`DELETE /clienti/:user`
+`DELETE /clienti/:user`  
+
+XML
+`GET /clientixml`  
+`GET /clientixml/:user`  
 ___
 ### Ristoratori
 ```
 {
     "user": "",
-    "password": "",
     "nome_ristorante": "",
     "numero_telefono": "",
     "partita_iva": "",
@@ -67,6 +76,10 @@ Metodi
 `POST /prodottipersonalizzati/:user`  
 `POST /upload/:id_immagine`  
 `DELETE /prodottipersonalizzati/:user/:nome`  
+
+XML
+`GET /ristoratorixml`  
+`GET /ristoratorixml/:user`
 ___
 ### Prodotti
 ```
@@ -80,7 +93,11 @@ ___
 ```
 Metodi  
 `GET /prodotti`  
-`GET /prodotti/:nome` 
+`GET /prodotti/:nome`  
+
+XML
+`GET /prodottixml`  
+`GET /prodottixml/:nome`
 ___
 ### Recensioni
 ```
@@ -88,6 +105,7 @@ ___
     "user_ristoratore":"",
     "user_cliente":"",
     "recensione":"",
+    "stelle":"",
     "data":"",
     "id": ""
 }
@@ -100,6 +118,12 @@ Metodi
 `POST /recensioni`  
 `PUT /recensioni/:id`  
 `DELETE /recensioni/:id`
+
+XML
+`GET /recensionixml`  
+`GET /recensionixml/:id`  
+`GET /recensionixml/cliente/:user`  
+`GET /recensionixml/ristoratore/:user`
 ___
 ### Ordini
 ```
@@ -127,9 +151,22 @@ Metodi
 `POST /ordini`  
 `PUT /ordini/:id`  
 `DELETE /ordini/:id`  
+
+XML
+`GET /ordinixml`  
+`GET /ordinixml/:id`  
+`GET /ordinixml/cliente/:user`  
+`GET /ordinixml/ristoratore/:user` 
 ___
 ### Parametri
 Metodi  
 `GET /ingredienti`  
 `GET /tipologie_prodotti`  
 `GET /metodi_pagamento`  
+`GET /tipologia_utente`  
+
+XML
+`GET /ingredientixml`  
+`GET /tipologie_prodottixml`  
+`GET /tipologia_utentexml`  
+`GET /metodi_pagamentoxml`  
