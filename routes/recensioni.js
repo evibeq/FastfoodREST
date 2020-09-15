@@ -218,6 +218,7 @@ const recensioniRoutes = (app, fs) => {
                 user_ristoratore: req.body.user_ristoratore,
                 user_cliente: req.body.user_cliente,
                 recensione: req.body.recensione,
+                stelle: req.body.stelle,
                 data: d.getDate() + "/" + Number(d.getMonth() + 1) + "/" + d.getFullYear() + " " + d.toLocaleTimeString("default", { hour12: false }),
                 id: data.contatore
             }
@@ -238,6 +239,8 @@ const recensioniRoutes = (app, fs) => {
 
             if (req.body.recensione === undefined || req.body.recensione === "")
                 return res.status(400).send({ messaggio: "Il campo recensione non può essere vuoto" });
+            if (req.body.stelle === undefined || req.body.stelle === "" || req.body.stelle < 0 || req.body.stelle > 5 || isNaN(parseInt(req.body.stelle)))
+                return res.status(400).send({ messaggio: "Campo stelle non valido" });
 
             var index = data.recensioni.findIndex(function (item, i) {
                 return item.id == req.params.id
@@ -251,6 +254,7 @@ const recensioniRoutes = (app, fs) => {
                 vecchia_recensione: data.recensioni[index],
             }
             data.recensioni[index].recensione = req.body.recensione;
+            data.recensioni[index].stelle = req.body.stelle;
             rep.nuova_recensione = data.recensioni[index];
 
             writeFile(JSON.stringify(data, null, 2), () => {
