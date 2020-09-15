@@ -1,43 +1,63 @@
 {
     "ristoratori": [
         {
-            "user": "francesco",
-            "password": "",
-            "nome_ristorante": "",
-            "numero_telefono": "",
-            "partita_iva": "",
-            "indirizzo": "",
-            "prodotti":[
-                "Hamburger"
-            ],
+            "user": "isola",
+            "nome_ristorante": "Fastfood Isola",
+            "numero_telefono": "12345",
+            "partita_iva": "12345",
+            "indirizzo": "Via Sebenico 2, Milano",
+            "prodotti":["Cheeseburger", "Fishburger"],
             "prodotti_personalizzati":[
                 {
-                    "nome":"pasta",
-                    "foto":"francescopasta.jpg",
-                    "tipologia":"",
-                    "prezzo":"",
-                    "ingredienti":[""]
+                    "nome":"Chicken Burger",
+                    "foto":"chickenburger.png",
+                    "tipologia":"Panino",
+                    "prezzo":"4,99",
+                    "ingredienti":["Pane", "Pollo", "Insalata", "Bacon"]
                 }
             ]
         },
         {
-            "user": "ciob",
-            "password": "coglione_sinistro",
-            "nome_ristorante": "Melo Magno",
-            "numero_telefono": "3461597353",
-            "partita_iva": "7260103550",
-            "indirizzo": "via Carlo Marso",
-            "prodotti":[],
-            "prodotti_personalizzati":[]
+            "user": "gorla",
+            "nome_ristorante": "Fastfood Gorla",
+            "numero_telefono": "12345",
+            "partita_iva": "12345",
+            "indirizzo": "Viale Monza 3, Milano",
+            "prodotti":["Cheeseburger", "Fishburger"],
+            "prodotti_personalizzati":[
+                {
+                    "nome":"Hamburger",
+                    "foto":"hamburger.png",
+                    "tipologia":"Panino",
+                    "prezzo":"5,99",
+                    "ingredienti":["Pane", "Maiale", "Insalata", "Bacon"]
+                }
+            ]
         },
         {
-            "user": "evibeq",
-            "password": "coglione_destro",
-            "nome_ristorante": "Er Pagnotta",
-            "numero_telefono": "3461597353",
-            "partita_iva": "7260103550",
-            "indirizzo": "via Federico Engeli",
-            "prodotti":[],
+            "user": "piola",
+            "nome_ristorante": "Mini Fastfood Piola",
+            "numero_telefono": "12345",
+            "partita_iva": "12345",
+            "indirizzo": "Piazzale Piola 1, Milano",
+            "prodotti":["Fishburger"],
+            "prodotti_personalizzati":[
+                {
+                    "nome":"The Legend",
+                    "foto":"thelegend.jpg",
+                    "tipologia":"Panino",
+                    "prezzo":"9,99",
+                    "ingredienti":["Pane grano duro", "Mozzarella", "Insalata", "Pomodori", "Pesto"]
+                }
+            ]
+        },
+        {
+            "user": "saronno",
+            "nome_ristorante": "Fastfood Saronno",
+            "numero_telefono": "12345",
+            "partita_iva": "12345",
+            "indirizzo": "Corso della Vittoria 1, Saronno",
+            "prodotti":["Cheeseburger", "Fishburger"],
             "prodotti_personalizzati":[]
         }
     ]

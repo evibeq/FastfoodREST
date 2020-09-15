@@ -1,9 +1,39 @@
 {
     "utenti":[
         {
-            "user":"",
-            "password":"",
-            "tipo_utente":""
+            "user":"ciob",
+            "password":"123",
+            "tipo_utente":"cliente"
+        },
+        {
+            "user":"evibeq",
+            "password":"123",
+            "tipo_utente":"cliente"
+        },
+        {
+            "user":"den",
+            "password":"123",
+            "tipo_utente":"cliente"
+        },
+        {
+            "user":"isola",
+            "password":"123",
+            "tipo_utente":"ristoratore"
+        },
+        {
+            "user":"gorla",
+            "password":"123",
+            "tipo_utente":"ristoratore"
+        },
+        {
+            "user":"piola",
+            "password":"123",
+            "tipo_utente":"ristoratore"
+        },
+        {
+            "user":"saronno",
+            "password":"123",
+            "tipo_utente":"ristoratore"
         }
     ]
 }

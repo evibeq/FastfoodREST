@@ -5,27 +5,6 @@ const prodottiRoutes = (app, fs) => {
     const convert = require('xml-js');
     const options = {spaces: 4, compact: true};
 
-    const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
-        fs.readFile(filePath, encoding, (err, data) => {
-            if (err) {
-                throw err;
-            }
-
-            callback(returnJson ? JSON.parse(data) : data);
-        });
-    };
-
-    const writeFile = (fileData, callback, filePath = dataPath, encoding = 'utf8') => {
-
-        fs.writeFile(filePath, fileData, encoding, (err) => {
-            if (err) {
-                throw err;
-            }
-
-            callback();
-        });
-    };
-
     // READ
     app.get('/prodotti', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
@@ -37,6 +16,7 @@ const prodottiRoutes = (app, fs) => {
         });
     });
 
+    //XML
     app.get('/prodottixml', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -67,6 +47,7 @@ const prodottiRoutes = (app, fs) => {
         });
     });
 
+    //XML
     app.get('/prodottixml/:nome', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {

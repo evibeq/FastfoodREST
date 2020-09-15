@@ -37,6 +37,7 @@ const ristoratoriRoutes = (app, fs) => {
         });
     });
 
+    //XML
     app.get('/ristoratorixml', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -67,6 +68,7 @@ const ristoratoriRoutes = (app, fs) => {
         });
     });
 
+    //XML
     app.get('/ristoratorixml/:user', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
@@ -96,10 +98,6 @@ const ristoratoriRoutes = (app, fs) => {
 
             if (req.body.user === undefined || req.body.user === "") {
                 rep.user = { messaggio: "Il parametro deve essere impostato." };
-                valido = false;
-            }
-            if (req.body.password === undefined || req.body.password === "") {
-                rep.password = { messaggio: "Il parametro deve essere impostato." };
                 valido = false;
             }
             if (req.body.nome_ristorante === undefined || req.body.nome_ristorante === "") {
@@ -135,7 +133,6 @@ const ristoratoriRoutes = (app, fs) => {
 
             var obj = {
                 user: req.body.user,
-                password: req.body.password,
                 nome_ristorante: req.body.nome_ristorante,
                 numero_telefono: req.body.numero_telefono,
                 partita_iva: req.body.partita_iva,
@@ -174,10 +171,6 @@ const ristoratoriRoutes = (app, fs) => {
                 parametri_aggiornati: []
             };
 
-            if (req.body.password != undefined && req.body.password != "") {
-                rep.parametri_aggiornati.push({ parametro: "password", vecchio_parametro: data.ristoratori[index].password, nuovo_parametro: req.body.password })
-                data.ristoratori[index].password = req.body.password;
-            }
             if (req.body.nome_ristorante != undefined && req.body.nome_ristorante != "") {
                 rep.parametri_aggiornati.push({ parametro: "nome_ristorante", vecchio_parametro: data.ristoratori[index].nome_ristorante, nuovo_parametro: req.body.nome_ristorante })
                 data.ristoratori[index].nome_ristorante = req.body.nome_ristorante;

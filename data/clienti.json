@@ -1,33 +1,28 @@
 {
     "clienti": [
         {
-            "user": "",
-            "password": "",
-            "nome": "",
-            "cognome": "",
-            "pagamento": "",
-            "preferenza_privacy": "",
-            "preferenza_prodotto": ""
-        },
-
-
-        {
             "user": "ciob",
-            "password": "123",
             "nome": "Vasile",
             "cognome": "Ciobanu",
-            "pagamento": "cash",
+            "pagamento": "Contanti",
             "preferenza_privacy": "true",
-            "preferenza_prodotto": "solo kebab"
+            "preferenza_prodotto": "Celiaco"
         },
         {
             "user": "evibeq",
-            "password": "123",
             "nome": "Evandro",
             "cognome": "Beqaj",
-            "pagamento": "cash",
+            "pagamento": "Carta di credito",
             "preferenza_privacy": "false",
-            "preferenza_prodotto": "solo kebab"
+            "preferenza_prodotto": "Vegano"
+        },
+        {
+            "user": "den",
+            "nome": "Danilo",
+            "cognome": "Personeni",
+            "pagamento": "Carta di credito",
+            "preferenza_privacy": "false",
+            "preferenza_prodotto": ""
         }
     ]
 }
