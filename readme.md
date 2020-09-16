@@ -5,16 +5,16 @@ Studenti
 ## Introduzione
 L'applicazione implementata è deployata su Heroku ed è accessibile all'indirizzo: https://fastfoodrest.herokuapp.com/  
 L'account free di Heroku ne limita le modifiche sui lunghi periodi o dopo aver riavviato le dynos. Tutte le modifiche fatte al database, implementato con file json, vengono percìo cancellate e i file tornano al loro stato iniziale.  
-L'applicazione segue l'architettura REST e tramite le seguenti API è possibile fare operazioni su di essa.
+L'applicazione segue l'architettura REST ed utilizza node js combianto con express come framework.
 
 ## Funzionalità sviluppate
 Il progetto si pone l'obbiettivo di supportare lo sviluppo di un'app web per la gestione di una catena di fastfood tramite la realizzazione di un'applicazione REST.
 Deve ricoprire la funzione di gestire lato server tutte le possibili richieste di tipo GET, POST, DELETE, PUT che vengono fatte dal client. L'applicazione si occupa quindi di gestire l'accesso, l'aggiunta, l'eliminazione e l'aggiornamento delle informazioni nel database. La richiesta di lavorare su menù e su informazioni sui locali (dando la possibilità ai singoli ristoratori di gestire i propri dati) richiede l'implementazione di un database per i PRODOTTI e i RISTORANTI; quella di lavorare su clienti della piattaforma e loro preferenze richiede l'implementazione di un database per i CLIENTI; quella di lavorare sui loro acquisti effettuati e sulle loro recensioni richiede di implementare un database per gli ORDINI e le RECENSIONI.
 Per poter garantire la registrazione e il login alla piattaforma da parte di utenti che siano ristoratori o clienti, è stato implementato un file chiamato LOGIN contenente solo username, password e tipo di utente, implementato separatamente da RISTORANTI e CLIENTI per questioni che verrano discusse in seguito (vedi Dettaglio tecnico e scelte implementative).
-Per la presenza di parametri che caratterizzano una moltitudine di aspetti dell'applicazione web è stato necessirio l'utilizzo di un file chiamato PARAMETRI, da cui è possibile richiedere con una lettura informazioni quali l'elenco di tutti gli ingredienti che è possibile utilizzare per un prodotto personalizzato.  
+Per la presenza di parametri che caratterizzano una moltitudine di aspetti dell'applicazione web è stato necessario l'utilizzo di un file chiamato PARAMETRI, da cui è possibile richiedere con una lettura informazioni quali, per esempio, l'elenco di tutti gli ingredienti che è possibile utilizzare per un prodotto personalizzato.  
 
 ## API
-Al fine di realizzare le richieste vengono utilizzati richieste HTTP (GET, POST, PUT, DELETE) per la gestione delle risorse.
+Al fine di realizzare le richieste vengono utilizzate richieste HTTP (GET, POST, PUT, DELETE) per la gestione delle risorse.
 I dati vengono salvati su file JSON locali.
 
 ### Login
@@ -177,17 +177,19 @@ XML
 `GET /metodi_pagamentoxml`  
 
 ## Dettaglio tecnico e scelte implementative
-## Prove di funzionamento
-
-
 Le tecnologie software e le risorse esterne utilizzate utilizze sono:
-```
-Node.js - runtime Javascript orientato agli eventi
-Express (4.17.1) - framework Node.js per applicazioni web e API flessibile e leggero
-express-fileupload (1.2.0) - middleware utilizzato per implementare la funzionalità di upload di foto di prodotti personalizzati
-bcrypt (5.0.0) - libreria per hashing di password, utilizzato nelle fase di signup e login
-xml-js (1.6.11) - convertitore XML/JSON e viceversa
-```
+#### Node.js
+Runtime Javascript orientato agli eventi
+#### Express (4.17.1)
+Framework Node.js per applicazioni web e API flessibile e leggero
+#### express-fileupload (1.2.0)
+Middleware utilizzato per implementare la funzionalità di upload di foto di prodotti personalizzati
+#### bcrypt (5.0.0)
+Libreria per hashing di password, utilizzato nella fase di signup e login
+#### xml-js (1.6.11)
+Convertitore XML/JSON e viceversa
+
+## Prove di funzionamento
 
 La struttura del progetto è la seguente:
 ```
