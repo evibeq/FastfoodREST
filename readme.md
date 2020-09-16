@@ -19,9 +19,9 @@ La struttura del progetto è la seguente:
   /public/images    //cartella contenente le immagini caricate o richieste dal client
   /routes          //cartella contenente tutte le routes, cioè i file js che determinano come il server deve rispondere a una determinata richiesta
     routes.js
-app.js            //file contenente il codice che per primo viene eseguito una volta che il server è in funzione
-package.json     //file json di configurazioni per node js, tra le tante qui definiamo quali dependencies node js deve utilizzare
-Procfile        //file contenente  una lista di comandi che heroku deve eseguire una volta iniziata la dyno, in questo indichiamo solo di eseguire app.js
+ app.js           //file contenente il codice che per primo viene eseguito una volta che il server è in funzione
+ package.json    //file json di configurazioni per node js, tra le tante qui definiamo quali dependencies node js deve utilizzare
+ Procfile       //file contenente  una lista di comandi che heroku deve eseguire una volta iniziata la dyno, in questo indichiamo solo di eseguire app.js
 ```
 
 Qualsiasi richiesta GET, POST, DELETE, PUT posta in modo corretto al server restituisce una risposta in formato JSON. Anche se un campo è errato la risposta restituisce un oggetto JSON che avverte della non correttezza. Le richieste GET su URL che terminano con "xml" restituiscono invece oggetti XML.  
