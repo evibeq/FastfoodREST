@@ -14,9 +14,8 @@ Per poter garantire la registrazione e il login alla piattaforma da parte di ute
 Per la presenza di parametri che caratterizzano una moltitudine di aspetti dell'applicazione web è stato necessirio l'utilizzo di un file chiamato PARAMETRI, da cui è possibile richiedere con una lettura informazioni quali l'elenco di tutti gli ingredienti che è possibile utilizzare per un prodotto personalizzato.  
 
 ## API
-Al fine di realizzare le richieste, ci si è basati sul paradigma CRUD.  
-Utilizzando metodi HTTP (GET, POST, PUT, DELETE) per la gestione delle risorse.
-Per la gestione dei dati vengono utilizzati file JSON locali.
+Al fine di realizzare le richieste vengono utilizzati richieste HTTP (GET, POST, PUT, DELETE) per la gestione delle risorse.
+I dati vengono salvati su file JSON locali.
 
 ### Login
 ```
