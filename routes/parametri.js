@@ -77,6 +77,30 @@ const parametriRoutes = (app, fs) => {
         });
     });
 
+    // READ TIPOLOGIA UTENTE - GET /tipologia_utente
+    app.get('/tipologia_utente', (req, res) => {
+        fs.readFile(dataPath, 'utf8', (err, data) => {
+            if (err) {
+                throw err;
+            }
+
+            obj = JSON.parse(data)
+            res.send(obj.tipologia_utente);
+        });
+    });
+
+    //XML
+    app.get('/tipologia_utentexml', (req, res) => {
+        fs.readFile(dataPath, 'utf8', (err, data) => {
+            if (err) {
+                throw err;
+            }
+
+            obj = JSON.parse(data)
+            res.send(convert.json2xml(obj.tipologia_utente,options));
+        });
+    });
+
 };
 
 module.exports = parametriRoutes;
