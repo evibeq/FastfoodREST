@@ -205,12 +205,12 @@ projectfolder
 ├── package.json
 └── Procfile
 ```
-*`data` contiene tutti i file in formato .json dove salviamo le informazioni di nostro interesse. Ogni file .json corrisponde a un file .js contenuto in `routes`.Per comodità condividono lo stesso nome (prodotti.js lavora su prodotti.json).  
-*`public/images` è la cartella contenente le immagini caricate o richieste dal client.  
-*`routes` è la cartella contenente tutte le routes, cioè i file .js che determinano come il server deve rispondere a una determinata richiesta. Le varie routes contengono il codice che si occupa di leggere o scrivere sui file json contenuti in `data`. In seguito verrano visti nel dettaglio.
-*`app.js` è il file contenente il codice che per primo viene eseguito una volta che il server è in funzione. Qui vengono create alcune delle costanti che servirano per il funzionamento di ogni singola route, viene definita su quale porta (che decide Heroku) express deve stare in ascolto, vengono inizializzati alcuni middleware ed infine il server viene messo in ascolto pronto a ricevere le varie richieste.  
-*`package.json` è il file json contenente alcune configurazioni per node js. Tra le tante qui definiamo quali dependencies node js deve utilizzare. Una volta deployato su heroku sarà lui ad occuparsi di scaricare tutte questi pacchetti esterni.
-*`Procfile` è il file che dovrebbe contenere una lista di comandi che heroku deve eseguire una volta iniziata la dyno. Nel nostro caso abbiamo solo un comando con cui indichiamo di eseguire app.js.
+* `data` contiene tutti i file in formato .json dove salviamo le informazioni di nostro interesse. Ogni file .json corrisponde a un file .js contenuto in `routes`. Per comodità condividono lo stesso nome (prodotti.js lavora su prodotti.json).  
+* `public/images` è la cartella contenente le immagini caricate o richieste dal client.  
+* `routes` è la cartella contenente tutte le routes, cioè i file .js che determinano come il server deve rispondere a una determinata richiesta. Le varie routes contengono il codice che si occupa di leggere o scrivere sui file json contenuti in `data`. In seguito verrano visti nel dettaglio.
+* `app.js` è il file contenente il codice che per primo viene eseguito una volta che il server è in funzione. Qui vengono create alcune delle costanti che servirano per il funzionamento di ogni singola route, viene definita su quale porta (che decide Heroku) express deve stare in ascolto, vengono inizializzati alcuni middleware ed infine il server viene messo in ascolto pronto a ricevere le varie richieste.  
+* `package.json` è il file json contenente alcune configurazioni per node js. Tra le tante qui definiamo quali dependencies node js deve utilizzare. Una volta deployato su heroku sarà lui ad occuparsi di scaricare tutte questi pacchetti esterni.
+* `Procfile` è il file che dovrebbe contenere una lista di comandi che heroku deve eseguire una volta iniziata la dyno. Nel nostro caso abbiamo solo un comando con cui indichiamo di eseguire app.js.
 
 ## Prove di funzionamento
 
