@@ -1,48 +1,22 @@
-L'applicazione implementata è deployata su Heroku ed è accessibile all'indirizzo: https://fastfoodrest.herokuapp.com/  
-L'account free di Heroku ne limita le modifiche sui lunghi periodi o dopo aver riavviato le dynos. Tutte le modifiche fatte al database, implementato con file json, vengono percìo cancellate e i file tornano al loro stato iniziale.  
-L'applicazione segue l'architettura REST e tramite le seguenti API è possibile fare operazioni su di essa.
-
-
-Le tecnologie software e le risorse esterne utilizzate utilizze sono:
-```
-Node.js - runtime Javascript orientato agli eventi
-Express (4.17.1) - framework Node.js per applicazioni web e API flessibile e leggero
-express-fileupload (1.2.0) - middleware utilizzato per implementare la funzionalità di upload di foto di prodotti personalizzati
-bcrypt (5.0.0) - libreria per hashing di password, utilizzato nelle fase di signup e login
-xml-js (1.6.11) - convertitore XML/JSON e viceversa
-```
-
-La struttura del progetto è la seguente:
-```
-/projectfolder
-  /data              //contenente tutti i file json dove salviamo le informazioni di nostro interesse
-  /public/images    //cartella contenente le immagini caricate o richieste dal client
-  /routes          //cartella contenente tutte le routes, cioè i file js che determinano come il server deve rispondere a una determinata richiesta
-    routes.js
- app.js           //file contenente il codice che per primo viene eseguito una volta che il server è in funzione
- package.json    //file json di configurazioni per node js, tra le tante qui definiamo quali dependencies node js deve utilizzare
- Procfile       //file contenente  una lista di comandi che heroku deve eseguire una volta iniziata la dyno, in questo indichiamo solo di eseguire app.js
-```
-
-Qualsiasi richiesta GET, POST, DELETE, PUT posta in modo corretto al server restituisce una risposta in formato JSON. Anche se un campo è errato la risposta restituisce un oggetto JSON che avverte della non correttezza. Le richieste GET su URL che terminano con "xml" restituiscono invece oggetti XML.  
-
-# Applicazione REST
-Progetto Applicazioni Web e Cloud - A.A. 2019/2020
-
 Studenti  
 931423 - Beqaj Evandro  
 931531 - Ciobanu Vasile
 
-Link Heroku: https://fastfoodrest.herokuapp.com/
+## Introduzione
+L'applicazione implementata è deployata su Heroku ed è accessibile all'indirizzo: https://fastfoodrest.herokuapp.com/  
+L'account free di Heroku ne limita le modifiche sui lunghi periodi o dopo aver riavviato le dynos. Tutte le modifiche fatte al database, implementato con file json, vengono percìo cancellate e i file tornano al loro stato iniziale.  
+L'applicazione segue l'architettura REST e tramite le seguenti API è possibile fare operazioni su di essa.
 
-## Premessa
-L’obiettivo è implementare un’applicazione REST per supportare lo sviluppo dell’applicazione web FastFood.
+## Funzionalità sviluppate
+Il progetto si pone l'obbiettivo di supportare lo sviluppo di un'app web per la gestione di una catena di fastfood tramite la realizzazione di un'applicazione REST.
+Deve ricoprire la funzione di gestire lato server tutte le possibili richieste di tipo GET, POST, DELETE, PUT che vengono fatte dal client. L'applicazione si occupa quindi di gestire l'accesso, l'aggiunta, l'eliminazione e l'aggiornamento delle informazioni nel database. La richiesta di lavorare su menù e su informazioni sui locali (dando la possibilità ai singoli ristoratori di gestire i propri dati) richiede l'implementazione di un database per i PRODOTTI e i RISTORANTI; quella di lavorare su clienti della piattaforma e loro preferenze richiede l'implementazione di un database per i CLIENTI; quella di lavorare sui loro acquisti effettuati e sulle loro recensioni richiede di implementare un database per gli ORDINI e le RECENSIONI.
+Per poter garantire la registrazione e il login alla piattaforma da parte di utenti che siano ristoratori o clienti, è stato implementato un file chiamato LOGIN contenente solo username, password e tipo di utente, implementato separatamente da RISTORANTI e CLIENTI per questioni che verrano discusse in seguito (vedi Dettaglio tecnico e scelte implementative).
+Per la presenza di parametri che caratterizzano una moltitudine di aspetti dell'applicazione web è stato necessirio l'utilizzo di un file chiamato PARAMETRI, da cui è possibile richiedere con una lettura informazioni quali l'elenco di tutti gli ingredienti che è possibile utilizzare per un prodotto personalizzato.  
 
 ## API
 Al fine di realizzare le richieste, ci si è basati sul paradigma CRUD.  
 Utilizzando metodi HTTP (GET, POST, PUT, DELETE) per la gestione delle risorse.
 Per la gestione dei dati vengono utilizzati file JSON locali.
-Implemetato un web server utilizzando Node JS ed il frameword Express.
 
 ### Login
 ```
@@ -202,3 +176,30 @@ XML
 `GET /tipologie_prodottixml`  
 `GET /tipologia_utentexml`  
 `GET /metodi_pagamentoxml`  
+
+## Dettaglio tecnico e scelte implementative
+## Prove di funzionamento
+
+
+Le tecnologie software e le risorse esterne utilizzate utilizze sono:
+```
+Node.js - runtime Javascript orientato agli eventi
+Express (4.17.1) - framework Node.js per applicazioni web e API flessibile e leggero
+express-fileupload (1.2.0) - middleware utilizzato per implementare la funzionalità di upload di foto di prodotti personalizzati
+bcrypt (5.0.0) - libreria per hashing di password, utilizzato nelle fase di signup e login
+xml-js (1.6.11) - convertitore XML/JSON e viceversa
+```
+
+La struttura del progetto è la seguente:
+```
+/projectfolder
+  /data              //contenente tutti i file json dove salviamo le informazioni di nostro interesse
+  /public/images    //cartella contenente le immagini caricate o richieste dal client
+  /routes          //cartella contenente tutte le routes, cioè i file js che determinano come il server deve rispondere a una determinata richiesta
+    routes.js
+ app.js           //file contenente il codice che per primo viene eseguito una volta che il server è in funzione
+ package.json    //file json di configurazioni per node js, tra le tante qui definiamo quali dependencies node js deve utilizzare
+ Procfile       //file contenente  una lista di comandi che heroku deve eseguire una volta iniziata la dyno, in questo indichiamo solo di eseguire app.js
+```
+
+Qualsiasi richiesta GET, POST, DELETE, PUT posta in modo corretto al server restituisce una risposta in formato JSON. Anche se un campo è errato la risposta restituisce un oggetto JSON che avverte della non correttezza. Le richieste GET su URL che terminano con "xml" restituiscono invece oggetti XML. 
