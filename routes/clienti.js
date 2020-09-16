@@ -123,7 +123,7 @@ const clientiRoutes = (app, fs) => {
             });
 
             if (index > -1)
-                return res.status(409).send({ messaggio: "Cliente già registrato", user: req.body.user });
+                return res.status(409).send({ messaggio: "Cliente già esistente", user: req.body.user });
 
             const obj = {
                 user: req.body.user,
@@ -137,7 +137,7 @@ const clientiRoutes = (app, fs) => {
             data.clienti.push(obj);
 
             writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(200).send({ messaggio: "Cliente registrato", cliente: obj });
+                res.status(200).send({ messaggio: "Cliente creato", cliente: obj });
             });
         },
             true);
