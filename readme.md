@@ -214,11 +214,13 @@ projectfolder
 * `package.json` è il file json contenente alcune configurazioni per node js. Tra le tante qui definiamo quali dependencies node js deve utilizzare. Una volta deployato su heroku sarà lui ad occuparsi di scaricare tutte questi pacchetti esterni.
 * `Procfile` è il file che dovrebbe contenere una lista di comandi che heroku deve eseguire una volta iniziata la dyno. Nel nostro caso abbiamo solo un comando con cui indichiamo di eseguire app.js.
 
+### ROUTES
 Il file `routes.js` contenuto nella cartella `routes` si occupa di inizializzare tutte le routes, in modo che, fatta una richiesta, l'applicazione sappia quale porzione di codice deve eseguire per restituire la risposta corretta. Ad eccezione di questo file, tutti quelli contenuti nella cartella hanno una struttura simile per i quattro tipi di richiesta.
 
+### READ, CREATE, UPDATE, DELETE
 Qualsiasi richiesta GET, POST, DELETE, PUT posta in modo corretto al server restituisce una risposta in formato JSON. Anche se un campo è errato la risposta restituisce un oggetto JSON che avverte della non correttezza. Le richieste GET su URL che terminano con "xml" restituiscono invece oggetti XML.
 
-### GET
+#### GET
 Una generica richiesta GET per richiedere tutto il contenuto di un file json è costruita nel seguente modo:
 ```
 app.get('/percorso', (req, res) => {
@@ -256,7 +258,7 @@ app.get('/percorso/:id', (req, res) => {
 ```
 La funzione è simile a prima ma si impegna a restituire solo l'elemento identificato da un id che viene definito nella url della richiesta. Dopo aver creato l'oggetto `obj` prendendo il contenuto del file json viene iterato tutto l'elenco di elementi con la funzione `findIndex()`. Se l'elenco contiene un elemento con lo stesso id di quello richiesto allora viene restituito, altrimenti viene restituito un oggetto json contenente un messaggio di errore.
 
-### POST
+#### POST
 Le richieste POST inviate assieme a un oggetto json col contenuto di ciò che si vuole aggiungere vengono implementate sulla falsa riga della seguente:
 ```
 app.post('/percorso', async (req, res) => {
@@ -302,7 +304,7 @@ app.post('/percorso', async (req, res) => {
 ```
 Controlliamo dapprima se l'oggetto che il server riceve è costruito bene: non contiene campi vuoti se obbligatori e rispetta altri tipi di controllo. Se non vanno bene viene subito restituito un oggetto contenente un messaggio di errore indicando i campi non validi. Superati i controlli sui campi il codice evita che vangano creati oggetti con lo stesso id (per esempio username o codici che identificano gli acquisti) avvisando facendo ritornare un oggetto con messaggio di errore e relativi dettagli. Se l'oggetto inviato dal client supera tutti questi controlli allora il codice aggiunge il contenuto al file json tramite la funzione `writeFile` e restituisce un messaggio di avvenuta aggiunta.
 
-### PUT
+#### PUT
 Le richieste PUT sono accompagnate anch'esse da un oggetto json con del contenuto, ma solo coi campi che si vogliono sovrascrivere. Sono stati implementati sulla falsa riga del seguente codice:
 ```
 app.put('/percorso/:id', (req, res) => {
@@ -339,7 +341,8 @@ app.put('/percorso/:id', (req, res) => {
     });
 ```
 Controlliamo subito se l'elemento che si vuole aggiornare effettivamente esiste altrimenti restituiamo un messaggio di errore. Se esiste allora, per ogni campo contenuto nel corpo dell'oggetto inviato dal client, verifichiamo la correttezza e effettuiamo la modifica.
-### DELETE
+#### DELETE
+Le richieste DELETE devono essere eseguito su url che identificano l'identificativo dell'elemento che si vuole eliminare. Sono state implementate sulla falsa riga del seguente codice:
 ```
 app.delete('/percorso/:id', (req, res) => {
 
@@ -366,6 +369,51 @@ app.delete('/percorso/:id', (req, res) => {
         true);
 });
 ```
+Verifichiamo l'effettiva esistenza dell'elemento che vogliamo eliminare. Se non esiste restituiamo un messaggio di errore. Altrimenti facciamo lo splice.
 
+#### PASSWORD e HASHING
+Per questioni legate alla sicurezza la porzione di database che si occupa di salvare gli username e le password è implementata con un file json chiamato `login.json` separato da quelli che contengono le altre informazioni legate ai clienti e ai ristoratori.
+La route `login.js` utilizza la libreria bcrypt per creare il sale e svolgere l'hashing delle password. Nella fase di signup, nel quale facciamo una POST, eseguiamo il seguente codice all'interno di una funzione asincrona:
+```
+try {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10)
+    const user = { user: req.body.user, tipo_utente: req.body.tipo_utente, password: hashedPassword }
+    data.utenti.push(user);
+} catch {
+    res.status(500).send({ messaggio: "Hashing fallito" })
+}
+```
+Invece per la fase di login confrontiamo l'hash generato a partire dalla password salvata e dalla password inviata sempre con un metodo POST:
+```
+try {
+    if (await bcrypt.compare(req.body.password, data.utenti[index].password)) {
+        res.send('Accesso consentito');
+    } else {
+        res.send('You shall not pass!');
+    }
+} catch {
+    res.status(500).send();
+}
+```
+#### UPLOAD FILE
+Per permettere a un ristoratore di caricare l'immagine del proprio prodotto personalizzato utilizzaimo una richista POST separata da quella che si occupa di caricare i dati del prodotto personalizzato:
+```
+app.post('/upload/:id_immagine', function (req, res) {
+    if (!req.files || Object.keys(req.files).length === 0)
+        return res.status(400).send({messaggio : "Non è stata inviata alcuna immagine"});
 
+    let immagine = req.files.immagine;
+
+    if (!immagine.mimetype.includes('image'))
+        return res.status(400).send({messaggio : "Il file inviato deve essere un'immagine"});
+
+    immagine.mv('./public/images/' + req.params.id_immagine, function (err) {
+        if (err)
+            return res.status(500).send({messaggio : "Errore", errore : err });
+
+        res.send({messaggio : "Immagine caricata con successo"});
+    });
+});
+```
+Nella fase di eliminzaione di un prodotto personalizzato invece vengono eliminati tramite una richiesta DELETE sia i dati che l'immagine contenuta nella crtella `public/images`.
 ## Prove di funzionamento 
