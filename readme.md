@@ -1,7 +1,5 @@
-# Applicazione REST
-Progetto Applicazioni Web e Cloud - A.A. 2019/2020
-
-Studenti  
+# Progetto Applicazione REST  
+Realizzato da:  
 931423 - Beqaj Evandro  
 931531 - Ciobanu Vasile
 
@@ -418,7 +416,9 @@ Nella fase di eliminzaione di un prodotto personalizzato invece vengono eliminat
 #### XML
 Per restituire come richiesto dalla consegna le informazioni anche in formato xml è stata implementata, per ogni get, una versione che restituisce un oggetto xml tramite la seguente riga di codice, che si occupa di convertire un oggettoo json in xml:
 ```
-convert.json2xml(obj.clienti[index], options)
+var options = {spaces: 4, compact: true}
+
+convert.json2xml(JSON.parse(data), options)
 ```
-Le optiozi sono definite in una variabile e seguono le direttive indicate nella pagina della libreria xml-js.
+Le opzioni sono definite in una variabile e seguono le direttive indicate nella pagina della libreria xml-js.
 ## Prove di funzionamento 
