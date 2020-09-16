@@ -9,9 +9,9 @@ L'applicazione segue l'architettura REST ed utilizza node js combianto con expre
 
 ## Funzionalità sviluppate
 Il progetto si pone l'obbiettivo di supportare lo sviluppo di un'app web per la gestione di una catena di fastfood tramite la realizzazione di un'applicazione REST.
-Deve ricoprire la funzione di gestire lato server tutte le possibili richieste di tipo GET, POST, DELETE, PUT che vengono fatte dal client. L'applicazione si occupa quindi di gestire l'accesso, l'aggiunta, l'eliminazione e l'aggiornamento delle informazioni nel database. La richiesta di lavorare su menù e su informazioni sui locali (dando la possibilità ai singoli ristoratori di gestire i propri dati) richiede l'implementazione di un database per i PRODOTTI e i RISTORANTI; quella di lavorare su clienti della piattaforma e loro preferenze richiede l'implementazione di un database per i CLIENTI; quella di lavorare sui loro acquisti effettuati e sulle loro recensioni richiede di implementare un database per gli ORDINI e le RECENSIONI.
-Per poter garantire la registrazione e il login alla piattaforma da parte di utenti che siano ristoratori o clienti, è stato implementato un file chiamato LOGIN contenente solo username, password e tipo di utente, implementato separatamente da RISTORANTI e CLIENTI per questioni che verrano discusse in seguito (vedi Dettaglio tecnico e scelte implementative).
-Per la presenza di parametri che caratterizzano una moltitudine di aspetti dell'applicazione web è stato necessario l'utilizzo di un file chiamato PARAMETRI, da cui è possibile richiedere con una lettura informazioni quali, per esempio, l'elenco di tutti gli ingredienti che è possibile utilizzare per un prodotto personalizzato.  
+Deve ricoprire la funzione di gestire lato server tutte le possibili richieste di tipo GET, POST, DELETE, PUT che vengono fatte dal client. L'applicazione si occupa quindi di gestire l'accesso, l'aggiunta, l'eliminazione e l'aggiornamento delle informazioni nel database. La richiesta di lavorare su menù e su informazioni sui locali (dando la possibilità ai singoli ristoratori di gestire i propri dati) richiede l'implementazione di un database per i PRODOTTI e i RISTORANTI; quella di lavorare su clienti della piattaforma e loro preferenze richiede l'implementazione di un database per i CLIENTI; quella di lavorare sui loro acquisti effettuati e sulle loro recensioni richiede di implementare un database per gli ORDINI e le RECENSIONI.  
+Per poter garantire la registrazione e il login alla piattaforma da parte di utenti, che siano ristoratori o clienti, è stato implementato un file chiamato LOGIN contenente solo username, password e tipo di utente, implementato separatamente da RISTORANTI e CLIENTI per questioni che verrano discusse in seguito (vedi Dettaglio tecnico e scelte implementative).
+Per la presenza di parametri che caratterizzano una moltitudine di aspetti dell'applicazione web è stata necessaria la creazione di un file chiamato PARAMETRI, da cui è possibile richiedere con una lettura informazioni quali, per esempio, l'elenco di tutti gli ingredienti che è possibile utilizzare per un prodotto personalizzato.  
 
 ## API
 Al fine di realizzare le richieste vengono utilizzate richieste HTTP (GET, POST, PUT, DELETE) per la gestione delle risorse.
@@ -205,12 +205,12 @@ projectfolder
 ├── package.json
 └── Procfile
 ```
-`data` contiene tutti i file in formato .json dove salviamo le informazioni di nostro interesse. Ogni file .json corrisponde a un file .js contenuto in `routes`.Per comodità condividono lo stesso nome (prodotti.js lavora su prodotti.json).  
-`public/images` è la cartella contenente le immagini caricate o richieste dal client.  
-`routes` è la cartella contenente tutte le routes, cioè i file .js che determinano come il server deve rispondere a una determinata richiesta. Le varie routes contengono il codice che si occupa di leggere o scrivere sui file json contenuti in `data`. In seguito verrano visti nel dettaglio.
-`app.js` è il file contenente il codice che per primo viene eseguito una volta che il server è in funzione. Qui vengono create alcune delle costanti che servirano per il funzionamento di ogni singola route, viene definita su quale porta (che decide Heroku) express deve stare in ascolto, vengono inizializzati alcuni middleware ed infine il server viene messo in ascolto pronto a ricevere le varie richieste.  
-`package.json` è il file json contenente alcune configurazioni per node js. Tra le tante qui definiamo quali dependencies node js deve utilizzare. Una volta deployato su heroku sarà lui ad occuparsi di scaricare tutte questi pacchetti esterni.
-`Procfile` è il file che dovrebbe contenere una lista di comandi che heroku deve eseguire una volta iniziata la dyno. Nel nostro caso abbiamo solo un comando con cui indichiamo di eseguire app.js.
+*`data` contiene tutti i file in formato .json dove salviamo le informazioni di nostro interesse. Ogni file .json corrisponde a un file .js contenuto in `routes`.Per comodità condividono lo stesso nome (prodotti.js lavora su prodotti.json).  
+*`public/images` è la cartella contenente le immagini caricate o richieste dal client.  
+*`routes` è la cartella contenente tutte le routes, cioè i file .js che determinano come il server deve rispondere a una determinata richiesta. Le varie routes contengono il codice che si occupa di leggere o scrivere sui file json contenuti in `data`. In seguito verrano visti nel dettaglio.
+*`app.js` è il file contenente il codice che per primo viene eseguito una volta che il server è in funzione. Qui vengono create alcune delle costanti che servirano per il funzionamento di ogni singola route, viene definita su quale porta (che decide Heroku) express deve stare in ascolto, vengono inizializzati alcuni middleware ed infine il server viene messo in ascolto pronto a ricevere le varie richieste.  
+*`package.json` è il file json contenente alcune configurazioni per node js. Tra le tante qui definiamo quali dependencies node js deve utilizzare. Una volta deployato su heroku sarà lui ad occuparsi di scaricare tutte questi pacchetti esterni.
+*`Procfile` è il file che dovrebbe contenere una lista di comandi che heroku deve eseguire una volta iniziata la dyno. Nel nostro caso abbiamo solo un comando con cui indichiamo di eseguire app.js.
 
 ## Prove di funzionamento
 
