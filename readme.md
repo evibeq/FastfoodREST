@@ -4,8 +4,8 @@ Studenti
 
 ## Introduzione
 L'applicazione implementata è deployata su Heroku ed è accessibile all'indirizzo: https://fastfoodrest.herokuapp.com/  
-L'account free di Heroku ne limita le modifiche sui lunghi periodi o dopo aver riavviato le dynos. Tutte le modifiche fatte al database, implementato con file json, vengono percìo cancellate e i file tornano al loro stato iniziale.  
-L'applicazione segue l'architettura REST ed utilizza node js combianto con express come framework.
+L'account free di Heroku ne limita le modifiche sui lunghi periodi o dopo aver riavviato le dynos. Tutte le modifiche fatte al database, implementato con file json, vengono percìo cancellate e i file tornano al loro stato iniziale dopo un tot di tempo.  
+L'applicazione segue l'architettura REST ed utilizza node js combinato con express come framework.
 
 ## Funzionalità sviluppate
 Il progetto si pone l'obbiettivo di supportare lo sviluppo di un'app web per la gestione di una catena di fastfood tramite la realizzazione di un'applicazione REST.
@@ -192,7 +192,9 @@ https://www.npmjs.com/package/bcrypt
 Libreria per hashing di password, utilizzato nella fase di signup e login
 #### xml-js (1.6.11)
 https://www.npmjs.com/package/xml-js  
-Convertitore XML/JSON e viceversa
+Convertitore XML/JSON e viceversa  
+
+
 
 La struttura del progetto è la seguente:
 ```
@@ -211,6 +213,158 @@ projectfolder
 * `app.js` è il file contenente il codice che per primo viene eseguito una volta che il server è in funzione. Qui vengono create alcune delle costanti che servirano per il funzionamento di ogni singola route, viene definita su quale porta (che decide Heroku) express deve stare in ascolto, vengono inizializzati alcuni middleware ed infine il server viene messo in ascolto pronto a ricevere le varie richieste.  
 * `package.json` è il file json contenente alcune configurazioni per node js. Tra le tante qui definiamo quali dependencies node js deve utilizzare. Una volta deployato su heroku sarà lui ad occuparsi di scaricare tutte questi pacchetti esterni.
 * `Procfile` è il file che dovrebbe contenere una lista di comandi che heroku deve eseguire una volta iniziata la dyno. Nel nostro caso abbiamo solo un comando con cui indichiamo di eseguire app.js.
+
+Il file `routes.js` contenuto nella cartella `routes` si occupa di inizializzare tutte le routes, in modo che, fatta una richiesta, l'applicazione sappia quale porzione di codice deve eseguire per restituire la risposta corretta. Ad eccezione di questo file, tutti quelli contenuti nella cartella hanno una struttura simile per i quattro tipi di richiesta.
+
+### GET
+Una generica richiesta GET per richiedere tutto il contenuto di un file json è costruita nel seguente modo:
+```
+app.get('/percorso', (req, res) => {
+        fs.readFile(dataPath, 'utf8', (err, data) => {
+            if (err) {
+                throw err;
+            }
+
+            res.send(JSON.parse(data));
+        });
+    });
+```
+La funzione `app.get()`, dopo essere stata invocata da una richiesta GET col percorso prefissato (/percorso) si occupa, tramite il metodo `readFile` del modulo fs di node.js di restituire il contenuto in formato json, grazie a `JSON.parse`, dei dati contenuti nel file che si trova nel percorso definito all'interno della variabile `dataPath`.
+
+Per restituire invece sono una porzione richiesta del contenuto di un file json, per esempio solo le informazioni di un ristorante, è stato implementato il seguente codice:
+```
+app.get('/percorso/:id', (req, res) => {
+    fs.readFile(dataPath, 'utf8', (err, data) => {
+        if (err) {
+            throw err;
+        }
+
+        const obj = JSON.parse(data);
+
+        var index = obj.elementi.findIndex(function (item, i) {
+            return item.id == req.params.id
+        });
+
+        if (index === -1)
+            return res.status(404).send({ messaggio: "Elemento non esiste", id: req.params.id });
+
+        res.send(obj.elementi[index]);
+    });
+});
+```
+La funzione è simile a prima ma si impegna a restituire solo l'elemento identificato da un id che viene definito nella url della richiesta. Dopo aver creato l'oggetto `obj` prendendo il contenuto del file json viene iterato tutto l'elenco di elementi con la funzione `findIndex()`. Se l'elenco contiene un elemento con lo stesso id di quello richiesto allora viene restituito, altrimenti viene restituito un oggetto json contenente un messaggio di errore.
+
+### POST
+Le richieste POST inviate assieme a un oggetto json col contenuto di ciò che si vuole aggiungere vengono implementate sulla falsa riga della seguente:
+```
+app.post('/percorso', async (req, res) => {
+
+    readFile(data => {
+
+        var rep = {};
+        var valido = true;
+
+        if (req.body.chiave1 === undefined || req.body.chiave1 === "" || altri controlli) {
+            rep.chiave1 = { messaggio: "Parametro non valido" };
+            valido = false;
+        }
+        if (req.body.chiave2 === undefined || req.body.chiave2 === "" || altri controlli) {
+            rep.chaive2 = { messaggio: "Parametro non valido" };
+            valido = false;
+        }
+
+        if (!valido)
+            return res.status(409).send(rep);
+
+        var index = data.elementi.findIndex(function (item, i) {
+            return item.id == req.body.id;
+        });
+
+        if (index > -1)
+            return res.status(409).send({ messaggio: "Elemento già esistente", user: req.body.id });
+
+        const obj = {
+            id: req.body.id,
+            campo1: req.body.campo1,
+            campo2: req.body.campo2
+        };
+
+        data.elementi.push(obj);
+
+        writeFile(JSON.stringify(data, null, 2), () => {
+            res.status(200).send({ messaggio: "Elemento aggiunto", elemento: obj });
+        });
+    },
+        true);
+});
+```
+Controlliamo dapprima se l'oggetto che il server riceve è costruito bene: non contiene campi vuoti se obbligatori e rispetta altri tipi di controllo. Se non vanno bene viene subito restituito un oggetto contenente un messaggio di errore indicando i campi non validi. Superati i controlli sui campi il codice evita che vangano creati oggetti con lo stesso id (per esempio username o codici che identificano gli acquisti) avvisando facendo ritornare un oggetto con messaggio di errore e relativi dettagli. Se l'oggetto inviato dal client supera tutti questi controlli allora il codice aggiunge il contenuto al file json tramite la funzione `writeFile` e restituisce un messaggio di avvenuta aggiunta.
+
+### PUT
+Le richieste PUT sono accompagnate anch'esse da un oggetto json con del contenuto, ma solo coi campi che si vogliono sovrascrivere. Sono stati implementati sulla falsa riga del seguente codice:
+```
+app.put('/percorso/:id', (req, res) => {
+
+        readFile(data => {
+
+            var index = data.elementi.findIndex(function (item, i) {
+                return item.id == req.params.id
+            });
+
+            if (index === -1)
+                return res.status(404).send({ messaggio: "Elemento non esiste", id: req.params.id });
+
+            var rep = {
+                messaggio: "Elemento aggiornato",
+                id: req.params.id,
+                parametri_aggiornati: []
+            };
+
+            if (req.body.campo1 != undefined && req.body.campo1 != "" && altri controlli) {
+                rep.parametri_aggiornati.push({ parametro: "campo1", vecchio_parametro: data.elementi[index].campo1, nuovo_parametro: req.body.campo1 })
+                data.elementi[index].campo1 = req.body.campo1;
+            }
+            if (req.body.campo2 != undefined && req.body.campo2 != "" && altri controlli) {
+                rep.parametri_aggiornati.push({ parametro: "campo2", vecchio_parametro: data.elementi[index].campo2, nuovo_parametro: req.body.campo2 })
+                data.elementi[index].campo2 = req.body.campo2;
+            }
+
+            writeFile(JSON.stringify(data, null, 2), () => {
+                res.status(200).send(rep);
+            });
+        },
+            true);
+    });
+```
+Controlliamo subito se l'elemento che si vuole aggiornare effettivamente esiste altrimenti restituiamo un messaggio di errore. Se esiste allora, per ogni campo contenuto nel corpo dell'oggetto inviato dal client, verifichiamo la correttezza e effettuiamo la modifica.
+### DELETE
+```
+app.delete('/percorso/:id', (req, res) => {
+
+    readFile(data => {
+
+        var index = data.elementi.findIndex(function (item, i) {
+            return item.id == req.params.id
+        });
+
+        if (index === -1)
+            return res.status(404).send({ messaggio: "Elemento non esiste", id: req.params.id });
+
+        const rep = {
+            messaggio: "Elemento eliminato",
+            elemento: data.elementi[index]
+        };
+
+        data.elementi.splice(index, 1);
+
+        writeFile(JSON.stringify(data, null, 2), () => {
+            res.status(200).send(rep);
+        });
+    },
+        true);
+});
+```
+
 
 ## Prove di funzionamento
 
