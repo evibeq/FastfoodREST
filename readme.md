@@ -1,17 +1,19 @@
 L'applicazione implementata è deployata su Heroku ed è accessibile all'indirizzo: https://fastfoodrest.herokuapp.com/  
-L'account free di Heroku ne limita le modifiche sui lunghi periodi o dopo aver riavviato le dynos. Tutte le modifiche fatte al database, implementato con file json, vengono percìo cancellate e i file tornano al loro stato iniziale.
+L'account free di Heroku ne limita le modifiche sui lunghi periodi o dopo aver riavviato le dynos. Tutte le modifiche fatte al database, implementato con file json, vengono percìo cancellate e i file tornano al loro stato iniziale.  
 L'applicazione segue l'architettura REST e tramite le seguenti API è possibile fare operazioni su di essa.
 
 
 Le tecnologie software e le risorse esterne utilizzate utilizze sono:
+```
 Node.js - runtime Javascript orientato agli eventi
 Express (4.17.1) - framework Node.js per applicazioni web e API flessibile e leggero
 express-fileupload (1.2.0) https://www.npmjs.com/package/express-fileupload - middleware per caricare file sul server, utilizzato per implementare la funzionalità di upload di foto di prodotti personalizzati
 bcrypt (5.0.0) https://www.npmjs.com/package/bcrypt - libreria per hashing di password, utilizzato nelle fase di signup e login
 xml-js (1.6.11) https://www.npmjs.com/package/xml-js - convertitore XML/JSON e viceversa
+```
 
 La struttura del progetto è la seguente:
-
+```
 /projectfolder
 --/data //contenente tutti i file json dove salviamo le informazioni di nostro interesse
 --/public
@@ -21,7 +23,7 @@ La struttura del progetto è la seguente:
 app.js //file contenente il codice che per primo viene eseguito una volta che il server è in funzione
 package.json //file json di configurazioni per node js, tra le tante qui definiamo quali dependencies node js deve utilizzare
 Procfile //file contenente  una lista di comandi che heroku deve eseguire una volta iniziata la dyno, in questo indichiamo solo di eseguire app.js
-
+```
 
 # Applicazione REST
 Progetto Applicazioni Web e Cloud - A.A. 2019/2020
