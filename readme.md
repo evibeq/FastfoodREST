@@ -216,6 +216,8 @@ projectfolder
 
 Il file `routes.js` contenuto nella cartella `routes` si occupa di inizializzare tutte le routes, in modo che, fatta una richiesta, l'applicazione sappia quale porzione di codice deve eseguire per restituire la risposta corretta. Ad eccezione di questo file, tutti quelli contenuti nella cartella hanno una struttura simile per i quattro tipi di richiesta.
 
+Qualsiasi richiesta GET, POST, DELETE, PUT posta in modo corretto al server restituisce una risposta in formato JSON. Anche se un campo è errato la risposta restituisce un oggetto JSON che avverte della non correttezza. Le richieste GET su URL che terminano con "xml" restituiscono invece oggetti XML.
+
 ### GET
 Una generica richiesta GET per richiedere tutto il contenuto di un file json è costruita nel seguente modo:
 ```
@@ -366,6 +368,4 @@ app.delete('/percorso/:id', (req, res) => {
 ```
 
 
-## Prove di funzionamento
-
-Qualsiasi richiesta GET, POST, DELETE, PUT posta in modo corretto al server restituisce una risposta in formato JSON. Anche se un campo è errato la risposta restituisce un oggetto JSON che avverte della non correttezza. Le richieste GET su URL che terminano con "xml" restituiscono invece oggetti XML. 
+## Prove di funzionamento 
