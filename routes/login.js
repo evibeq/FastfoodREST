@@ -1,4 +1,4 @@
-const loginRoutes = (app, fs) => { //STO A LAVORA'
+const loginRoutes = (app, fs) => {
 
     const dataPath = './data/login.json';
 
