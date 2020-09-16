@@ -416,4 +416,10 @@ app.post('/upload/:id_immagine', function (req, res) {
 });
 ```
 Nella fase di eliminzaione di un prodotto personalizzato invece vengono eliminati tramite una richiesta DELETE sia i dati che l'immagine contenuta nella crtella `public/images`.
+#### XML
+Per restituire come richiesto dalla consegna le informazioni anche in formato xml è stata implementata, per ogni get, una versione che restituisce un oggetto xml tramite la seguente riga di codice, che si occupa di convertire un oggettoo json in xml:
+```
+convert.json2xml(obj.clienti[index], options)
+```
+Le optiozi sono definite in una variabile e seguono le direttive indicate nella pagina della libreria xml-js.
 ## Prove di funzionamento 
