@@ -177,30 +177,45 @@ XML
 `GET /metodi_pagamentoxml`  
 
 ## Dettaglio tecnico e scelte implementative
-Le tecnologie software e le risorse esterne utilizzate utilizze sono:
+Le tecnologie software e le risorse esterne utilizzate sono:
 #### Node.js
+https://nodejs.org/
 Runtime Javascript orientato agli eventi
 #### Express (4.17.1)
+https://www.npmjs.com/package/express
 Framework Node.js per applicazioni web e API flessibile e leggero
 #### express-fileupload (1.2.0)
+https://www.npmjs.com/package/express-fileupload
 Middleware utilizzato per implementare la funzionalità di upload di foto di prodotti personalizzati
 #### bcrypt (5.0.0)
+https://www.npmjs.com/package/bcrypt
 Libreria per hashing di password, utilizzato nella fase di signup e login
 #### xml-js (1.6.11)
+https://www.npmjs.com/package/xml-js
 Convertitore XML/JSON e viceversa
-
-## Prove di funzionamento
 
 La struttura del progetto è la seguente:
 ```
-/projectfolder
-  /data              //contenente tutti i file json dove salviamo le informazioni di nostro interesse
-  /public/images    //cartella contenente le immagini caricate o richieste dal client
-  /routes          //cartella contenente tutte le routes, cioè i file js che determinano come il server deve rispondere a una determinata richiesta
-    routes.js
+projectfolder
+├── data
+├── public
+│   └── images
+├── routes
+├── app.js
+├── package.json
+└── Procfile
+
+3 directories, 7 files
+projectfolder
+data              //contenente tutti i file json dove salviamo le informazioni di nostro interesse
+public/images    //cartella contenente le immagini caricate o richieste dal client
+--routes          //cartella contenente tutte le routes, cioè i file js che determinano come il server deve rispondere a una determinata richiesta
+ routes.js
  app.js           //file contenente il codice che per primo viene eseguito una volta che il server è in funzione
  package.json    //file json di configurazioni per node js, tra le tante qui definiamo quali dependencies node js deve utilizzare
  Procfile       //file contenente  una lista di comandi che heroku deve eseguire una volta iniziata la dyno, in questo indichiamo solo di eseguire app.js
 ```
+
+## Prove di funzionamento
 
 Qualsiasi richiesta GET, POST, DELETE, PUT posta in modo corretto al server restituisce una risposta in formato JSON. Anche se un campo è errato la risposta restituisce un oggetto JSON che avverte della non correttezza. Le richieste GET su URL che terminano con "xml" restituiscono invece oggetti XML. 
