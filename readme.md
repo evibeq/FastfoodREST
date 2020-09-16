@@ -179,19 +179,19 @@ XML
 ## Dettaglio tecnico e scelte implementative
 Le tecnologie software e le risorse esterne utilizzate sono:
 #### Node.js
-https://nodejs.org/
+https://nodejs.org/  
 Runtime Javascript orientato agli eventi
 #### Express (4.17.1)
-https://www.npmjs.com/package/express
+https://www.npmjs.com/package/express  
 Framework Node.js per applicazioni web e API flessibile e leggero
 #### express-fileupload (1.2.0)
-https://www.npmjs.com/package/express-fileupload
+https://www.npmjs.com/package/express-fileupload  
 Middleware utilizzato per implementare la funzionalità di upload di foto di prodotti personalizzati
 #### bcrypt (5.0.0)
-https://www.npmjs.com/package/bcrypt
+https://www.npmjs.com/package/bcrypt  
 Libreria per hashing di password, utilizzato nella fase di signup e login
 #### xml-js (1.6.11)
-https://www.npmjs.com/package/xml-js
+https://www.npmjs.com/package/xml-js  
 Convertitore XML/JSON e viceversa
 
 La struttura del progetto è la seguente:
@@ -204,17 +204,13 @@ projectfolder
 ├── app.js
 ├── package.json
 └── Procfile
-
-3 directories, 7 files
-projectfolder
-data              //contenente tutti i file json dove salviamo le informazioni di nostro interesse
-public/images    //cartella contenente le immagini caricate o richieste dal client
---routes          //cartella contenente tutte le routes, cioè i file js che determinano come il server deve rispondere a una determinata richiesta
- routes.js
- app.js           //file contenente il codice che per primo viene eseguito una volta che il server è in funzione
- package.json    //file json di configurazioni per node js, tra le tante qui definiamo quali dependencies node js deve utilizzare
- Procfile       //file contenente  una lista di comandi che heroku deve eseguire una volta iniziata la dyno, in questo indichiamo solo di eseguire app.js
 ```
+`data` contiene tutti i file in formato .json dove salviamo le informazioni di nostro interesse. Ogni file .json corrisponde a un file .js contenuti in `routes`, che per comodità sono stati nominati allo stesso modo (prodotti.js lavora su prodotti.json).  
+`public/images` è la cartella contenente le immagini caricate o richieste dal client.  
+`routes` è la cartella contenente tutte le routes, cioè i file .js che determinano come il server deve rispondere a una determinata richiesta. Le varie routes contengono il codice che si occupa di leggere o scrivere sui file json contenuti in `data`. In seguito verrano visti nel dettaglio.
+`app.js` è il file contenente il codice che per primo viene eseguito una volta che il server è in funzione. Qui vengono create alcune delle costanti che servirano per il funzionamento di ogni singola route, viene definita su quale porta (che decide Heroku) express deve stare in ascolto, vengono inizializzati alcuni middleware e infine il server viene messo ina scolto pronto a ricevere le varie richieste.  
+`package.json` è il file json contenente alcune configurazioni per node js. Tra le tante qui definiamo quali dependencies node js deve utilizzare.
+`Procfile` è il file che dovrebbe contenere una lista di comandi che heroku deve eseguire una volta iniziata la dyno.Nel nostro caso abbiamo solo un comando con cui indichiamo di eseguire app.js.
 
 ## Prove di funzionamento
 
