@@ -100,9 +100,9 @@ const loginRoutes = (app, fs) => { //STO A LAVORA'
 
             try {
                 if (await bcrypt.compare(req.body.password, data.utenti[index].password)) {
-                    res.send('Accesso consentito');
+                    res.send({messaggio: 'Accesso consentito'});
                 } else {
-                    res.send('You shall not pass!');
+                    res.send({messaggio: 'You shall not pass!'});
                 }
             } catch {
                 res.status(500).send();
