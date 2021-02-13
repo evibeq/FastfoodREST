@@ -1,5 +1,5 @@
 # Progetto Applicazione REST  
-Realizzato da [Evandro Beqaj](https://github.com/evibeq) & [Ciobanu Vasile](https://github.com/ciob)  
+Realizzato da [Evandro Beqaj](https://github.com/evibeq) e [Ciobanu Vasile](https://github.com/ciob)  
 
 Link Heroku a cui fare le richieste: https://fastfoodrest.herokuapp.com/
 
