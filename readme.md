@@ -1,9 +1,7 @@
 # Progetto Applicazione REST  
-Realizzato da:  
-931423 - Beqaj Evandro  
-931531 - Ciobanu Vasile
+Realizzato da [Evandro Beqaj](https://github.com/evibeq) & [Ciobanu Vasile](https://github.com/ciob)  
 
-Link Heroku: https://fastfoodrest.herokuapp.com/
+Link Heroku a cui fare le richieste: https://fastfoodrest.herokuapp.com/
 
 ## Premessa
 L’obiettivo è implementare un’applicazione REST per supportare lo sviluppo dell’applicazione web FastFood.
@@ -421,4 +419,3 @@ var options = {spaces: 4, compact: true}
 convert.json2xml(JSON.parse(data), options)
 ```
 Le opzioni sono definite in una variabile e seguono le direttive indicate nella pagina della libreria xml-js.
-## Prove di funzionamento 
