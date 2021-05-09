@@ -7,10 +7,9 @@ Link Heroku a cui fare le richieste: https://fastfoodrest.herokuapp.com/
 L’obiettivo è implementare un’applicazione REST per supportare lo sviluppo dell’applicazione web FastFood.
 
 ## API
-Al fine di realizzare le richieste, ci si è basati sul paradigma CRUD.  
-Utilizzando metodi HTTP (GET, POST, PUT, DELETE) per la gestione delle risorse.
-Per la gestione dei dati si sono utilizzati file JSON locali.
-Implemetato un web server utilizzando Node JS ed il frameword Express.
+Il progetto è basato sul paradigma CRUD utilizzando metodi HTTP (GET, POST, PUT, DELETE) per la gestione delle risorse.
+Per la gestione dei dati vengono utilizzati file JSON locali.
+Il web server è implemetato utilizzando Node JS ed il frameword Express.
 
 ### Login
 ```
