@@ -9,7 +9,7 @@ L’obiettivo è implementare un’applicazione REST per supportare lo sviluppo 
 ## API
 Il progetto è basato sul paradigma CRUD utilizzando metodi HTTP (GET, POST, PUT, DELETE) per la gestione delle risorse.
 Per la gestione dei dati vengono utilizzati file JSON locali.
-Il web server è implemetato utilizzando Node JS ed il frameword Express.
+Il web server è implemetato utilizzando Node JS ed il framework Express.
 
 ### Login
 ```
